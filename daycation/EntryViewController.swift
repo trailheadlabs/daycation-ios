@@ -4,6 +4,8 @@ import Eureka
 import p2_OAuth2
 import Alamofire
 import PKHUD
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 
 
@@ -53,7 +55,7 @@ class EntryViewController : UIViewController , CLLocationManagerDelegate{
                 }
                 if let error = error{
                     OuterspatialClient.sharedInstance.logout()
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
         }
@@ -113,7 +115,7 @@ class EntryViewController : UIViewController , CLLocationManagerDelegate{
     }
     
     func facebookbuttonAction(sender:UIButton!){
-        var fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
+        let fbLoginManager : FBSDKLoginManager = FBSDKLoginManager()
         fbLoginManager .logInWithReadPermissions(["email"], handler: { (result, error) -> Void in
             if (error == nil){
                 var fbloginresult : FBSDKLoginManagerLoginResult = result
@@ -131,7 +133,7 @@ class EntryViewController : UIViewController , CLLocationManagerDelegate{
                         }
                         
                         if let error = error{
-                            HUD.flash(.Label(error), withDelay: 2.0)
+                            HUD.flash(.Label(error), delay: 2.0)
                         }
                     }
                     

@@ -21,8 +21,9 @@ class  PostsViewController : UIViewController, UITableViewDataSource, UITableVie
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         view.addSubview(actInd)
         actInd.startAnimating()
-        let b = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "tappedAdd:")
+        let b = UIBarButtonItem(title: "Post", style: .Plain, target: self, action:#selector(PostsViewController.tappedAdd(_:)))
         
+        b.setTitlePositionAdjustment(UIOffset.init(horizontal: -15, vertical: 0), forBarMetrics: UIBarMetrics.Default)
         self.navigationItem.rightBarButtonItem = b
         tableView = UITableView(frame: CGRectMake( 0, 64, self.view.frame.size.width, self.view.frame.size.height-(44+20+49)))
         tableView.dataSource = self
@@ -44,7 +45,7 @@ class  PostsViewController : UIViewController, UITableViewDataSource, UITableVie
                 actInd.stopAnimating()
             }
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
             }
         }
         
@@ -68,7 +69,7 @@ class  PostsViewController : UIViewController, UITableViewDataSource, UITableVie
                             self.tableView.pullToRefreshView?.stopAnimating()
                         }
                         if let error = error{
-                            HUD.flash(.Label(error), withDelay: 2.0)
+                            HUD.flash(.Label(error), delay: 2.0)
                         }
                     }
                     })
@@ -90,7 +91,7 @@ class  PostsViewController : UIViewController, UITableViewDataSource, UITableVie
                             self.tableView.infiniteScrollingView?.stopAnimating()
                         }
                         if let error = error{
-                            HUD.flash(.Label(error), withDelay: 2.0)
+                            HUD.flash(.Label(error), delay: 2.0)
                         }
                     }
                     })
@@ -145,6 +146,8 @@ class  PostsViewController : UIViewController, UITableViewDataSource, UITableVie
         self.navigationController?.setNavigationBarHidden(false, animated:false)
         
         self.navigationController?.navigationBar.translucent = true
+        
+        self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)

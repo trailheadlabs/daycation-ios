@@ -84,7 +84,7 @@ public class OrganizationViewController : FormViewController, TypedRowController
 
             }
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
             }
         }
         

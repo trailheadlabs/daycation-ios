@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAB344A41CEFBD9F006CC849"
-               BuildableName = "Daycation.temp_caseinsensitive_rename.app"
+               BuildableName = "Daycation.app"
                BlueprintName = "daycation"
                ReferencedContainer = "container:Daycation.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAB344B81CEFBD9F006CC849"
-               BuildableName = "Daycation.temp_caseinsensitive_rename.xctest"
+               BuildableName = "Daycation.xctest"
                BlueprintName = "daycationTests"
                ReferencedContainer = "container:Daycation.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AAB344C31CEFBD9F006CC849"
-               BuildableName = "Daycation.temp_caseinsensitive_rename.xctest"
+               BuildableName = "Daycation.xctest"
                BlueprintName = "daycationUITests"
                ReferencedContainer = "container:Daycation.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAB344A41CEFBD9F006CC849"
-            BuildableName = "Daycation.temp_caseinsensitive_rename.app"
+            BuildableName = "Daycation.app"
             BlueprintName = "daycation"
             ReferencedContainer = "container:Daycation.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAB344A41CEFBD9F006CC849"
-            BuildableName = "Daycation.temp_caseinsensitive_rename.app"
+            BuildableName = "Daycation.app"
             BlueprintName = "daycation"
             ReferencedContainer = "container:Daycation.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AAB344A41CEFBD9F006CC849"
-            BuildableName = "Daycation.temp_caseinsensitive_rename.app"
+            BuildableName = "Daycation.app"
             BlueprintName = "daycation"
             ReferencedContainer = "container:Daycation.xcodeproj">
          </BuildableReference>

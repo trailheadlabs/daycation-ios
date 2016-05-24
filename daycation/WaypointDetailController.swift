@@ -138,7 +138,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
         OuterspatialClient.sharedInstance.visitWaypoint(waypoint.id!,trip_id: trip.id!) {
             (result: Bool?,error: String?) in
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
             }
         }
 
@@ -191,7 +191,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
             OuterspatialClient.sharedInstance.setTripLikeStatus(self.trip.id!,likeStatus: false) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             self.trip.likes!--
@@ -202,7 +202,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
             OuterspatialClient.sharedInstance.setTripLikeStatus(self.trip.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             self.trip.liked = true
@@ -253,7 +253,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
             print("got back: \(result)")
             self.trip=result
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
                 return
             }
             self.updateLikeCount()

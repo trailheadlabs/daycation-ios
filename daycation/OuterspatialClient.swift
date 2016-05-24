@@ -175,7 +175,7 @@ public class OuterspatialClient {
     }
     
     func getOrganizations(completion: (result: [Organization]?,error:String?) -> Void) {
-        oauth2Client!.request(.GET, "\(Config.host)/v0/applications/1/organizations", parameters: [:])
+        oauth2Client!.request(.GET, "\(Config.host)/v0/applications/1/organizations")
             .responseJSON { response in
                 print(response.result.value)   // result of response serialization
                 
@@ -225,7 +225,7 @@ public class OuterspatialClient {
     
     func setPostLikeStatus(postId:Int,likeStatus:Bool,completion: (result: Bool?,error:String?) -> Void) {
         let method = likeStatus ? Method.POST : Method.DELETE
-        oauth2Client!.request(method, "\(Config.host)/v1/posts/\(postId)/like", parameters: ["liked":likeStatus.description])
+        oauth2Client!.request(method, "\(Config.host)/v1/posts/\(postId)/like", parameters: [:])
             .responseJSON { response in
                 print(response.result.value)   // result of response serialization
                 

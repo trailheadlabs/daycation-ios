@@ -40,7 +40,7 @@ class PostsViewCell: UITableViewCell {
         self.addSubview(postImage!)
         
         var image = UIImage.scaleTo(image: UIImage(named: "Daycation_Heart_icon.png")!, w: 10, h: 10)
-        heartButton = DOFavoriteButton(frame: CGRectMake(3, 4, 10, 10), image: UIImage(named: "Daycation_Heart_icon.png"))
+        heartButton = DOFavoriteButton(frame: CGRectMake(3, 4, 25, 25), image: UIImage(named: "Daycation_Heart_icon.png"))
         
         heartButton.imageColorOn = UIColor(red: 254/255, green: 110/255, blue: 111/255, alpha: 1.0)
         heartButton.circleColor = UIColor(red: 254/255, green: 110/255, blue: 111/255, alpha: 1.0)
@@ -160,7 +160,7 @@ class PostsViewCell: UITableViewCell {
         self.likeCountLabel.frame = CGRectMake(self.postImage.leftOffset(10),2,20,12)
         
         
-        self.heartButton.frame = CGRectMake(self.likeCountLabel.leftOffset(14),4,10,10)
+        self.heartButton.frame = CGRectMake(self.likeCountLabel.leftOffset(20),-4,25,25)
         
         dateText.textAlignment = .Right
         self.dateText.frame = CGRectMake(self.heartButton.leftOffset(70), 4, 80, 21)
@@ -176,7 +176,7 @@ class PostsViewCell: UITableViewCell {
             OuterspatialClient.sharedInstance.setPostLikeStatus(self.post.id!,likeStatus: false) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             self.post.likes!--
@@ -187,7 +187,7 @@ class PostsViewCell: UITableViewCell {
             OuterspatialClient.sharedInstance.setPostLikeStatus(self.post.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             
