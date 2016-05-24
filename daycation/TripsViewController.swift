@@ -23,6 +23,7 @@ iCarouselDataSource, iCarouselDelegate{
     var carousel : iCarousel!
     var tableView: UITableView!
     var mapView: MKMapView!
+    var gpsImage: UIImageView!
     var trips = [Trip]()
     var selectedTrip: Trip!
     var page = 1
@@ -30,7 +31,7 @@ iCarouselDataSource, iCarouselDelegate{
     var searchActive : Bool = false
     var mapButton:UIBarButtonItem!
     var contentView: UIView!
-    var selectedTripView: UIView!
+    var selectedTripView: TripMapCell!
     var scrollView: UIScrollView!
     var highlightedFeatures : [Feature] = []
     
@@ -48,12 +49,11 @@ iCarouselDataSource, iCarouselDelegate{
         self.navigationItem.rightBarButtonItem = mapButton
         
         scrollView = UIScrollView()
-        scrollView.y = 20
+        scrollView.y = 40
         scrollView.w = view.w
-        scrollView.h = view.bottomOffset(-110)
+        scrollView.h = view.bottomOffset(-185)
         scrollView.userInteractionEnabled = true
         self.view.addSubview(scrollView)
-        
         
         contentView = UIView()
         contentView.w = view.w
@@ -104,7 +104,7 @@ iCarouselDataSource, iCarouselDelegate{
             self.carousel.reloadData()
             
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
                 return
             }
             
@@ -116,6 +116,7 @@ iCarouselDataSource, iCarouselDelegate{
                 self.trips = trips
                 self.contentView.addSubview(self.tableView)
                 
+                self.tableView.h=CGFloat((trips.count*50))
                 self.contentView.h=self.tableView.bottom
                 self.scrollView.contentSize = self.contentView.bounds.size
                 actInd.stopAnimating()
@@ -131,12 +132,12 @@ iCarouselDataSource, iCarouselDelegate{
                 
             }
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
             }
         }
         
         
-        self.tableView.addInfiniteScrollingWithHandler {
+        self.scrollView.addInfiniteScrollingWithHandler {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                 dispatch_async(dispatch_get_main_queue(), { [unowned self] in
                     self.page++
@@ -148,10 +149,10 @@ iCarouselDataSource, iCarouselDelegate{
                             self.trips.appendContentsOf(trips)
                             
                             self.tableView.reloadData()
-                            self.tableView.infiniteScrollingView?.stopAnimating()
+                            self.scrollView.infiniteScrollingView?.stopAnimating()
                         }
                         if let error = error{
-                            HUD.flash(.Label(error), withDelay: 2.0)
+                            HUD.flash(.Label(error), delay: 2.0)
                         }
                     }
                     })
@@ -160,13 +161,13 @@ iCarouselDataSource, iCarouselDelegate{
         
         
         let searchHeaderView = UIView()
-        let headerImage=UIImageView(frame: CGRectMake(0, 60, self.view.frame.size.width, 40))
+        let headerImage=UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, 40))
         headerImage.image = UIImage(named:"DAYC_ORANGE_BOTTOM@3x.png")
         headerImage.contentMode = UIViewContentMode.ScaleAspectFill
         headerImage.clipsToBounds = true
         searchHeaderView.addSubview(headerImage)
         
-        let magnifyingImage=UIImageView(frame: CGRectMake(25, 69, 20, 20))
+        let magnifyingImage=UIImageView(frame: CGRectMake(25, 9, 20, 20))
         
         magnifyingImage.image = UIImage.scaleTo(image: UIImage(named:"Daycation_Magnifying_gla.png")!, w: 20, h: 20)
         magnifyingImage.contentMode = UIViewContentMode.ScaleAspectFill
@@ -181,7 +182,7 @@ iCarouselDataSource, iCarouselDelegate{
         searchController.searchBar.placeholder = "Search for a daycation"
         searchController.searchBar.delegate = self
         searchController.searchBar.x = 50
-        searchController.searchBar.y = 60
+        searchController.searchBar.y = 0
         searchController.searchBar.w = self.view.frame.size.width-100
         let searchBarBackground = UIImage.roundedImage(UIImage.imageWithColor(UIColor(hexString: "#fff9e1")!, size: CGSize(width: 28, height: 28)),cornerRadius: 0)
         searchController.searchBar.setSearchFieldBackgroundImage(searchBarBackground, forState: .Normal)
@@ -204,7 +205,7 @@ iCarouselDataSource, iCarouselDelegate{
         searchController.searchBar.searchTextPositionAdjustment = UIOffsetMake(10, 0)
         // Place the search bar view to the tableview headerview.
         self.view.addSubview(searchController.searchBar)
-        mapView=MKMapView(frame: CGRectMake(0, 100, self.view.frame.size.width, self.view.frame.size.height-(44+20+49)))
+        mapView=MKMapView(frame: CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-(44+20+49)))
         mapView.mapType = MKMapType.Standard
         mapView.delegate = self
         mapView.zoomEnabled = true
@@ -212,17 +213,38 @@ iCarouselDataSource, iCarouselDelegate{
         mapView.userInteractionEnabled = true
         mapView.pitchEnabled = false
         mapView.hidden = true
-        self.view.addSubview(mapView)
         
-        selectedTripView = UIView()
-        selectedTripView.w = view.w
-        selectedTripView.y = self.view.h
-        selectedTripView.h = 110
-        selectedTripView.backgroundColor = UIColor(hexString: "#f9f9e1")
+        gpsImage=UIImageView(frame: CGRectMake(mapView.w-60, mapView.h-125, 40, 40))
+        gpsImage.image = UIImage(named:"DAYC_GPS@3x.png")
+        gpsImage.contentMode = UIViewContentMode.ScaleAspectFill
+        gpsImage.clipsToBounds = true
+        let gpsRecognizer = UITapGestureRecognizer(target:self, action:Selector("gpsTapped:"))
+        gpsImage.userInteractionEnabled = true
+        gpsImage.addGestureRecognizer(gpsRecognizer)
+        mapView.addSubview(gpsImage)
+        
+        selectedTripView = TripMapCell(frame: CGRectMake(0, mapView.bottomOffset(-135), self.view.frame.size.width, self.view.frame.size.height))
+        let selectedTripViewRecognizer = UITapGestureRecognizer(target:self, action:#selector(TripsViewController.selectedTripViewTapped(_:)))
         selectedTripView.userInteractionEnabled = true
+        selectedTripView.addGestureRecognizer(selectedTripViewRecognizer)
+        selectedTripView.hidden = true
+        self.view.userInteractionEnabled = true
         self.view.addSubview(selectedTripView)
+        self.view.addSubview(mapView)
     }
     
+    func selectedTripViewTapped(img: AnyObject) {
+       selectTrip(selectedTrip)
+        
+    }
+    
+    func gpsTapped(img: AnyObject) {
+        if(self.mapView.userTrackingMode == .None){
+            self.mapView.setUserTrackingMode(.FollowWithHeading, animated: true)
+            
+        }
+        
+    }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -299,10 +321,8 @@ iCarouselDataSource, iCarouselDelegate{
         
         
         heartButton = itemView.viewWithTag(3) as! DOFavoriteButton!
-        heartButton.frame = CGRectMake(50, itemView.bottomOffset(-50), 16, 16)
-        heartButton.x = likeCountLabel.rightOffset(-25)
-        heartButton.y = itemView.bottomOffset(-30)
-        
+        heartButton.frame = CGRectMake(likeCountLabel.rightOffset(-30), itemView.bottomOffset(-35), 30, 30)
+    
         let image = UIImage.scaleTo(image: UIImage(named: "Daycation_Heart_icon.png")!, w: 16, h: 16)
         heartButton.image =  image
         heartButton.selected = trip.liked
@@ -348,7 +368,7 @@ iCarouselDataSource, iCarouselDelegate{
             OuterspatialClient.sharedInstance.setTripLikeStatus(trip.id!,likeStatus: false) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             trip.likes! -= 1
@@ -359,7 +379,7 @@ iCarouselDataSource, iCarouselDelegate{
             OuterspatialClient.sharedInstance.setTripLikeStatus(trip.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             
@@ -384,13 +404,19 @@ iCarouselDataSource, iCarouselDelegate{
     }
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         let selectedAnnotation = view.annotation as? CustomPointAnnotation
+        var span = MKCoordinateSpanMake(1, 1)
         
+        var region = MKCoordinateRegion(center: (selectedAnnotation?.coordinate)!, span: span)
+        
+        mapView.setRegion(region, animated: true)
         let top = CGAffineTransformMakeTranslation(0, -110)
         UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
-            self.selectedTripView.transform = top
-            self.mapView.h = (self.view.frame.size.height-(44+20+49)) - 100
+            //self.selectedTripView.transform = top
+            self.mapView.h = (self.view.frame.size.height-(36)) - 75
+            self.gpsImage.y = mapView.h-50
             }, completion: nil)
         selectedTrip = selectedAnnotation!.trip
+        selectedTripView.loadItem(selectedTrip)
         for annotation in mapView.annotations {
             if let annotation = annotation as? CustomPointAnnotation {
         //        mapView.viewForAnnotation(annotation)!.image = UIImage(named:"DAYC_Map_marker@3x.png")
@@ -407,8 +433,9 @@ iCarouselDataSource, iCarouselDelegate{
         
         
         UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
-            self.selectedTripView.transform = top
-            self.mapView.h = self.view.frame.size.height-(44+49)
+         //   self.selectedTripView.transform = top
+            self.mapView.h = self.view.frame.size.height-(36)
+            self.gpsImage.y = mapView.h-50
             }, completion: nil)
         selectedTrip = nil
     }
@@ -418,7 +445,7 @@ iCarouselDataSource, iCarouselDelegate{
             return nil
         }
         
-        let reuseId = "test"
+        let reuseId = "map"
         
         var anView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
         if anView == nil {
@@ -429,11 +456,8 @@ iCarouselDataSource, iCarouselDelegate{
             anView!.annotation = annotation
         }
         
-        //Set annotation-specific properties **AFTER**
-        //the view is dequeued or created...
-        
         let cpa = annotation as! CustomPointAnnotation
-        anView!.image = UIImage(named:"DAYC_Map_marker_highlighted@3x.png")
+        anView!.image = UIImage(named:"DAYC_Map_marker@3x.png")
         return anView
     }
     
@@ -484,6 +508,7 @@ iCarouselDataSource, iCarouselDelegate{
         if (mapView.hidden) {
             tableView.hidden = true
             mapView.hidden = false
+            selectedTripView.hidden = false
             mapButton.title = "List"
             mapView.showAnnotations(mapView.annotations, animated: true)
         } else {
@@ -491,6 +516,7 @@ iCarouselDataSource, iCarouselDelegate{
             mapView.layoutMargins = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
             tableView.hidden = false
             mapView.hidden = true
+            selectedTripView.hidden = true
             mapButton.title = "Map"
         }
     }
@@ -532,14 +558,14 @@ iCarouselDataSource, iCarouselDelegate{
         self.view.backgroundColor = UIColor(hexString: "#fff9e1")
         self.navigationController?.setNavigationBarHidden(false, animated:false)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.translucent = true
+        self.navigationController?.navigationBar.translucent = false
         self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
-     //   let backgroundImage = UIImage(named:"DAYC_GREEN_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
+        let backgroundImage = UIImage(named:"DAYC_GREEN_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
         
      //   self.navigationController?.navigationBar.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.w, 60)
         
-       // self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
-                                                //                    forBarMetrics: .Default)
+        self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
+                                                                  forBarMetrics: .Default)
         
     }
     override func viewDidAppear(animated: Bool) {

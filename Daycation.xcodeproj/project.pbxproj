@@ -252,6 +252,11 @@
 		AA13BF661CEFCFDC009F0FC2 /* Cultivated Mind - True North.otf in Resources */ = {isa = PBXBuildFile; fileRef = AA13BF631CEFCFDC009F0FC2 /* Cultivated Mind - True North.otf */; };
 		AA13BF691CEFD064009F0FC2 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA13BF671CEFD064009F0FC2 /* Quicksand-Bold.ttf */; };
 		AA13BF6A1CEFD064009F0FC2 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA13BF681CEFD064009F0FC2 /* Quicksand-Regular.ttf */; };
+		AA2F66E51CF4B1A9003464AB /* DAYC_GPS.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2F66E21CF4B1A9003464AB /* DAYC_GPS.png */; };
+		AA2F66E61CF4B1A9003464AB /* DAYC_GPS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2F66E31CF4B1A9003464AB /* DAYC_GPS@2x.png */; };
+		AA2F66E71CF4B1A9003464AB /* DAYC_GPS@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2F66E41CF4B1A9003464AB /* DAYC_GPS@3x.png */; };
+		AA2F66E91CF4E173003464AB /* TripFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F66E81CF4E173003464AB /* TripFilterView.swift */; };
+		AA2F66EB1CF4E50D003464AB /* TripMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F66EA1CF4E50D003464AB /* TripMapCell.swift */; };
 		AAB344A91CEFBD9F006CC849 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */; };
 		AAB344AE1CEFBD9F006CC849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AC1CEFBD9F006CC849 /* Main.storyboard */; };
 		AAB344B01CEFBD9F006CC849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AF1CEFBD9F006CC849 /* Assets.xcassets */; };
@@ -267,11 +272,9 @@
 		AAB344EB1CEFC087006CC849 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344DC1CEFC087006CC849 /* HomeViewController.swift */; };
 		AAB344EC1CEFC087006CC849 /* WaypointDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344DD1CEFC087006CC849 /* WaypointDetailController.swift */; };
 		AAB344ED1CEFC087006CC849 /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344DE1CEFC087006CC849 /* TripDetailViewController.swift */; };
-		AAB344EE1CEFC087006CC849 /* CustomCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344DF1CEFC087006CC849 /* CustomCells.swift */; };
 		AAB344EF1CEFC087006CC849 /* IconTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344E01CEFC087006CC849 /* IconTitleView.swift */; };
 		AAB344F01CEFC087006CC849 /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344E11CEFC087006CC849 /* PostsViewController.swift */; };
 		AAB344F11CEFC087006CC849 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344E21CEFC087006CC849 /* PostDetailViewController.swift */; };
-		AAB344F21CEFC087006CC849 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344E31CEFC087006CC849 /* FloatLabelTextField.swift */; };
 		AAB344F31CEFC087006CC849 /* PostCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344E41CEFC087006CC849 /* PostCreateViewController.swift */; };
 		AAB344F51CEFC109006CC849 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344F41CEFC109006CC849 /* Config.swift */; };
 		AAB344F71CEFC110006CC849 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344F61CEFC110006CC849 /* Models.swift */; };
@@ -544,16 +547,21 @@
 		AA13BF631CEFCFDC009F0FC2 /* Cultivated Mind - True North.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cultivated Mind - True North.otf"; sourceTree = "<group>"; };
 		AA13BF671CEFD064009F0FC2 /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.ttf"; sourceTree = "<group>"; };
 		AA13BF681CEFD064009F0FC2 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.ttf"; sourceTree = "<group>"; };
-		AAB344A51CEFBD9F006CC849 /* Daycation.temp_caseinsensitive_rename.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daycation.temp_caseinsensitive_rename.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA2F66E21CF4B1A9003464AB /* DAYC_GPS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DAYC_GPS.png; sourceTree = "<group>"; };
+		AA2F66E31CF4B1A9003464AB /* DAYC_GPS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_GPS@2x.png"; sourceTree = "<group>"; };
+		AA2F66E41CF4B1A9003464AB /* DAYC_GPS@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_GPS@3x.png"; sourceTree = "<group>"; };
+		AA2F66E81CF4E173003464AB /* TripFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripFilterView.swift; sourceTree = "<group>"; };
+		AA2F66EA1CF4E50D003464AB /* TripMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripMapCell.swift; sourceTree = "<group>"; };
+		AAB344A51CEFBD9F006CC849 /* Daycation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daycation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB344AD1CEFBD9F006CC849 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AAB344AF1CEFBD9F006CC849 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAB344B21CEFBD9F006CC849 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAB344B41CEFBD9F006CC849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AAB344B91CEFBD9F006CC849 /* Daycation.temp_caseinsensitive_rename.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Daycation.temp_caseinsensitive_rename.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAB344B91CEFBD9F006CC849 /* Daycation.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Daycation.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB344BD1CEFBD9F006CC849 /* daycationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = daycationTests.swift; sourceTree = "<group>"; };
 		AAB344BF1CEFBD9F006CC849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AAB344C41CEFBD9F006CC849 /* Daycation.temp_caseinsensitive_rename.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Daycation.temp_caseinsensitive_rename.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAB344C41CEFBD9F006CC849 /* Daycation.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Daycation.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB344C81CEFBD9F006CC849 /* daycationUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = daycationUITests.swift; sourceTree = "<group>"; };
 		AAB344CA1CEFBD9F006CC849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAB344D61CEFC087006CC849 /* TripsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsViewCell.swift; sourceTree = "<group>"; };
@@ -565,11 +573,9 @@
 		AAB344DC1CEFC087006CC849 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AAB344DD1CEFC087006CC849 /* WaypointDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointDetailController.swift; sourceTree = "<group>"; };
 		AAB344DE1CEFC087006CC849 /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
-		AAB344DF1CEFC087006CC849 /* CustomCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCells.swift; sourceTree = "<group>"; };
 		AAB344E01CEFC087006CC849 /* IconTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconTitleView.swift; sourceTree = "<group>"; };
 		AAB344E11CEFC087006CC849 /* PostsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
 		AAB344E21CEFC087006CC849 /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
-		AAB344E31CEFC087006CC849 /* FloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabelTextField.swift; sourceTree = "<group>"; };
 		AAB344E41CEFC087006CC849 /* PostCreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCreateViewController.swift; sourceTree = "<group>"; };
 		AAB344F41CEFC109006CC849 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		AAB344F61CEFC110006CC849 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -626,6 +632,9 @@
 		AA13BD8B1CEFCF84009F0FC2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				AA2F66E21CF4B1A9003464AB /* DAYC_GPS.png */,
+				AA2F66E31CF4B1A9003464AB /* DAYC_GPS@2x.png */,
+				AA2F66E41CF4B1A9003464AB /* DAYC_GPS@3x.png */,
 				AA13BD8C1CEFCF84009F0FC2 /* DAYC_Blank_map_marker@2x.png */,
 				AA13BD8D1CEFCF84009F0FC2 /* DAYC_Blank_map_marker@3x.png */,
 				AA13BD8E1CEFCF84009F0FC2 /* DAYC_Blank_map_marker_selected@3x.png */,
@@ -884,6 +893,8 @@
 				AAB344DE1CEFC087006CC849 /* TripDetailViewController.swift */,
 				AAB344DD1CEFC087006CC849 /* WaypointDetailController.swift */,
 				AAB344D61CEFC087006CC849 /* TripsViewCell.swift */,
+				AA2F66EA1CF4E50D003464AB /* TripMapCell.swift */,
+				AA2F66E81CF4E173003464AB /* TripFilterView.swift */,
 			);
 			name = trips;
 			sourceTree = "<group>";
@@ -909,6 +920,34 @@
 			name = profile;
 			sourceTree = "<group>";
 		};
+		AA2CA6C81CF39D7700523784 /* login */ = {
+			isa = PBXGroup;
+			children = (
+				AAEE4C521CEFC66400746D14 /* EntryViewController.swift */,
+				AAB344FA1CEFC154006CC849 /* LoggedInViewController.swift */,
+				AAB344DB1CEFC087006CC849 /* LoginViewController.swift */,
+			);
+			name = login;
+			sourceTree = "<group>";
+		};
+		AA81EC9D1CF3A14400ED4B1E /* api */ = {
+			isa = PBXGroup;
+			children = (
+				AAB344F81CEFC13A006CC849 /* OuterspatialClient.swift */,
+				AAB344F61CEFC110006CC849 /* Models.swift */,
+				AAB344F41CEFC109006CC849 /* Config.swift */,
+			);
+			name = api;
+			sourceTree = "<group>";
+		};
+		AA81EC9E1CF3B07600ED4B1E /* home */ = {
+			isa = PBXGroup;
+			children = (
+				AAB344DC1CEFC087006CC849 /* HomeViewController.swift */,
+			);
+			name = home;
+			sourceTree = "<group>";
+		};
 		AAB3449C1CEFBD9F006CC849 = {
 			isa = PBXGroup;
 			children = (
@@ -927,9 +966,9 @@
 		AAB344A61CEFBD9F006CC849 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AAB344A51CEFBD9F006CC849 /* Daycation.temp_caseinsensitive_rename.app */,
-				AAB344B91CEFBD9F006CC849 /* Daycation.temp_caseinsensitive_rename.xctest */,
-				AAB344C41CEFBD9F006CC849 /* Daycation.temp_caseinsensitive_rename.xctest */,
+				AAB344A51CEFBD9F006CC849 /* Daycation.app */,
+				AAB344B91CEFBD9F006CC849 /* Daycation.xctest */,
+				AAB344C41CEFBD9F006CC849 /* Daycation.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -937,20 +976,14 @@
 		AAB344A71CEFBD9F006CC849 /* daycation */ = {
 			isa = PBXGroup;
 			children = (
-				AA2CA6C71CF35DDF00523784 /* profile */,
-				AA2CA6C61CF35DBE00523784 /* posts */,
+				AA81EC9D1CF3A14400ED4B1E /* api */,
+				AA2CA6C81CF39D7700523784 /* login */,
+				AA81EC9E1CF3B07600ED4B1E /* home */,
 				AA2CA6C51CF35D9F00523784 /* trips */,
-				AAB344F41CEFC109006CC849 /* Config.swift */,
+				AA2CA6C61CF35DBE00523784 /* posts */,
+				AA2CA6C71CF35DDF00523784 /* profile */,
 				AAB344D81CEFC087006CC849 /* FileExtensions.swift */,
-				AAB344F61CEFC110006CC849 /* Models.swift */,
-				AAB344DB1CEFC087006CC849 /* LoginViewController.swift */,
-				AAB344F81CEFC13A006CC849 /* OuterspatialClient.swift */,
-				AAB344DC1CEFC087006CC849 /* HomeViewController.swift */,
-				AAEE4C521CEFC66400746D14 /* EntryViewController.swift */,
-				AAB344DF1CEFC087006CC849 /* CustomCells.swift */,
 				AAB344E01CEFC087006CC849 /* IconTitleView.swift */,
-				AAB344FA1CEFC154006CC849 /* LoggedInViewController.swift */,
-				AAB344E31CEFC087006CC849 /* FloatLabelTextField.swift */,
 				AA13BD871CEFCCD1009F0FC2 /* FilterOptionsController.swift */,
 				AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */,
 				AA13BD891CEFCD04009F0FC2 /* LocationData.swift */,
@@ -1000,7 +1033,7 @@
 			);
 			name = daycation;
 			productName = daycation;
-			productReference = AAB344A51CEFBD9F006CC849 /* Daycation.temp_caseinsensitive_rename.app */;
+			productReference = AAB344A51CEFBD9F006CC849 /* Daycation.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AAB344B81CEFBD9F006CC849 /* daycationTests */ = {
@@ -1018,7 +1051,7 @@
 			);
 			name = daycationTests;
 			productName = daycationTests;
-			productReference = AAB344B91CEFBD9F006CC849 /* Daycation.temp_caseinsensitive_rename.xctest */;
+			productReference = AAB344B91CEFBD9F006CC849 /* Daycation.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		AAB344C31CEFBD9F006CC849 /* daycationUITests */ = {
@@ -1036,7 +1069,7 @@
 			);
 			name = daycationUITests;
 			productName = daycationUITests;
-			productReference = AAB344C41CEFBD9F006CC849 /* Daycation.temp_caseinsensitive_rename.xctest */;
+			productReference = AAB344C41CEFBD9F006CC849 /* Daycation.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -1146,6 +1179,7 @@
 				AA13BEC61CEFCF85009F0FC2 /* DAYC_Icon_Mammals.png in Resources */,
 				AA13BF1A1CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_1.png in Resources */,
 				AA13BF041CEFCF85009F0FC2 /* Daycation_Divider-011.png in Resources */,
+				AA2F66E51CF4B1A9003464AB /* DAYC_GPS.png in Resources */,
 				AA13BEF91CEFCF85009F0FC2 /* DAYC_ME_ICON_highlighted@3x.png in Resources */,
 				AA13BF531CEFCF85009F0FC2 /* Icon-Small.png in Resources */,
 				AA13BEFB1CEFCF85009F0FC2 /* DAYC_STREAM_Highlighted@3x.png in Resources */,
@@ -1313,6 +1347,7 @@
 				AA13BF221CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_9.png in Resources */,
 				AA13BECD1CEFCF85009F0FC2 /* DAYC_Icon_NoHandicap_access@2x.png in Resources */,
 				AA13BE761CEFCF85009F0FC2 /* DAYC_Blank_map_marker@2x.png in Resources */,
+				AA2F66E61CF4B1A9003464AB /* DAYC_GPS@2x.png in Resources */,
 				AA13BE931CEFCF85009F0FC2 /* DAYC_Icon_Climbing.png in Resources */,
 				AA13BEED1CEFCF85009F0FC2 /* DAYC_Icon_Walking.png in Resources */,
 				AA13BE961CEFCF85009F0FC2 /* DAYC_Icon_DogsAllowed.png in Resources */,
@@ -1321,6 +1356,7 @@
 				AA13BEBC1CEFCF85009F0FC2 /* DAYC_Icon_Historical_1@3x.png in Resources */,
 				AA13BF181CEFCF85009F0FC2 /* Daycation_Nav_Stream copy.png in Resources */,
 				AA13BED01CEFCF85009F0FC2 /* DAYC_Icon_paddling@2x.png in Resources */,
+				AA2F66E71CF4B1A9003464AB /* DAYC_GPS@3x.png in Resources */,
 				AA13BE8F1CEFCF85009F0FC2 /* DAYC_Icon_Body_of_Water_2@3x.png in Resources */,
 				AA13BEDD1CEFCF85009F0FC2 /* DAYC_Icon_Restrooms@3x.png in Resources */,
 				AA13BEB71CEFCF85009F0FC2 /* DAYC_Icon_Hiking.png in Resources */,
@@ -1407,7 +1443,6 @@
 				AAB344E51CEFC087006CC849 /* TripsViewCell.swift in Sources */,
 				AAB344E91CEFC087006CC849 /* ProfileEditViewController.swift in Sources */,
 				AAB344F91CEFC13A006CC849 /* OuterspatialClient.swift in Sources */,
-				AAB344F21CEFC087006CC849 /* FloatLabelTextField.swift in Sources */,
 				AAB344E71CEFC087006CC849 /* FileExtensions.swift in Sources */,
 				AA13BD841CEFCC03009F0FC2 /* ProfileViewController.swift in Sources */,
 				AA13BD7E1CEFC75F009F0FC2 /* OrganizationViewController.swift in Sources */,
@@ -1421,13 +1456,14 @@
 				AAB344FB1CEFC154006CC849 /* LoggedInViewController.swift in Sources */,
 				AAB344F51CEFC109006CC849 /* Config.swift in Sources */,
 				AAB344E81CEFC087006CC849 /* TripsViewController.swift in Sources */,
+				AA2F66E91CF4E173003464AB /* TripFilterView.swift in Sources */,
 				AAB344EC1CEFC087006CC849 /* WaypointDetailController.swift in Sources */,
 				AAB344E61CEFC087006CC849 /* PostsViewCell.swift in Sources */,
 				AAEE4C531CEFC66400746D14 /* EntryViewController.swift in Sources */,
 				AAB344F71CEFC110006CC849 /* Models.swift in Sources */,
 				AAB344EF1CEFC087006CC849 /* IconTitleView.swift in Sources */,
-				AAB344EE1CEFC087006CC849 /* CustomCells.swift in Sources */,
 				AAB344A91CEFBD9F006CC849 /* AppDelegate.swift in Sources */,
+				AA2F66EB1CF4E50D003464AB /* TripMapCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1578,9 +1614,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = daycation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation;
-				PRODUCT_NAME = Daycation.temp_caseinsensitive_rename;
+				PRODUCT_NAME = Daycation;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 			};
 			name = Debug;
@@ -1596,9 +1633,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = daycation/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation;
-				PRODUCT_NAME = Daycation.temp_caseinsensitive_rename;
+				PRODUCT_NAME = Daycation;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 			};
 			name = Release;
@@ -1610,8 +1648,8 @@
 				INFOPLIST_FILE = daycationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation.daycationTests;
-				PRODUCT_NAME = Daycation.temp_caseinsensitive_rename;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Daycation.temp_caseinsensitive_rename.app/Daycation.temp_caseinsensitive_rename";
+				PRODUCT_NAME = Daycation;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Daycation.app/Daycation";
 			};
 			name = Debug;
 		};
@@ -1622,8 +1660,8 @@
 				INFOPLIST_FILE = daycationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation.daycationTests;
-				PRODUCT_NAME = Daycation.temp_caseinsensitive_rename;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Daycation.temp_caseinsensitive_rename.app/Daycation.temp_caseinsensitive_rename";
+				PRODUCT_NAME = Daycation;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Daycation.app/Daycation";
 			};
 			name = Release;
 		};
@@ -1633,7 +1671,7 @@
 				INFOPLIST_FILE = daycationUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation.daycationUITests;
-				PRODUCT_NAME = Daycation.temp_caseinsensitive_rename;
+				PRODUCT_NAME = Daycation;
 				TEST_TARGET_NAME = daycation;
 			};
 			name = Debug;
@@ -1644,7 +1682,7 @@
 				INFOPLIST_FILE = daycationUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation.daycationUITests;
-				PRODUCT_NAME = Daycation.temp_caseinsensitive_rename;
+				PRODUCT_NAME = Daycation;
 				TEST_TARGET_NAME = daycation;
 			};
 			name = Release;

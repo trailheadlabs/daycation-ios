@@ -88,7 +88,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
                 self.postsTableView.reloadData()
             }
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
             }
         }
         
@@ -125,7 +125,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
             }
             
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
                 return
             }
             
@@ -210,11 +210,9 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
         
         
         heartButton = itemView.viewWithTag(3) as! DOFavoriteButton!
-        heartButton.frame = CGRectMake(50, itemView.bottomOffset(-50), 16, 16)
-        heartButton.x = likeCountLabel.rightOffset(-25)
-        heartButton.y = itemView.bottomOffset(-30)
+        heartButton.frame = CGRectMake(likeCountLabel.rightOffset(-30), itemView.bottomOffset(-35), 30, 30)
         
-        let image = UIImage.scaleTo(image: UIImage(named: "Daycation_Heart_icon.png")!, w: 16, h: 16)
+        let image = UIImage(named: "Daycation_Heart_icon.png")!
         heartButton.image =  image
         heartButton.selected = trip.liked
         
@@ -259,7 +257,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
             OuterspatialClient.sharedInstance.setTripLikeStatus(trip.id!,likeStatus: false) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             trip.likes! -= 1
@@ -270,7 +268,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
             OuterspatialClient.sharedInstance.setTripLikeStatus(trip.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             
@@ -364,8 +362,6 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
     }
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         if(tableView == self.postsTableView){
-
-            
             let post = posts[indexPath.row]
             let navigationViewController = PostDetailViewController(post: post, completionBlock: removePost)
             tableView.deselectRowAtIndexPath(indexPath, animated: false)

@@ -262,7 +262,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
             HUD.hide(afterDelay: 0)
             self.navigationController?.popViewControllerAnimated(true)
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
             }
         }
         
@@ -297,7 +297,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
             OuterspatialClient.sharedInstance.setPostLikeStatus(self.post.id!,likeStatus: false) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             //            for liker in self.post.likers{
@@ -316,7 +316,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
             OuterspatialClient.sharedInstance.setPostLikeStatus(self.post.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             self.post.likers.append(OuterspatialClient.currentUser!)
@@ -377,7 +377,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
             print("got back: \(result)")
             
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
                 return
             }
             self.tableView.dataSource = self

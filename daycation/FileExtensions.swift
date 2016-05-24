@@ -1,3 +1,5 @@
+
+import UIKit
 func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {
     let calendar = NSCalendar.currentCalendar()
     let now = NSDate()

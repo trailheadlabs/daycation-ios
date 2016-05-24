@@ -29,8 +29,10 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         
         let b = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "tappedEdit:")
         b.title = "Edit"
+        b.setTitlePositionAdjustment(UIOffset.init(horizontal: -15, vertical: 0), forBarMetrics: UIBarMetrics.Default)
         let a = UIBarButtonItem(title: "Sign Out", style: .Plain, target: self, action:"tappedDone:")
-
+        a.setTitlePositionAdjustment(UIOffset.init(horizontal: 15, vertical: 0), forBarMetrics: UIBarMetrics.Default)
+        
         self.navigationItem.leftBarButtonItem = a
         self.navigationItem.rightBarButtonItem = b
         
@@ -60,20 +62,22 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         self.contentView.addSubview(bioLabel!)
         
         
-        var image:UIImage = UIImage(named:"Image-1")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 80))!
-        let button   = UIButton(type: UIButtonType.Custom) as UIButton
+       let button   = UIButton(type: UIButtonType.Custom) as UIButton
         button.setTitle("LIKED", forState: .Normal)
-        button.frame = CGRectMake(20, self.bioLabel!.bottomOffset(20), 80, 40)
+        button.frame = CGRectMake(20, self.bioLabel!.bottomOffset(0), 80, 60)
         
-        button.backgroundColor = UIColor(patternImage:UIImage(named: "Image-1")!)
+        button.backgroundColor = UIColor(patternImage:UIImage(named:"likedbar")!)
         button.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
+        button.titleLabel!.font = UIFont(name:"Quicksand-Bold", size:14)!
         button.tag = 1
         self.contentView.addSubview(button)
+        selectedButton = button
         
         let daybutton   = UIButton(type: UIButtonType.Custom) as UIButton
         daybutton.setTitle("DAYCATIONS", forState: .Normal)
         daybutton.frame = CGRectMake(button.right, self.bioLabel!.bottomOffset(20), self.view.w-220, 40)
-        daybutton.backgroundColor = UIColor(patternImage:UIImage(named: "Image-2")!)
+        daybutton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
+        daybutton.titleLabel!.font = UIFont(name:"Quicksand-Bold", size:14)!
         daybutton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         daybutton.tag = 2
         self.contentView.addSubview(daybutton)
@@ -81,14 +85,15 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         let streambutton   = UIButton(type: UIButtonType.Custom) as UIButton
         streambutton.setTitle("STREAM", forState: .Normal)
         streambutton.frame = CGRectMake(daybutton.right, self.bioLabel!.bottomOffset(20), 100, 40)
-        streambutton.backgroundColor = UIColor(patternImage:UIImage(named: "Image-3")!)
+        streambutton.backgroundColor = UIColor(patternImage:UIImage(named: "streambar")!)
+        streambutton.titleLabel!.font = UIFont(name:"Quicksand-Bold", size:14)!
         streambutton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         streambutton.tag = 3
         self.contentView.addSubview(streambutton)
         
         
         backgroundView = UIView(frame: CGRectMake(0, daybutton.bottom, self.view.frame.size.width, 100))
-        backgroundView.backgroundColor = UIColor(patternImage:UIImage(named: "Image-1")!)
+        backgroundView.backgroundColor = UIColor(patternImage:UIImage(named: "likedbar")!)
         self.contentView.addSubview(backgroundView!)
         
         
@@ -101,7 +106,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         likesTableView.separatorInset = UIEdgeInsetsZero
         likesTableView.backgroundColor = UIColor(hexString: "#fff9e1")
         self.likesTableView.registerClass(TripsViewCell.self, forCellReuseIdentifier: "tripCell")
-        likesTableView.layer.borderColor = UIColor(patternImage:UIImage(named: "Image-1")!).CGColor
+        likesTableView.layer.borderColor = UIColor(patternImage:UIImage(named: "likedbar")!).CGColor
         selectedTableView = likesTableView
         //tableView.layer.borderWidth = 10
         
@@ -110,7 +115,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
         view.addSubview(actInd)
-        actInd.startAnimating()
+     //  actInd.startAnimating()
         self.likesTableView.addSubview(actInd)
         self.contentView.addSubview(self.likesTableView)
         
@@ -131,7 +136,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         streamTableView.separatorInset = UIEdgeInsetsZero
         streamTableView.backgroundColor = UIColor(hexString: "#fff9e1")
         self.streamTableView.registerClass(PostsViewCell.self, forCellReuseIdentifier: "PostCell")
-        streamTableView.layer.borderColor = UIColor(patternImage:UIImage(named: "Image-1")!).CGColor
+        streamTableView.layer.borderColor = UIColor(patternImage:UIImage(named: "Daycation_daycations_bar.png")!).CGColor
         
         self.streamTableView.addInfiniteScrollingWithHandler {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
@@ -148,7 +153,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
                             self.streamTableView.infiniteScrollingView?.stopAnimating()
                         }
                         if let error = error{
-                            HUD.flash(.Label(error), withDelay: 2.0)
+                            HUD.flash(.Label(error), delay: 2.0)
                         }
                     }
                     })
@@ -158,8 +163,8 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         streamactInd = UIActivityIndicatorView(frame: CGRectMake(likesTableView.w/2-25,likesTableView.h/2-25, 50, 50)) as UIActivityIndicatorView
         streamactInd.hidesWhenStopped = true
         streamactInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-        streamactInd.startAnimating()
-        self.streamTableView.addSubview(actInd)
+      //  streamactInd.startAnimating()
+     //   self.streamTableView.addSubview(actInd)
         self.contentView.addSubview(self.streamTableView)
         
         
@@ -184,7 +189,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
             (result: [Post]?,error: String?) in
             if let posts = result {
                 print("got back: \(result)")
-                self.streamactInd.stopAnimating()
+              //  self.streamactInd.stopAnimating()
                 self.posts = posts
                 self.streamTableView.reloadData()
                 
@@ -197,7 +202,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
                     }, completion: nil)
             }
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
             }
         }
     }
@@ -219,7 +224,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
                     }, completion: nil)
             }
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
             }
         }
     }
@@ -241,7 +246,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
                     }, completion: nil)
             }
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
             }
         }
     }
@@ -344,7 +349,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
             selectedTableView = likesTableView
             UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5,
                                        initialSpringVelocity: 0.5, options: [], animations: {
-                                        self.backgroundView.backgroundColor = UIColor(patternImage:UIImage(named: "Image-1")!)
+                                        self.backgroundView.backgroundColor = UIColor(patternImage:UIImage(named:"likedbar")!)
                                         sender.h = 60
                                         sender.y = sender.y-20
                                         self.backgroundView.h = self.likesTableView.h+20
@@ -355,7 +360,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
             selectedTableView = tripTableView
             UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5,
                                        initialSpringVelocity: 0.5, options: [], animations: {
-                                        self.backgroundView.backgroundColor = UIColor(patternImage:UIImage(named: "Image-2")!)
+                                        self.backgroundView.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
                                         sender.h = 60
                                         sender.y = sender.y-20
                                         self.backgroundView.h = self.tripTableView.h+20
@@ -367,7 +372,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
             selectedTableView = streamTableView
             UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5,
                                        initialSpringVelocity: 0.5, options: [], animations: {
-                                        self.backgroundView.backgroundColor = UIColor(patternImage:UIImage(named: "Image-3")!)
+                                        self.backgroundView.backgroundColor = UIColor(patternImage:UIImage(named: "streambar")!)
                                         sender.h = 60
                                         sender.y = sender.y-20
                                         self.backgroundView.h = self.streamTableView.h+20

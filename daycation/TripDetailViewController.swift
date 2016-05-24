@@ -42,7 +42,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate{
         let a = UIBarButtonItem(title: "Share", style: .Plain, target: self, action:#selector(TripDetailViewController.shareButtonClicked(_:)))
         self.navigationItem.rightBarButtonItem = a
         
-        scrollView = UIScrollView(frame: CGRectMake(0, -20, view.w, view.h))
+        scrollView = UIScrollView(frame: CGRectMake(0, 0, view.w, view.h))
         scrollView.userInteractionEnabled = true
         self.view.addSubview(scrollView)
         
@@ -91,39 +91,38 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate{
         scrollView.addSubview(contentView)
         
      let buttonWidth = (UIScreen.mainScreen().bounds.w/4)-5
-        var image:UIImage = UIImage(named:"Image-1")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 80))!
         let aboutButton   = UIButton(type: UIButtonType.Custom) as UIButton
         aboutButton.setTitle("ABOUT", forState: .Normal)
         aboutButton.frame = CGRectMake(10, self.mapView!.bottomOffset(10), buttonWidth, 50)
-        aboutButton.backgroundColor = UIColor(patternImage:UIImage(named: "Image-1")!)
+        aboutButton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
         aboutButton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         aboutButton.tag = 1
-        aboutButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 16)!
+        aboutButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)!
         self.contentView.addSubview(aboutButton)
         selectedButton = aboutButton
         
         let waypointsButton   = UIButton(type: UIButtonType.Custom) as UIButton
         waypointsButton.setTitle("WAYPOINTS", forState: .Normal)
         waypointsButton.frame = CGRectMake(aboutButton.right, self.mapView!.bottomOffset(20), buttonWidth, 40)
-        waypointsButton.backgroundColor = UIColor(patternImage:UIImage(named: "Image-1")!)
+        waypointsButton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
         waypointsButton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         waypointsButton.tag = 2
-        waypointsButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 16)!
+        waypointsButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)!
         self.contentView.addSubview(waypointsButton)
         
         let galleryButton   = UIButton(type: UIButtonType.Custom) as UIButton
         galleryButton.setTitle("GALLERY", forState: .Normal)
         galleryButton.frame = CGRectMake(waypointsButton.right, self.mapView!.bottomOffset(20), buttonWidth, 40)
-        galleryButton.backgroundColor = UIColor(patternImage:UIImage(named: "Image-1")!)
+        galleryButton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
         galleryButton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         galleryButton.tag = 3
-        galleryButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 16)!
+        galleryButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)!
         self.contentView.addSubview(galleryButton)
         
         let streamButton   = UIButton(type: UIButtonType.Custom) as UIButton
         streamButton.setTitle("STREAM", forState: .Normal)
         streamButton.frame = CGRectMake(galleryButton.right, self.mapView!.bottomOffset(20), buttonWidth, 40)
-        streamButton.backgroundColor = UIColor(patternImage:UIImage(named: "Image-1")!)
+        streamButton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
         streamButton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         streamButton.tag = 4
         streamButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 16)!
@@ -131,7 +130,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate{
 
        aboutView = UIView(frame: CGRectMake(0,streamButton.bottom, self.view.w, 80))
         aboutView.backgroundColor = UIColor(hexString: "#fff9e1")
-        aboutView.layer.borderColor = UIColor(patternImage:UIImage(named: "Image-1")!).CGColor
+        aboutView.layer.borderColor = UIColor(patternImage:UIImage(named: "daycationbar")!).CGColor
         aboutView.layer.borderWidth=10
         selectedView = aboutView
         contentView.addSubview(aboutView)
@@ -219,7 +218,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate{
             OuterspatialClient.sharedInstance.setTripLikeStatus(self.trip.id!,likeStatus: false) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             self.trip.likes!--
@@ -230,7 +229,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate{
             OuterspatialClient.sharedInstance.setTripLikeStatus(self.trip.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
             self.trip.liked = true
@@ -299,7 +298,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate{
             print("got back: \(result)")
             self.trip=result
             if let error = error{
-                HUD.flash(.Label(error), withDelay: 2.0)
+                HUD.flash(.Label(error), delay: 2.0)
                 return
             }
             self.updateLikeCount()

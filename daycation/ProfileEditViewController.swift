@@ -231,7 +231,7 @@ class ProfileEditViewController : FormViewController{
                 valid = false
             }
             if !valid {
-                HUD.flash(.Label("Fix the errors 😃"), withDelay: 2.0)
+                HUD.flash(.Label("Fix the errors 😃"), delay: 2.0)
                 return
             }
             
@@ -253,20 +253,20 @@ class ProfileEditViewController : FormViewController{
                             }
                         }
                         if let error = error{
-                            HUD.flash(.Label(error), withDelay: 2.0)
+                            HUD.flash(.Label(error), delay: 2.0)
                         }
                         
                     }
                 }
                 
                 if let error = error{
-                    HUD.flash(.Label(error), withDelay: 2.0)
+                    HUD.flash(.Label(error), delay: 2.0)
                 }
             }
         }else{
             
             if !valid {
-                HUD.flash(.Label("Fix the errors 😃"), withDelay: 2.0)
+                HUD.flash(.Label("Fix the errors 😃"), delay: 2.0)
                 return
             }
             OuterspatialClient.sharedInstance.updateProfile(profile) {
