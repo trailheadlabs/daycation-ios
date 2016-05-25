@@ -68,22 +68,22 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
         let backButton = UIButton(type: UIButtonType.System) as UIButton
         backButton.frame = CGRectMake(10,self.mapView.bottomOffset(10),40,40)
         backButton.setImage(UIImage(named: "DAYC_GREY_ARROWS_LEFT@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
-     
-            contentView.addSubview(backButton)
-            
-            backButton.addTarget(self, action: "tappedBack:", forControlEvents: UIControlEvents.TouchUpInside)
-            backButton.userInteractionEnabled = true
-       
+        
+        contentView.addSubview(backButton)
+        
+        backButton.addTarget(self, action: "tappedBack:", forControlEvents: UIControlEvents.TouchUpInside)
+        backButton.userInteractionEnabled = true
+        
         
         let nextButton = UIButton(type: UIButtonType.System) as UIButton
         nextButton.frame = CGRectMake(90,self.mapView.bottomOffset(10),40,40)
         nextButton.setImage(UIImage(named: "DAYC_GREY_ARROWS_RIGHT@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
         
-           contentView.addSubview(nextButton)
-            
-            nextButton.addTarget(self, action: "tappedNext:", forControlEvents: UIControlEvents.TouchUpInside)
-                       nextButton.userInteractionEnabled = true
-         
+        contentView.addSubview(nextButton)
+        
+        nextButton.addTarget(self, action: "tappedNext:", forControlEvents: UIControlEvents.TouchUpInside)
+        nextButton.userInteractionEnabled = true
+        
         
         
         waypointPositionText = UILabel(frame: CGRectMake(50,self.mapView.bottomOffset(10),self.view.w-40,40))
@@ -110,7 +110,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
         if position != trip.waypoints.count-1 {
             updateFeature(position+1)
         }
-            
+        
     }
     
     
@@ -141,7 +141,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
                 HUD.flash(.Label(error), delay: 2.0)
             }
         }
-
+        
         
     }
     
@@ -172,7 +172,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
             anView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker_selected@3x.png")!, w: 20, h: 20)
         }else{
             anView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker@3x.png")!, w: 20, h: 20)
-
+            
         }
         
         let label = UILabel(frame: CGRect(x: 5, y: -3, width: 20, height: 20))
@@ -214,14 +214,14 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
     
     func  updateLikeCount() {
         //self.contentView.snp_updateConstraints {make in
-         //   make.bottom.equalTo(self.mapView.snp_bottom);
-         //   make.top.equalTo(0);
-       // }
+        //   make.bottom.equalTo(self.mapView.snp_bottom);
+        //   make.top.equalTo(0);
+        // }
         self.viewDidLayoutSubviews()
         let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
         dispatch_after(dispatchTime, dispatch_get_main_queue(), {
             
-          //  self.scrollView.contentSize = self.contentView.bounds.size
+            //  self.scrollView.contentSize = self.contentView.bounds.size
         })
     }
     
@@ -229,7 +229,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
         
         for (index, waypoint) in trip.waypoints.enumerate() {
             let feature = waypoint.feature as! PointOfInterest
-                        
+            
             let annotation = CustomPointAnnotation()
             annotation.position = index
             annotation.coordinate = CLLocationCoordinate2DMake(feature.location!.coordinate.latitude,feature.location!.coordinate.longitude)
@@ -242,7 +242,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-      //  scrollView.contentSize = contentView.bounds.size
+        //  scrollView.contentSize = contentView.bounds.size
     }
     
     
@@ -261,9 +261,9 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
             
         }
         
-       // let backgroundImage = UIImage(named:"DAYC_GREEN_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
+        // let backgroundImage = UIImage(named:"DAYC_GREEN_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
         
-       // self.navigationController?.navigationBar.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.w, 60)
+        // self.navigationController?.navigationBar.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.w, 60)
         self.view.backgroundColor = UIColor.whiteColor()
         self.navigationController?.setNavigationBarHidden(false, animated:false)
     }

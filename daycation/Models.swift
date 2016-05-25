@@ -253,6 +253,7 @@ class Trip: Feature {
     var lastVisitedWaypoint: Waypoint?
     var featuredImage: FeatureImage?
     var location: CLLocation?
+    var contributor: User?
     func parse(data:NSDictionary) -> Trip{
         self.id = data["id"] as? Int
         self.likes = data["likers_count"] as? Int
@@ -292,6 +293,16 @@ class Trip: Feature {
         }
         
         if let geometry = data["first_waypoint_geometry"] as? NSDictionary {
+            if let type = geometry["type"] as? NSString {
+                if  type == "Point" {
+                    if let coordinates = geometry["coordinates"] as? NSArray {
+                        location = CLLocation(latitude: (coordinates[1] as?  Double)!, longitude: (coordinates[0] as?  Double)!)
+                    }
+                }
+            }
+        }
+        
+        if let geometry = data["contributor"] as? NSDictionary {
             if let type = geometry["type"] as? NSString {
                 if  type == "Point" {
                     if let coordinates = geometry["coordinates"] as? NSArray {
