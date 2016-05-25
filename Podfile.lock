@@ -21,7 +21,7 @@ PODS:
   - PKHUD (3.1.0)
   - SnapKit (0.15.0)
   - SwiftKeychain (1.0.0)
-  - TZStackView (1.1.2)
+  - UICollectionViewLeftAlignedLayout (1.0.2)
 
 DEPENDENCIES:
   - Alamofire (= 3.2.0)
@@ -36,7 +36,7 @@ DEPENDENCIES:
   - p2.OAuth2
   - PKHUD
   - SnapKit (~> 0.15.0)
-  - TZStackView (= 1.1.2)
+  - UICollectionViewLeftAlignedLayout
 
 EXTERNAL SOURCES:
   DOFavoriteButton:
@@ -62,6 +62,6 @@ SPEC CHECKSUMS:
   PKHUD: 4167eccdb1b3a892fd80ce2b51cb6ba412a889ab
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftKeychain: fd9ad69f7b3ff7a0c7ba579da508bbaa89a395b2
-  TZStackView: 19aeaa414fb653f4be9b80a73f4f0c66e33bf033
+  UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
 COCOAPODS: 0.39.0
