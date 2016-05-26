@@ -115,7 +115,7 @@ class UICollectionViewLeftAlignedLayout: UICollectionViewFlowLayout {
         return self.sectionInset
     }
 }
-class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
+class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate{
     
     var tripImage: UIImageView!
     var mapView: MKMapView!
@@ -131,6 +131,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     var contentView: UIView!
     var likeView: UIView!
     var aboutView: UIView!
+    var waypointTableView: UITableView!
     var selectedView: UIView!
     let cache = Shared.imageCache
     var aboutSeparatorImage: UIImageView!
@@ -348,13 +349,63 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         speciesView!.backgroundColor = UIColor(hexString: "#fff9e1")
         speciesView!.registerClass(SpeciesViewCell.self, forCellWithReuseIdentifier: "SpeciesViewCell")
         aboutView.addSubview(speciesView!)
-
-        selectedView = aboutView
+        
         contentView.addSubview(aboutView)
+        selectedView = aboutView
+        
+        waypointTableView = UITableView(frame: CGRectMake(0,streamButton.bottom, self.view.w, 200))
+        waypointTableView.dataSource = self
+        waypointTableView.delegate = self
+        waypointTableView.alwaysBounceVertical = false
+        waypointTableView.scrollEnabled = false
+        waypointTableView.hidden = true
+        waypointTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        waypointTableView.separatorInset = UIEdgeInsetsZero
+        waypointTableView.backgroundColor = UIColor(hexString: "#fff9e1")
+        waypointTableView.layer.borderColor = UIColor(patternImage:UIImage(named: "daycationbar")!).CGColor
+        waypointTableView.layer.borderWidth=10
+        
+        self.waypointTableView.registerClass(WaypointViewCell.self, forCellReuseIdentifier: "WaypointCell")
+        contentView.addSubview(waypointTableView)
+        
         
         
         
     }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
+        return 50.0
+    }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if(tableView == self.waypointTableView){
+            return self.trip.waypoints.count
+        } else {
+            return 0
+        }
+        
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+       // if(tableView == self.waypointTableView){
+            let cell:WaypointViewCell = self.waypointTableView.dequeueReusableCellWithIdentifier("WaypointCell")! as! WaypointViewCell
+            let waypoint:Waypoint = self.trip.waypoints[indexPath.row]
+            cell.loadItem(waypoint)
+            
+            return cell
+        //}
+    }
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("You selected cell #\(indexPath.row)!")
+        
+        
+        // tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
+    }
+
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -398,21 +449,29 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+          if  (self.aboutSeparatorImage != nil) {
         self.aboutSeparatorImage.y = self.tripDescriptionLabel.bottomOffset(5)
         self.speciesView.y = self.aboutSeparatorImage.bottomOffset(5)
         self.speciesView.h = self.speciesView.contentSize.height+20
-        self.aboutView.h = self.speciesView.bottom
-        self.contentView.h=self.aboutView.bottom
+            
+            self.waypointTableView.h = self.waypointTableView.contentSize.height+20
+            
+            self.waypointTableView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right:10)
+            self.aboutView.h = self.speciesView.bottom
+           self.contentView.h=self.selectedView.bottom
         self.scrollView.contentSize = self.contentView.bounds.size
+        }
     }
     func btnTouched(sender: UIButton){
+        if selectedButton == sender {
+            return
+        }
         selectedView.hidden = true
         UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5,
                                    initialSpringVelocity: 0.5, options: [], animations: {
                                     if let selectedButton = self.selectedButton {
                                         selectedButton.h = 40
-                                        selectedButton.y = selectedButton.y+20
+                                        selectedButton.y = selectedButton.y+10
                                     }
             }, completion: nil)
         selectedButton = sender
@@ -425,8 +484,8 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
                                         sender.y = sender.y-10
                                         self.selectedView.hidden = false
                 }, completion: nil)
-        } else  {
-            selectedView = aboutView
+        } else if(sender.tag == 2){
+            selectedView = waypointTableView
             UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5,
                                        initialSpringVelocity: 0.5, options: [], animations: {
                                         sender.h = 50
@@ -434,6 +493,9 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
                                         self.selectedView.hidden = false
                 }, completion: nil)
         }
+        
+        self.contentView.h=self.selectedView.bottom
+        self.scrollView.contentSize = self.contentView.bounds.size
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -595,6 +657,9 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
                 self.species = self.trip.properties[i].values!
                 self.speciesView.reloadData()
             }
+            self.waypointTableView.reloadData()
+            
+           // self.waypointTableView.h = CGFloat((self.trip.waypoints.count*50)+20)
             self.updateLikeCount()
             self.addWaypoints()
             
