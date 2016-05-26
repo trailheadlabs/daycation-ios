@@ -258,6 +258,7 @@
 		AA2F66E91CF4E173003464AB /* TripFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F66E81CF4E173003464AB /* TripFilterView.swift */; };
 		AA2F66EB1CF4E50D003464AB /* TripMapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F66EA1CF4E50D003464AB /* TripMapCell.swift */; };
 		AA2F66ED1CF63734003464AB /* SpeciesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F66EC1CF63734003464AB /* SpeciesViewCell.swift */; };
+		AAAD977B1CF7ADF900981F76 /* WaypointViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAD977A1CF7ADF900981F76 /* WaypointViewCell.swift */; };
 		AAB344A91CEFBD9F006CC849 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */; };
 		AAB344AE1CEFBD9F006CC849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AC1CEFBD9F006CC849 /* Main.storyboard */; };
 		AAB344B01CEFBD9F006CC849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AF1CEFBD9F006CC849 /* Assets.xcassets */; };
@@ -554,6 +555,7 @@
 		AA2F66E81CF4E173003464AB /* TripFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripFilterView.swift; sourceTree = "<group>"; };
 		AA2F66EA1CF4E50D003464AB /* TripMapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripMapCell.swift; sourceTree = "<group>"; };
 		AA2F66EC1CF63734003464AB /* SpeciesViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesViewCell.swift; sourceTree = "<group>"; };
+		AAAD977A1CF7ADF900981F76 /* WaypointViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointViewCell.swift; sourceTree = "<group>"; };
 		AAB344A51CEFBD9F006CC849 /* Daycation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daycation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB344AD1CEFBD9F006CC849 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -898,6 +900,7 @@
 				AA2F66EA1CF4E50D003464AB /* TripMapCell.swift */,
 				AA2F66E81CF4E173003464AB /* TripFilterView.swift */,
 				AA2F66EC1CF63734003464AB /* SpeciesViewCell.swift */,
+				AAAD977A1CF7ADF900981F76 /* WaypointViewCell.swift */,
 			);
 			name = trips;
 			sourceTree = "<group>";
@@ -1452,6 +1455,7 @@
 				AA13BD8A1CEFCD04009F0FC2 /* LocationData.swift in Sources */,
 				AAB344ED1CEFC087006CC849 /* TripDetailViewController.swift in Sources */,
 				AAB344EA1CEFC087006CC849 /* LoginViewController.swift in Sources */,
+				AAAD977B1CF7ADF900981F76 /* WaypointViewCell.swift in Sources */,
 				AAB344F11CEFC087006CC849 /* PostDetailViewController.swift in Sources */,
 				AA2F66ED1CF63734003464AB /* SpeciesViewCell.swift in Sources */,
 				AAB344F31CEFC087006CC849 /* PostCreateViewController.swift in Sources */,
