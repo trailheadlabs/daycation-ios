@@ -7,6 +7,7 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
   - DOFavoriteButton (0.0.4)
+  - Dollar (5.0.1)
   - Eureka (1.5.0)
   - EZSwiftExtensions (1.4)
   - FBSDKCoreKit (4.12.0):
@@ -21,11 +22,11 @@ PODS:
   - PKHUD (3.1.0)
   - SnapKit (0.15.0)
   - SwiftKeychain (1.0.0)
-  - UICollectionViewLeftAlignedLayout (1.0.2)
 
 DEPENDENCIES:
   - Alamofire (= 3.2.0)
   - DOFavoriteButton (from `https://github.com/okmr-d/DOFavoriteButton.git`)
+  - Dollar
   - Eureka
   - EZSwiftExtensions
   - FBSDKCoreKit
@@ -36,7 +37,6 @@ DEPENDENCIES:
   - p2.OAuth2
   - PKHUD
   - SnapKit (~> 0.15.0)
-  - UICollectionViewLeftAlignedLayout
 
 EXTERNAL SOURCES:
   DOFavoriteButton:
@@ -51,6 +51,7 @@ SPEC CHECKSUMS:
   Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   DOFavoriteButton: 866e15af173d2dd5233971a1f657a5f31d2491d5
+  Dollar: 9ef817b4f35b61e982f9812a2b01ed6270978cc1
   Eureka: 2fb37bb50569c62ee3284689d5b7aca694b040e0
   EZSwiftExtensions: db7be0022fce8e92cdfe0fadddaf835fcd9696db
   FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
@@ -62,6 +63,5 @@ SPEC CHECKSUMS:
   PKHUD: 4167eccdb1b3a892fd80ce2b51cb6ba412a889ab
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftKeychain: fd9ad69f7b3ff7a0c7ba579da508bbaa89a395b2
-  UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
 COCOAPODS: 0.39.0
