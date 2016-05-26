@@ -16,12 +16,112 @@ import Haneke
 import SnapKit
 import MapKit
 
+import UIKit
+class DynamicCollectionView: UICollectionView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if bounds.size != intrinsicContentSize() {
+            invalidateIntrinsicContentSize()
+        }
+    }
+    
+    override func intrinsicContentSize() -> CGSize {
+        return self.contentSize
+    }
+}
+extension UICollectionViewLayoutAttributes {
+    func leftAlignFrameWithSectionInset(sectionInset:UIEdgeInsets){
+        var frame = self.frame
+        frame.origin.x = sectionInset.left
+        self.frame = frame
+    }
+}
+
+class UICollectionViewLeftAlignedLayout: UICollectionViewFlowLayout {
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        
+        var attributesCopy: [UICollectionViewLayoutAttributes] = []
+        if let attributes = super.layoutAttributesForElementsInRect(rect) {
+            attributes.forEach({ attributesCopy.append($0.copy() as! UICollectionViewLayoutAttributes) })
+        }
+        
+        for attributes in attributesCopy {
+            if attributes.representedElementKind == nil {
+                let indexpath = attributes.indexPath
+                if let attr = layoutAttributesForItemAtIndexPath(indexpath) {
+                    attributes.frame = attr.frame
+                }
+            }
+        }
+        return attributesCopy
+    }
+    
+    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        if let currentItemAttributes = super.layoutAttributesForItemAtIndexPath(indexPath)?.copy() as? UICollectionViewLayoutAttributes {
+            let sectionInset = self.evaluatedSectionInsetForItemAtIndex(indexPath.section)
+            let isFirstItemInSection = indexPath.item == 0
+            let layoutWidth = CGRectGetWidth(self.collectionView!.frame) - sectionInset.left - sectionInset.right
+            
+            if (isFirstItemInSection) {
+                currentItemAttributes.leftAlignFrameWithSectionInset(sectionInset)
+                return currentItemAttributes
+            }
+            
+            let previousIndexPath = NSIndexPath(forItem: indexPath.item - 1, inSection: indexPath.section)
+            
+            let previousFrame = layoutAttributesForItemAtIndexPath(previousIndexPath)?.frame ?? CGRectZero
+            let previousFrameRightPoint = previousFrame.origin.x + previousFrame.width
+            let currentFrame = currentItemAttributes.frame
+            let strecthedCurrentFrame = CGRectMake(sectionInset.left,
+                                                   currentFrame.origin.y,
+                                                   layoutWidth,
+                                                   currentFrame.size.height)
+            // if the current frame, once left aligned to the left and stretched to the full collection view
+            // widht intersects the previous frame then they are on the same line
+            let isFirstItemInRow = !CGRectIntersectsRect(previousFrame, strecthedCurrentFrame)
+            
+            if (isFirstItemInRow) {
+                // make sure the first item on a line is left aligned
+                currentItemAttributes.leftAlignFrameWithSectionInset(sectionInset)
+                return currentItemAttributes
+            }
+            
+            var frame = currentItemAttributes.frame
+            frame.origin.x = previousFrameRightPoint + evaluatedMinimumInteritemSpacingForSectionAtIndex(indexPath.section)
+            currentItemAttributes.frame = frame
+            return currentItemAttributes
+            
+        }
+        return nil
+    }
+    
+    func evaluatedMinimumInteritemSpacingForSectionAtIndex(sectionIndex:Int) -> CGFloat {
+        if let delegate = self.collectionView?.delegate as? UICollectionViewDelegateFlowLayout {
+            if delegate.respondsToSelector(#selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:minimumInteritemSpacingForSectionAtIndex:))) {
+                return delegate.collectionView!(self.collectionView!, layout: self, minimumInteritemSpacingForSectionAtIndex: sectionIndex)
+                
+            }
+        }
+        return self.minimumInteritemSpacing
+        
+    }
+    
+    func evaluatedSectionInsetForItemAtIndex(index: Int) ->UIEdgeInsets {
+        if let delegate = self.collectionView?.delegate as? UICollectionViewDelegateFlowLayout {
+            if  delegate.respondsToSelector(#selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAtIndex:))) {
+                return delegate.collectionView!(self.collectionView!, layout: self, insetForSectionAtIndex: index)
+            }
+        }
+        return self.sectionInset
+    }
+}
 class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     
     var tripImage: UIImageView!
     var mapView: MKMapView!
     var likeCountLabel: UILabel!
     var tripNameLabel: UILabel!
+    var tripDescriptionLabel: UILabel!
     var contributorText: UILabel!
     var broughtToYouByLabel: UILabel!
     var trip: Trip!
@@ -33,9 +133,10 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     var aboutView: UIView!
     var selectedView: UIView!
     let cache = Shared.imageCache
-    var speciesView: UICollectionView!
+    var aboutSeparatorImage: UIImageView!
+    var speciesView: DynamicCollectionView!
     var profileImageView:UIImageView?
-    let species = ["Opossum",
+    var species = ["Opossum",
                    "Shrews",
                    "Bats",
                    "Pikas",
@@ -65,7 +166,11 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         let a = UIBarButtonItem(title: "Share", style: .Plain, target: self, action:#selector(TripDetailViewController.shareButtonClicked(_:)))
         self.navigationItem.rightBarButtonItem = a
         
-        scrollView = UIScrollView(frame: CGRectMake(0, 0, view.w, view.h))
+        
+        scrollView = UIScrollView()
+        scrollView.y = 0
+        scrollView.w = view.w
+        scrollView.h = view.bottomOffset(-143)
         scrollView.userInteractionEnabled = true
         self.view.addSubview(scrollView)
         
@@ -74,7 +179,6 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         contentView.h = view.h
         contentView.userInteractionEnabled = true
         contentView.backgroundColor = UIColor(hexString: "#fff9e1")
-        
        
         self.profileImageView=UIImageView(frame: CGRectMake(20, 10, 60, 60))
         self.profileImageView!.layer.borderWidth = 1
@@ -214,19 +318,35 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         self.contentView.addSubview(streamButton)
         
         aboutView = UIView(frame: CGRectMake(0,streamButton.bottom, self.view.w, 200))
-        aboutView.backgroundColor = UIColor(hexString: "#f999e1")
+        aboutView.backgroundColor = UIColor(hexString: "#fff9e1")
         aboutView.layer.borderColor = UIColor(patternImage:UIImage(named: "daycationbar")!).CGColor
         aboutView.layer.borderWidth=10
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 14, left: 2, bottom: 14, right: 2)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        speciesView = UICollectionView(frame: CGRectMake(0,0, self.view.w, 200), collectionViewLayout: layout)
+        
+        
+        
+        tripDescriptionLabel = UILabel(frame:CGRectMake(20,15, self.view.w-40, 200))
+        tripDescriptionLabel.font = UIFont(name: "Quicksand-Bold", size: 12)
+        tripDescriptionLabel.textColor = UIColor(hexString: "#5f5f5f")
+        tripDescriptionLabel.numberOfLines = 1000
+        aboutView.addSubview(tripDescriptionLabel)
+        
+        
+        aboutSeparatorImage=UIImageView(frame: CGRectMake( 20, tripImage.topOffset(12), self.view.w-40, 5))
+        aboutSeparatorImage.contentMode = UIViewContentMode.ScaleAspectFill
+        aboutSeparatorImage.clipsToBounds = true
+        aboutSeparatorImage.image = UIImage(named:"Daycation_Divider-011.png")
+        aboutView.addSubview(aboutSeparatorImage)
+        
+        self.contentView.addSubview(separatorImage)
+        let layout: UICollectionViewFlowLayout = UICollectionViewLeftAlignedLayout()
+        layout.sectionInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 2
+        speciesView = DynamicCollectionView(frame: CGRectMake(20,50, self.view.w-40, 20), collectionViewLayout: layout)
         speciesView!.dataSource = self
         speciesView!.delegate = self
-        
+        speciesView!.backgroundColor = UIColor(hexString: "#fff9e1")
         speciesView!.registerClass(SpeciesViewCell.self, forCellWithReuseIdentifier: "SpeciesViewCell")
-        speciesView!.backgroundColor = UIColor.whiteColor()
         aboutView.addSubview(speciesView!)
 
         selectedView = aboutView
@@ -240,41 +360,51 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 18
+        return species.count+1
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        let font = UIFont.systemFontOfSize(20)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .ByWordWrapping;
-        let  attributes = [NSFontAttributeName:font,
-                           NSParagraphStyleAttributeName:paragraphStyle.copy()]
+        let  attributes = [NSFontAttributeName:UIFont(name: "Quicksand-Bold", size: 12)!]
         let size = CGSizeMake(CGFloat.max,CGFloat.max)
         var text = ""
         if  indexPath.row == 0 {
-            text = "SPECIE:"
+            text = "SPECIES:"
         }else {
             text = species[indexPath.row-1] as NSString as String
             
         }
         let rect = text.boundingRectWithSize(size, options:.UsesLineFragmentOrigin, attributes: attributes, context:nil)
         
-        return CGSize(width: rect.width,height: rect.height )
+        return CGSize(width: rect.width+6,height: rect.height+2 )
         
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SpeciesViewCell", forIndexPath: indexPath) as! SpeciesViewCell
         if  indexPath.row == 0 {
             
-            cell.textLabel?.text = "SPECIE:"
+            cell.textLabel?.text = "SPECIES:"
             cell.backgroundColor = UIColor.clearColor()
+            cell.textLabel?.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 12)
+            cell.textLabel?.textColor = UIColor(hexString: "#36a174")
         }else {
             cell.textLabel?.text = species[indexPath.row-1]
             
-            cell.backgroundColor = UIColor.greenColor()
+            cell.textLabel?.font = UIFont(name: "Quicksand-Bold", size: 12)
+            cell.textLabel?.textColor = UIColor(hexString: "#fff9e1")
+            cell.backgroundColor = UIColor(hexString: "#36a174")
         }
         cell.textLabel?.sizeToFit()
         return cell
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        self.aboutSeparatorImage.y = self.tripDescriptionLabel.bottomOffset(5)
+        self.speciesView.y = self.aboutSeparatorImage.bottomOffset(5)
+        self.speciesView.h = self.speciesView.contentSize.height+20
+        self.aboutView.h = self.speciesView.bottom
+        self.contentView.h=self.aboutView.bottom
+        self.scrollView.contentSize = self.contentView.bounds.size
     }
     func btnTouched(sender: UIButton){
         selectedView.hidden = true
@@ -417,10 +547,6 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        //  scrollView.contentSize = contentView.bounds.size
-    }
     
     
     override func viewWillAppear(animated: Bool) {
@@ -462,6 +588,13 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             self.likeCountLabel.hidden = false
             self.heartButton.hidden = false
            // hnk_setImageFromURL(self.trip.contributor.currentUser!.profile!.imageUrl!)
+            
+            self.tripDescriptionLabel.text = self.trip.description
+            self.tripDescriptionLabel.sizeToFit()
+            if let i = self.trip.properties.indexOf({$0.key == "species"}) {
+                self.species = self.trip.properties[i].values!
+                self.speciesView.reloadData()
+            }
             self.updateLikeCount()
             self.addWaypoints()
             
@@ -470,7 +603,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         var btn = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "backBtnClicked")
         self.navigationController?.navigationBar.topItem?.backBarButtonItem=btn
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.translucent = true
+        self.navigationController?.navigationBar.translucent = false
         self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:"Daycations")
         self.navigationController?.setNavigationBarHidden(false, animated:false)
     }

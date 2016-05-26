@@ -21,7 +21,7 @@ class SpeciesViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         let font = UIFont.systemFontOfSize(20)
-        let textFrame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        let textFrame = CGRect(x: 3, y: 0, width: 0, height: 0)
         textLabel = UILabel(frame: textFrame)
         textLabel!.font = font
         textLabel!.textAlignment = .Center

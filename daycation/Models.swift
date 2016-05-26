@@ -245,6 +245,7 @@ class Application {
 class Trip: Feature {
     var id: Int?
     var name: String?
+    var description: String?
     var likes: Int?
     var liked: Bool = false
     var images: [FeatureImage] = []
@@ -262,6 +263,9 @@ class Trip: Feature {
         let lastVisitedWaypointId = data["last_visited_waypoint_id"] as? Int
         if let name = data["name"] as? String {
             self.name = name
+        }
+        if let description = data["text_description"] as? String {
+            self.description = description
         }
         
         if let jsonproperties = data["application_properties"] as? NSArray {
