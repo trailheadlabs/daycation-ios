@@ -132,10 +132,15 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     var likeView: UIView!
     var aboutView: UIView!
     var waypointTableView: UITableView!
+    var streamTableView: UITableView!
     var selectedView: UIView!
     let cache = Shared.imageCache
     var aboutSeparatorImage: UIImageView!
     var speciesView: DynamicCollectionView!
+    var photoCollectionView: DynamicCollectionView!
+    
+    var posts = [Post]()
+    var page = 1
     var profileImageView:UIImageView?
     var species = ["Opossum",
                    "Shrews",
@@ -167,6 +172,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         let a = UIBarButtonItem(title: "Share", style: .Plain, target: self, action:#selector(TripDetailViewController.shareButtonClicked(_:)))
         self.navigationItem.rightBarButtonItem = a
         
+        self.view.backgroundColor = UIColor(hexString: "#fff9e1")
         
         scrollView = UIScrollView()
         scrollView.y = 0
@@ -368,11 +374,59 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         self.waypointTableView.registerClass(WaypointViewCell.self, forCellReuseIdentifier: "WaypointCell")
         contentView.addSubview(waypointTableView)
         
+        let photoLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        
+        let size = (self.view.frame.size.width/3) - 10
+        let height = (CGFloat (size) * ceil(CGFloat (trip!.images.count)/3))
+        
+        photoCollectionView = DynamicCollectionView(frame: CGRectMake(0,streamButton.bottom, self.view.w, height+30), collectionViewLayout: photoLayout)
+        photoCollectionView.dataSource = self
+        photoCollectionView.delegate = self
+        photoCollectionView.hidden = true
+        photoCollectionView.scrollEnabled = false;
+        photoCollectionView.registerClass(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        photoCollectionView.backgroundColor = UIColor(hexString: "#fff9e1")
+        photoCollectionView.reloadData()
+        photoCollectionView.layer.borderColor = UIColor(patternImage:UIImage(named: "daycationbar")!).CGColor
+        photoCollectionView.layer.borderWidth=10
+        photoCollectionView.contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20)
+        contentView.addSubview(photoCollectionView)
+        
+        streamTableView = UITableView(frame: CGRectMake(0,streamButton.bottom, self.view.w, 1200))
+        streamTableView.dataSource = self
+        streamTableView.delegate = self
+        streamTableView.alwaysBounceVertical = false
+        streamTableView.scrollEnabled = false
+        streamTableView.hidden = true
+        streamTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        streamTableView.separatorInset = UIEdgeInsetsZero
+        streamTableView.backgroundColor = UIColor(hexString: "#fff9e1")
+        streamTableView.layer.borderColor = UIColor(patternImage:UIImage(named: "daycationbar")!).CGColor
+        streamTableView.layer.borderWidth=10
+        streamTableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+        self.streamTableView.registerClass(PostsViewCell.self, forCellReuseIdentifier: "PostCell")
+        contentView.addSubview(streamTableView)
         
         
         
     }
     
+    
+    func loadStream(){
+        OuterspatialClient.sharedInstance.getPosts(page,parameters: [:]) {
+            (result: [Post]?,error: String?) in
+            if let posts = result {
+                print("got back: \(result)")
+                //  self.streamactInd.stopAnimating()
+                self.posts = posts
+                self.streamTableView.reloadData()
+               self.streamTableView.h = CGFloat(50 * posts.count)+40
+            }
+            if let error = error{
+                HUD.flash(.Label(error), delay: 2.0)
+            }
+        }
+    }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
         return 50.0
     }
@@ -381,20 +435,28 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         if(tableView == self.waypointTableView){
             return self.trip.waypoints.count
         } else {
-            return 0
+            return self.posts.count
         }
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-       // if(tableView == self.waypointTableView){
+        if(tableView == self.waypointTableView){
             let cell:WaypointViewCell = self.waypointTableView.dequeueReusableCellWithIdentifier("WaypointCell")! as! WaypointViewCell
             let waypoint:Waypoint = self.trip.waypoints[indexPath.row]
+            waypoint.position = indexPath.row
             cell.loadItem(waypoint)
             
             return cell
-        //}
+        }
+        else{
+            let cell:PostsViewCell = self.streamTableView.dequeueReusableCellWithIdentifier("PostCell")! as! PostsViewCell
+            let post:Post = self.posts[indexPath.row]
+            cell.loadItem(post)
+            
+            return cell
+        }
     }
     
     
@@ -402,8 +464,29 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         print("You selected cell #\(indexPath.row)!")
         
         
-        // tableView.deselectRowAtIndexPath(indexPath, animated: false)
+         tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        if(tableView == self.waypointTableView){
+            
+            let waypoint = trip.waypoints[indexPath.row]
+            var index = 0
+          index = trip.waypoints.indexOf { $0.id! == waypoint.id! }!
+            
+            let navigationViewController = WaypointDetailViewController(trip: trip,index: index)
+            self.navigationController?.pushViewController(navigationViewController, animated: true)
+        }
+        else{
+            let post = posts[indexPath.row]
+            let navigationViewController = PostDetailViewController(post: post, completionBlock: removePost)
+            self.navigationController?.pushViewController(navigationViewController, animated: true)
+        }
         
+    }
+    
+    func removePost(post: Post) {
+        self.posts = self.posts.filter({
+            $0.id != post.id
+        })
+        self.streamTableView.reloadData()
     }
 
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -411,41 +494,62 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return species.count+1
+        
+        if  collectionView == speciesView {
+            return species.count+1
+        }else {
+          return trip!.images.count
+
+        }
+        
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        let  attributes = [NSFontAttributeName:UIFont(name: "Quicksand-Bold", size: 12)!]
-        let size = CGSizeMake(CGFloat.max,CGFloat.max)
-        var text = ""
-        if  indexPath.row == 0 {
-            text = "SPECIES:"
+        if  collectionView == speciesView {
+            
+            let  attributes = [NSFontAttributeName:UIFont(name: "Quicksand-Bold", size: 12)!]
+            let size = CGSizeMake(CGFloat.max,CGFloat.max)
+            var text = ""
+            if  indexPath.row == 0 {
+                text = "SPECIES:"
+            }else {
+                text = species[indexPath.row-1] as NSString as String
+                
+            }
+            let rect = text.boundingRectWithSize(size, options:.UsesLineFragmentOrigin, attributes: attributes, context:nil)
+            
+            return CGSize(width: rect.width+6,height: rect.height+2 )
         }else {
-            text = species[indexPath.row-1] as NSString as String
+            return CGSize(width: (self.view.frame.size.width/3) - 20,height: (self.view.frame.size.width/3) - 20 )
             
         }
-        let rect = text.boundingRectWithSize(size, options:.UsesLineFragmentOrigin, attributes: attributes, context:nil)
-        
-        return CGSize(width: rect.width+6,height: rect.height+2 )
         
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SpeciesViewCell", forIndexPath: indexPath) as! SpeciesViewCell
-        if  indexPath.row == 0 {
-            
-            cell.textLabel?.text = "SPECIES:"
-            cell.backgroundColor = UIColor.clearColor()
-            cell.textLabel?.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 12)
-            cell.textLabel?.textColor = UIColor(hexString: "#36a174")
+        
+        if  collectionView == speciesView {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SpeciesViewCell", forIndexPath: indexPath) as! SpeciesViewCell
+            if  indexPath.row == 0 {
+                
+                cell.textLabel?.text = "SPECIES:"
+                cell.backgroundColor = UIColor.clearColor()
+                cell.textLabel?.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 12)
+                cell.textLabel?.textColor = UIColor(hexString: "#36a174")
+            }else {
+                cell.textLabel?.text = species[indexPath.row-1]
+                
+                cell.textLabel?.font = UIFont(name: "Quicksand-Bold", size: 12)
+                cell.textLabel?.textColor = UIColor(hexString: "#fff9e1")
+                cell.backgroundColor = UIColor(hexString: "#36a174")
+            }
+            cell.textLabel?.sizeToFit()
+            return cell
         }else {
-            cell.textLabel?.text = species[indexPath.row-1]
-            
-            cell.textLabel?.font = UIFont(name: "Quicksand-Bold", size: 12)
-            cell.textLabel?.textColor = UIColor(hexString: "#fff9e1")
-            cell.backgroundColor = UIColor(hexString: "#36a174")
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PhotoCollectionViewCell
+            cell.setImage(self.trip!.images[indexPath.row])
+            return cell
         }
-        cell.textLabel?.sizeToFit()
-        return cell
+
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -478,22 +582,23 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         
         if(sender.tag == 1){
             selectedView = aboutView
-            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5,
-                                       initialSpringVelocity: 0.5, options: [], animations: {
-                                        sender.h = 50
-                                        sender.y = sender.y-10
-                                        self.selectedView.hidden = false
-                }, completion: nil)
         } else if(sender.tag == 2){
             selectedView = waypointTableView
-            UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5,
-                                       initialSpringVelocity: 0.5, options: [], animations: {
-                                        sender.h = 50
-                                        sender.y = sender.y-10
-                                        self.selectedView.hidden = false
-                }, completion: nil)
+        }
+        else if(sender.tag == 3){
+            selectedView = photoCollectionView
+        }
+        else if(sender.tag == 4){
+            selectedView = streamTableView
+            loadStream()
         }
         
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5,
+                                   initialSpringVelocity: 0.5, options: [], animations: {
+                                    sender.h = 50
+                                    sender.y = sender.y-10
+                                    self.selectedView.hidden = false
+            }, completion: nil)
         self.contentView.h=self.selectedView.bottom
         self.scrollView.contentSize = self.contentView.bounds.size
     }

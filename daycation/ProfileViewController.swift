@@ -138,27 +138,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         self.streamTableView.registerClass(PostsViewCell.self, forCellReuseIdentifier: "PostCell")
         streamTableView.layer.borderColor = UIColor(patternImage:UIImage(named: "Daycation_daycations_bar.png")!).CGColor
         
-        self.streamTableView.addInfiniteScrollingWithHandler {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-                dispatch_async(dispatch_get_main_queue(), { [unowned self] in
-                    self.page++
-                    OuterspatialClient.sharedInstance.getPosts(self.page,parameters: [:]) {
-                        (result: [Post]?,error: String?) in
-                        if let posts = result {
-                            print("got back: \(result)")
-                            
-                            self.posts.appendContentsOf(posts)
-                            
-                            self.streamTableView.reloadData()
-                            self.streamTableView.infiniteScrollingView?.stopAnimating()
-                        }
-                        if let error = error{
-                            HUD.flash(.Label(error), delay: 2.0)
-                        }
-                    }
-                    })
-            })
-        }
+     
         
         streamactInd = UIActivityIndicatorView(frame: CGRectMake(likesTableView.w/2-25,likesTableView.h/2-25, 50, 50)) as UIActivityIndicatorView
         streamactInd.hidesWhenStopped = true

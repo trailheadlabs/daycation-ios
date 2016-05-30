@@ -284,6 +284,7 @@ class Trip: Feature {
                 if featuredImageId == Int(tripImage.id!)  {
                     self.featuredImage = tripImage
                 }
+                images.append (tripImage)
             }
         }
         if let jsonwaypoints = data["waypoints"] as? NSArray {
