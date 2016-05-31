@@ -16,18 +16,49 @@ import DOFavoriteButton
 import Haneke
 import SnapKit
 import MapKit
-class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
+class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     
     var waypointImage: UIImageView!
+    var separatorImage: UIImageView!
+    var bottomSeparatorImage: UIImageView!
+    var descriptionSeparatorImage: UIImageView!
+    var speciesSeparatorImage: UIImageView!
+    var featuredImage: UIImageView!
     var feature: PointOfInterest!
     var mapView: MKMapView!
+    var speciesText: UILabel!
     var waypointPositionText: UILabel!
     var waypointNameText: UILabel!
+    var waypointAddress: UILabel!
+    var descriptionLabel: UILabel!
+    var  directionsLabel: UnderlinedLabel!
+    var  googleDirectionsLabel: UnderlinedLabel!
     var trip: Trip!
     var scrollView: UIScrollView!
     var contentView: UIView!
     var position: Int!
     let cache = Shared.imageCache
+    var backButton:UIButton!
+    var nextButton:UIButton!
+    var speciesView: DynamicCollectionView!
+    var species = ["Opossum",
+                   "Shrews",
+                   "Bats",
+                   "Pikas",
+                   "Mountain beaver",
+                   "Squirrels",
+                   "Pocket gophers",
+                   "Beavers",
+                   "Rats",
+                   "Porcupines",
+                   "Coyotes",
+                   "Bears",
+                   "Seals and sea lions",
+                   "Ringtails and raccoons",
+                   "Weasels",
+                   "Cats",
+                   "Hoofed mammals",
+                   "Whales"]
     convenience init(trip: Trip, index:Int) {
         self.init()
         self.trip = trip
@@ -39,12 +70,15 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = ""
+        self.view.backgroundColor = UIColor(hexString: "#fff9e1")
         
         let a = UIBarButtonItem(title: "Post", style: .Plain, target: self, action:"tappedDone:")
         self.navigationItem.rightBarButtonItem = a
         
         scrollView = UIScrollView(frame: CGRectMake(0,0, self.view.w,  self.view.bottomOffset(-40)))
         scrollView.userInteractionEnabled = true
+        scrollView.h = view.bottomOffset(-143)
+        self.scrollView.backgroundColor = UIColor(hexString: "#fff9e1")
         self.view.addSubview(scrollView)
         
         contentView = UIView(frame: CGRectMake(0,0, self.view.w, self.view.h))
@@ -52,7 +86,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
         contentView.backgroundColor = UIColor(hexString: "#fff9e1")
         
         
-        mapView=MKMapView(frame: CGRectMake(0, 0, self.view.w, 195))
+        mapView=MKMapView(frame: CGRectMake(0, 0, self.view.w, 145))
         contentView.addSubview(mapView)
         mapView.userInteractionEnabled = true
         mapView.mapType = MKMapType.Standard
@@ -65,8 +99,8 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
         border.backgroundColor = UIColor(hexString: "#36a174")
         contentView.addSubview(border)
         
-        let backButton = UIButton(type: UIButtonType.System) as UIButton
-        backButton.frame = CGRectMake(10,self.mapView.bottomOffset(10),40,40)
+        backButton = UIButton(type: UIButtonType.System) as UIButton
+        backButton.frame = CGRectMake(10,self.mapView.bottomOffset(15),20,20)
         backButton.setImage(UIImage(named: "DAYC_GREY_ARROWS_LEFT@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
         
         contentView.addSubview(backButton)
@@ -75,8 +109,8 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
         backButton.userInteractionEnabled = true
         
         
-        let nextButton = UIButton(type: UIButtonType.System) as UIButton
-        nextButton.frame = CGRectMake(90,self.mapView.bottomOffset(10),40,40)
+        nextButton = UIButton(type: UIButtonType.System) as UIButton
+        nextButton.frame = CGRectMake(90,self.mapView.bottomOffset(15),20,20)
         nextButton.setImage(UIImage(named: "DAYC_GREY_ARROWS_RIGHT@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
         
         contentView.addSubview(nextButton)
@@ -85,21 +119,164 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
         nextButton.userInteractionEnabled = true
         
         
-        
-        waypointPositionText = UILabel(frame: CGRectMake(50,self.mapView.bottomOffset(10),self.view.w-40,40))
-        waypointPositionText.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 24)
+        waypointPositionText = UILabel(frame: CGRectMake(50,self.mapView.bottomOffset(12),self.view.w-40,40))
+        waypointPositionText.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 20)
         waypointPositionText.textColor = UIColor(hexString: "#f27f3b")
         
         contentView.addSubview(waypointPositionText)
         
         waypointNameText = UILabel(frame: CGRectMake(125,self.mapView.bottomOffset(10),self.view.rightOffset(-145),40))
-        waypointNameText.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 24)
+        waypointNameText.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 20)
         waypointNameText.textColor = UIColor(hexString: "#36a174")
         contentView.addSubview(waypointNameText)
         
+        
+        let shareImage = UIImageView()
+        shareImage.frame = CGRectMake(self.view.rightOffset(-40),self.mapView.bottomOffset(15),20,20)
+        shareImage.image = UIImage(named: "DAYC_Share@3x.png")
+        contentView.addSubview(shareImage)
+        
+        separatorImage=UIImageView(frame: CGRectMake( 0, waypointNameText.bottomOffset(5), self.view.frame.size.width, 5))
+        separatorImage.contentMode = UIViewContentMode.ScaleAspectFill
+        separatorImage.clipsToBounds = true
+        separatorImage.image = UIImage(named:"Daycation_Divider-011.png")
+        self.contentView.addSubview(separatorImage)
+        
+        
+        featuredImage = UIImageView()
+        featuredImage.frame = CGRectMake(10,self.separatorImage.bottomOffset(5),60,60)
+        featuredImage.setCornerRadius(radius: 5)
+        featuredImage.image = UIImage(named: "Icon-60@3x.png")
+        contentView.addSubview(featuredImage)
+        
+       bottomSeparatorImage=UIImageView(frame: CGRectMake( 0, featuredImage.bottomOffset(5), self.view.frame.size.width, 5))
+        bottomSeparatorImage.contentMode = UIViewContentMode.ScaleAspectFill
+        bottomSeparatorImage.clipsToBounds = true
+        bottomSeparatorImage.image = UIImage(named:"Daycation_Divider-011.png")
+        self.contentView.addSubview(bottomSeparatorImage)
+        
+        
+        waypointAddress = UILabel(frame: CGRectMake(50,self.mapView.bottomOffset(12),self.view.w-40,40))
+        waypointAddress.font = UIFont(name: "Quicksand-Bold", size: 14)
+        waypointAddress.textColor = UIColor(hexString: "#3f3f3f")
+        self.contentView.addSubview(waypointAddress)
+        
+        
+        directionsLabel = UnderlinedLabel(frame: CGRectMake(0, 180, self.view.frame.size.width, 24))
+        directionsLabel.textColor = UIColor(hexString: "#878787")
+        directionsLabel.font = UIFont(name: "Quicksand-Bold", size: 12)
+        directionsLabel.text = "Directions via Trimet Trip"
+        directionsLabel.userInteractionEnabled = true
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self, action: #selector(didDirectionsLabel))
+        directionsLabel.addGestureRecognizer(tap)
+        self.contentView.addSubview(directionsLabel)
+        
+        googleDirectionsLabel = UnderlinedLabel(frame: CGRectMake(0, 180, self.view.frame.size.width, 24))
+        googleDirectionsLabel.textColor = UIColor(hexString: "#878787")
+        googleDirectionsLabel.font = UIFont(name: "Quicksand-Bold", size: 12)
+        googleDirectionsLabel.text = "Directions via Google Maps"
+        googleDirectionsLabel.userInteractionEnabled = true
+        let googletap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self, action: #selector(didGoogleDirectionsLabel))
+        googleDirectionsLabel.addGestureRecognizer(googletap)
+        self.contentView.addSubview(googleDirectionsLabel)
+        
+        
+        descriptionLabel = UILabel(frame: CGRectMake(10,self.view.bottomOffset(12),self.view.w-20,40))
+        descriptionLabel.font = UIFont(name: "Quicksand-Bold", size: 14)
+        descriptionLabel.numberOfLines = 1000
+        descriptionLabel.textColor = UIColor(hexString: "#3f3f3f")
+        self.contentView.addSubview(descriptionLabel)
+        
+        descriptionSeparatorImage=UIImageView(frame: CGRectMake( 0, featuredImage.bottomOffset(5), self.view.frame.size.width, 5))
+        descriptionSeparatorImage.contentMode = UIViewContentMode.ScaleAspectFill
+        descriptionSeparatorImage.clipsToBounds = true
+        descriptionSeparatorImage.image = UIImage(named:"Daycation_Divider-011.png")
+        self.contentView.addSubview(descriptionSeparatorImage)
+        
+        
+        speciesText = UILabel(frame: CGRectMake(10,self.mapView.bottomOffset(10),self.view.rightOffset(-145),40))
+        speciesText.text = "SPECIES"
+        speciesText.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 18)
+        speciesText.textColor = UIColor(hexString: "#36a174")
+        contentView.addSubview(speciesText)
+        
+        let layout: UICollectionViewFlowLayout = UICollectionViewLeftAlignedLayout()
+        layout.sectionInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 2
+        speciesView = DynamicCollectionView(frame: CGRectMake(10,50, self.view.w-40, 20), collectionViewLayout: layout)
+        speciesView!.dataSource = self
+        speciesView!.delegate = self
+        speciesView!.backgroundColor = UIColor(hexString: "#fff9e1")
+        speciesView!.registerClass(SpeciesViewCell.self, forCellWithReuseIdentifier: "SpeciesViewCell")
+        self.contentView.addSubview(speciesView)
+        
+        speciesSeparatorImage=UIImageView(frame: CGRectMake( 0, featuredImage.bottomOffset(5), self.view.frame.size.width, 5))
+        speciesSeparatorImage.contentMode = UIViewContentMode.ScaleAspectFill
+        speciesSeparatorImage.clipsToBounds = true
+        speciesSeparatorImage.image = UIImage(named:"Daycation_Divider-011.png")
+        self.contentView.addSubview(speciesSeparatorImage)
         updateFeature(position)
     }
-    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        if  collectionView == speciesView {
+            return species.count
+        }else {
+            return trip!.images.count
+            
+        }
+        
+    }
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        if  collectionView == speciesView {
+            
+            let  attributes = [NSFontAttributeName:UIFont(name: "Quicksand-Bold", size: 12)!]
+            let size = CGSizeMake(CGFloat.max,CGFloat.max)
+            var text = species[indexPath.row] as NSString as String
+                
+          
+            let rect = text.boundingRectWithSize(size, options:.UsesLineFragmentOrigin, attributes: attributes, context:nil)
+            
+            return CGSize(width: rect.width+6,height: rect.height+2 )
+        }else {
+            return CGSize(width: (self.view.frame.size.width/3) - 20,height: (self.view.frame.size.width/3) - 20 )
+            
+        }
+        
+    }
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        if  collectionView == speciesView {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SpeciesViewCell", forIndexPath: indexPath) as! SpeciesViewCell
+
+                cell.textLabel?.text = species[indexPath.row]
+                
+                cell.textLabel?.font = UIFont(name: "Quicksand-Bold", size: 12)
+                cell.textLabel?.textColor = UIColor(hexString: "#fff9e1")
+                cell.backgroundColor = UIColor(hexString: "#36a174")
+           
+            cell.textLabel?.sizeToFit()
+            return cell
+        }else {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! PhotoCollectionViewCell
+            cell.setImage(self.trip!.images[indexPath.row])
+            return cell
+        }
+        
+    }
+
+    func didDirectionsLabel() {
+        let url = NSURL(string: "http://www.google.com/")
+        UIApplication.sharedApplication().openURL(url!)
+    }
+    func didGoogleDirectionsLabel() {
+        let url = NSURL(string: "http://www.google.com/")
+        UIApplication.sharedApplication().openURL(url!)
+    }
     func tappedBack(sender: UIButton) {
         if position>0 {
             updateFeature(position-1)
@@ -119,13 +296,54 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
         let waypoint = trip.waypoints[index]
         self.feature = waypoint.feature as! PointOfInterest
         waypointNameText.text = self.feature.name
-        let text = "\(String(self.position+1))/\(String(self.trip.waypoints.count))"
+        waypointAddress.text = "50100 Otter Lane"
+        descriptionLabel.text = "This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description."
+        let text = "\(String(self.position+1)) / \(String(self.trip.waypoints.count))"
         let attributedString = NSMutableAttributedString(string:text)
         
         let range = (text as NSString).rangeOfString("/")
         attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#949494")! , range: range)
         
         self.waypointPositionText.attributedText = attributedString
+        self.waypointPositionText.fitSize()
+        self.waypointPositionText.x=self.backButton.rightOffset(10)
+        self.nextButton.x=self.waypointPositionText.rightOffset(10)
+        
+        self.waypointNameText.fitSize()
+        self.waypointNameText.w=self.view.rightOffset(-60)-self.waypointNameText.x
+        self.waypointNameText.y=self.nextButton.y-3
+        
+        
+        self.separatorImage.y=self.waypointNameText.bottomOffset(5)
+        self.featuredImage.y=self.separatorImage.bottomOffset(10)
+        self.bottomSeparatorImage.y=self.featuredImage.bottomOffset(5)
+        
+        self.waypointAddress.fitSize()
+        self.waypointAddress.w=self.view.rightOffset(-60)-self.waypointNameText.x
+        self.waypointAddress.x=self.featuredImage.rightOffset(10)
+        self.waypointAddress.y=self.featuredImage.y
+        
+        self.directionsLabel.fitSize()
+        self.directionsLabel.w=self.view.rightOffset(-60)-self.waypointNameText.x
+        self.directionsLabel.x=self.featuredImage.rightOffset(10)
+        self.directionsLabel.y=self.waypointAddress.bottomOffset(10)
+        
+        self.googleDirectionsLabel.fitSize()
+        self.googleDirectionsLabel.w=self.view.rightOffset(-60)-self.waypointNameText.x
+        self.googleDirectionsLabel.x=self.featuredImage.rightOffset(10)
+        self.googleDirectionsLabel.y=self.waypointAddress.bottomOffset(24)
+        
+        self.bottomSeparatorImage.y=self.featuredImage.bottomOffset(10)
+        
+      self.descriptionLabel.fitHeight()
+        self.descriptionLabel.y=self.bottomSeparatorImage.bottomOffset(10)
+        
+        self.descriptionSeparatorImage.y=self.descriptionLabel.bottomOffset(10)
+        
+        self.speciesText.fitSize()
+        self.speciesText.y=self.descriptionSeparatorImage.bottomOffset(5)
+        
+        self.speciesView.y=self.speciesText.bottomOffset(2)
         
         if let i = mapView.annotations.indexOf({
             let po = $0 as! CustomPointAnnotation
@@ -242,7 +460,12 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate{
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        //  scrollView.contentSize = contentView.bounds.size
+        
+        self.speciesView.h = self.speciesView.contentSize.height
+        self.speciesSeparatorImage.y=self.speciesView.bottomOffset(2)
+        
+        self.contentView.h = self.speciesSeparatorImage.bottom
+        self.scrollView.contentSize = self.contentView.bounds.size
     }
     
     

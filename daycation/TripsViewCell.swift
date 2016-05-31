@@ -31,7 +31,6 @@ class TripsViewCell: UITableViewCell {
         tripImage=UIImageView()
         tripImage.contentMode = UIViewContentMode.ScaleAspectFill
         tripImage.clipsToBounds = true
-        tripImage.alpha = 0.5
         tripImage.setCornerRadius(radius: 5)
         self.addSubview(tripImage!)
         

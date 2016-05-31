@@ -260,6 +260,7 @@
 		AA2F66ED1CF63734003464AB /* SpeciesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA2F66EC1CF63734003464AB /* SpeciesViewCell.swift */; };
 		AAAD977B1CF7ADF900981F76 /* WaypointViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAD977A1CF7ADF900981F76 /* WaypointViewCell.swift */; };
 		AAAD977D1CFCCA8200981F76 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAD977C1CFCCA8100981F76 /* PhotoCollectionViewCell.swift */; };
+		AAAD977F1CFDE54900981F76 /* DAYC_Share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD977E1CFDE54900981F76 /* DAYC_Share@3x.png */; };
 		AAB344A91CEFBD9F006CC849 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */; };
 		AAB344AE1CEFBD9F006CC849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AC1CEFBD9F006CC849 /* Main.storyboard */; };
 		AAB344B01CEFBD9F006CC849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AF1CEFBD9F006CC849 /* Assets.xcassets */; };
@@ -558,6 +559,7 @@
 		AA2F66EC1CF63734003464AB /* SpeciesViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesViewCell.swift; sourceTree = "<group>"; };
 		AAAD977A1CF7ADF900981F76 /* WaypointViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointViewCell.swift; sourceTree = "<group>"; };
 		AAAD977C1CFCCA8100981F76 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		AAAD977E1CFDE54900981F76 /* DAYC_Share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Share@3x.png"; sourceTree = "<group>"; };
 		AAB344A51CEFBD9F006CC849 /* Daycation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daycation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB344AD1CEFBD9F006CC849 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -826,6 +828,7 @@
 				AA13BE421CEFCF84009F0FC2 /* Daycation_Paddling.png */,
 				AA13BE431CEFCF84009F0FC2 /* Daycation_Plants.png */,
 				AA13BE441CEFCF84009F0FC2 /* Daycation_Rope.png */,
+				AAAD977E1CFDE54900981F76 /* DAYC_Share@3x.png */,
 				AA13BE451CEFCF84009F0FC2 /* Daycation_stream_bar copy 2.png */,
 				AA13BE461CEFCF84009F0FC2 /* Daycation_stream_bar copy 3.png */,
 				AA13BE471CEFCF84009F0FC2 /* Daycation_stream_bar copy.png */,
@@ -1308,6 +1311,7 @@
 				AA13BEA21CEFCF85009F0FC2 /* DAYC_Icon_Elderly.png in Resources */,
 				AA13BF171CEFCF85009F0FC2 /* Daycation_Nav_Me.png in Resources */,
 				AA13BF211CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_8.png in Resources */,
+				AAAD977F1CFDE54900981F76 /* DAYC_Share@3x.png in Resources */,
 				AA13BF301CEFCF85009F0FC2 /* Daycation_stream_bar copy 3.png in Resources */,
 				AA13BEB31CEFCF85009F0FC2 /* DAYC_Icon_Handicap_access@3x.png in Resources */,
 				AA13BF261CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_highlighted_4.png in Resources */,
