@@ -159,6 +159,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         tripTableView.backgroundColor = UIColor(hexString: "#fff9e1")
         self.tripTableView.registerClass(TripsViewCell.self, forCellReuseIdentifier: "tripCell")
         self.contentView.addSubview(self.tripTableView)
+          
         
         loadLikeTrips()
       

@@ -261,6 +261,14 @@
 		AAAD977B1CF7ADF900981F76 /* WaypointViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAD977A1CF7ADF900981F76 /* WaypointViewCell.swift */; };
 		AAAD977D1CFCCA8200981F76 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAD977C1CFCCA8100981F76 /* PhotoCollectionViewCell.swift */; };
 		AAAD977F1CFDE54900981F76 /* DAYC_Share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD977E1CFDE54900981F76 /* DAYC_Share@3x.png */; };
+		AAAD97811CFF901700981F76 /* DAYC_Finish_button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97801CFF901700981F76 /* DAYC_Finish_button@3x.png */; };
+		AAAD979C1D00C8C600981F76 /* DAYC_Splash_main_graphic_060216@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD979B1D00C8C600981F76 /* DAYC_Splash_main_graphic_060216@2x.png */; };
+		AAAD979E1D00CBB100981F76 /* Daycation_sign_up_fb.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD979D1D00CBB100981F76 /* Daycation_sign_up_fb.png */; };
+		AAAD97A01D00CBDE00981F76 /* Daycation_sign_up_fb@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD979F1D00CBDE00981F76 /* Daycation_sign_up_fb@3x.png */; };
+		AAAD97A31D00CC3600981F76 /* DAYC_Sign_In_type_060216@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97A11D00CC3600981F76 /* DAYC_Sign_In_type_060216@3x.png */; };
+		AAAD97A41D00CC3600981F76 /* Daycation_sign_up_email@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97A21D00CC3600981F76 /* Daycation_sign_up_email@3x.png */; };
+		AAAD97A81D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97A71D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png */; };
+		AAAD97AA1D00EEC900981F76 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97A91D00EEC800981F76 /* Icon-72@2x.png */; };
 		AAB344A91CEFBD9F006CC849 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */; };
 		AAB344AE1CEFBD9F006CC849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AC1CEFBD9F006CC849 /* Main.storyboard */; };
 		AAB344B01CEFBD9F006CC849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AF1CEFBD9F006CC849 /* Assets.xcassets */; };
@@ -560,6 +568,14 @@
 		AAAD977A1CF7ADF900981F76 /* WaypointViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointViewCell.swift; sourceTree = "<group>"; };
 		AAAD977C1CFCCA8100981F76 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		AAAD977E1CFDE54900981F76 /* DAYC_Share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Share@3x.png"; sourceTree = "<group>"; };
+		AAAD97801CFF901700981F76 /* DAYC_Finish_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Finish_button@3x.png"; sourceTree = "<group>"; };
+		AAAD979B1D00C8C600981F76 /* DAYC_Splash_main_graphic_060216@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Splash_main_graphic_060216@2x.png"; sourceTree = "<group>"; };
+		AAAD979D1D00CBB100981F76 /* Daycation_sign_up_fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Daycation_sign_up_fb.png; sourceTree = "<group>"; };
+		AAAD979F1D00CBDE00981F76 /* Daycation_sign_up_fb@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Daycation_sign_up_fb@3x.png"; sourceTree = "<group>"; };
+		AAAD97A11D00CC3600981F76 /* DAYC_Sign_In_type_060216@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Sign_In_type_060216@3x.png"; sourceTree = "<group>"; };
+		AAAD97A21D00CC3600981F76 /* Daycation_sign_up_email@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Daycation_sign_up_email@3x.png"; sourceTree = "<group>"; };
+		AAAD97A71D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_BLUE_TOP@3x.png"; sourceTree = "<group>"; };
+		AAAD97A91D00EEC800981F76 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		AAB344A51CEFBD9F006CC849 /* Daycation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daycation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB344AD1CEFBD9F006CC849 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -640,6 +656,13 @@
 		AA13BD8B1CEFCF84009F0FC2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				AAAD97A91D00EEC800981F76 /* Icon-72@2x.png */,
+				AAAD97A11D00CC3600981F76 /* DAYC_Sign_In_type_060216@3x.png */,
+				AAAD97A21D00CC3600981F76 /* Daycation_sign_up_email@3x.png */,
+				AAAD979F1D00CBDE00981F76 /* Daycation_sign_up_fb@3x.png */,
+				AAAD979D1D00CBB100981F76 /* Daycation_sign_up_fb.png */,
+				AAAD979B1D00C8C600981F76 /* DAYC_Splash_main_graphic_060216@2x.png */,
+				AAAD97801CFF901700981F76 /* DAYC_Finish_button@3x.png */,
 				AA2F66E21CF4B1A9003464AB /* DAYC_GPS.png */,
 				AA2F66E31CF4B1A9003464AB /* DAYC_GPS@2x.png */,
 				AA2F66E41CF4B1A9003464AB /* DAYC_GPS@3x.png */,
@@ -831,6 +854,7 @@
 				AAAD977E1CFDE54900981F76 /* DAYC_Share@3x.png */,
 				AA13BE451CEFCF84009F0FC2 /* Daycation_stream_bar copy 2.png */,
 				AA13BE461CEFCF84009F0FC2 /* Daycation_stream_bar copy 3.png */,
+				AAAD97A71D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png */,
 				AA13BE471CEFCF84009F0FC2 /* Daycation_stream_bar copy.png */,
 				AA13BE481CEFCF84009F0FC2 /* Daycation_stream_bar.png */,
 				AA13BE491CEFCF84009F0FC2 /* Daycation_stream_bar2.png */,
@@ -839,8 +863,8 @@
 				AA13BE4C1CEFCF84009F0FC2 /* heart.png */,
 				AA13BE4D1CEFCF84009F0FC2 /* home@3x.png */,
 				AA13BE4E1CEFCF84009F0FC2 /* home_selected@3x.png */,
-				AA13BE4F1CEFCF84009F0FC2 /* Icon-40 copy 2.png */,
 				AA13BE501CEFCF84009F0FC2 /* Icon-40 copy.png */,
+				AA13BE4F1CEFCF84009F0FC2 /* Icon-40 copy 2.png */,
 				AA13BE511CEFCF84009F0FC2 /* Icon-40.png */,
 				AA13BE521CEFCF84009F0FC2 /* Icon-40@2x copy 2.png */,
 				AA13BE531CEFCF84009F0FC2 /* Icon-40@2x copy.png */,
@@ -1176,6 +1200,7 @@
 				AA13BED71CEFCF85009F0FC2 /* DAYC_Icon_Picnic@3x.png in Resources */,
 				AA13BF1B1CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_2.png in Resources */,
 				AA13BEB01CEFCF85009F0FC2 /* DAYC_Icon_Fountain@3x.png in Resources */,
+				AAAD97811CFF901700981F76 /* DAYC_Finish_button@3x.png in Resources */,
 				AA13BEFC1CEFCF85009F0FC2 /* DAYC_STREAM_ICON@3x.png in Resources */,
 				AA13BEB91CEFCF85009F0FC2 /* DAYC_Icon_Hiking@3x.png in Resources */,
 				AA13BF1E1CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_5.png in Resources */,
@@ -1187,6 +1212,7 @@
 				AA13BEFF1CEFCF85009F0FC2 /* Daycation_Birds.png in Resources */,
 				AA13BEC91CEFCF85009F0FC2 /* DAYC_Icon_Natural_feature.png in Resources */,
 				AA13BEEC1CEFCF85009F0FC2 /* DAYC_Icon_Trail@3x.png in Resources */,
+				AAAD97A41D00CC3600981F76 /* Daycation_sign_up_email@3x.png in Resources */,
 				AA13BE771CEFCF85009F0FC2 /* DAYC_Blank_map_marker@3x.png in Resources */,
 				AA13BEC61CEFCF85009F0FC2 /* DAYC_Icon_Mammals.png in Resources */,
 				AA13BF1A1CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_1.png in Resources */,
@@ -1220,6 +1246,7 @@
 				AA13BF0A1CEFCF85009F0FC2 /* Daycation_Horseshoes.png in Resources */,
 				AA13BF2C1CEFCF85009F0FC2 /* Daycation_Paddling.png in Resources */,
 				AA13BEF71CEFCF85009F0FC2 /* DAYC_Map_marker_highlighted@3x.png in Resources */,
+				AAAD97A01D00CBDE00981F76 /* Daycation_sign_up_fb@3x.png in Resources */,
 				AA13BEDF1CEFCF85009F0FC2 /* DAYC_Icon_Shade@2x.png in Resources */,
 				AA13BED91CEFCF85009F0FC2 /* DAYC_Icon_Plants@2x.png in Resources */,
 				AA13BE871CEFCF85009F0FC2 /* DAYC_Icon_Boating.png in Resources */,
@@ -1248,7 +1275,9 @@
 				AA13BEB21CEFCF85009F0FC2 /* DAYC_Icon_Handicap_access@2x.png in Resources */,
 				AA13BEC41CEFCF85009F0FC2 /* DAYC_Icon_Horseshoes@2x.png in Resources */,
 				AA13BF0C1CEFCF85009F0FC2 /* Daycation_Magnifying_glass.png in Resources */,
+				AAAD97A81D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png in Resources */,
 				AA13BED41CEFCF85009F0FC2 /* DAYC_Icon_Park@3x.png in Resources */,
+				AAAD979C1D00C8C600981F76 /* DAYC_Splash_main_graphic_060216@2x.png in Resources */,
 				AA13BEBB1CEFCF85009F0FC2 /* DAYC_Icon_Historical_1@2x.png in Resources */,
 				AA13BEE81CEFCF85009F0FC2 /* DAYC_Icon_Swimming@2x.png in Resources */,
 				AA13BE831CEFCF85009F0FC2 /* DAYC_Icon_Birds@3x.png in Resources */,
@@ -1311,6 +1340,7 @@
 				AA13BEA21CEFCF85009F0FC2 /* DAYC_Icon_Elderly.png in Resources */,
 				AA13BF171CEFCF85009F0FC2 /* Daycation_Nav_Me.png in Resources */,
 				AA13BF211CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_8.png in Resources */,
+				AAAD97A31D00CC3600981F76 /* DAYC_Sign_In_type_060216@3x.png in Resources */,
 				AAAD977F1CFDE54900981F76 /* DAYC_Share@3x.png in Resources */,
 				AA13BF301CEFCF85009F0FC2 /* Daycation_stream_bar copy 3.png in Resources */,
 				AA13BEB31CEFCF85009F0FC2 /* DAYC_Icon_Handicap_access@3x.png in Resources */,
@@ -1337,6 +1367,7 @@
 				AA13BF541CEFCF85009F0FC2 /* Icon-Small@2x copy 2.png in Resources */,
 				AA13BF0E1CEFCF85009F0FC2 /* Daycation_Mammals.png in Resources */,
 				AA13BF421CEFCF85009F0FC2 /* Icon-60@2x copy 2.png in Resources */,
+				AAAD97AA1D00EEC900981F76 /* Icon-72@2x.png in Resources */,
 				AA13BF191CEFCF85009F0FC2 /* Daycation_Nav_Stream.png in Resources */,
 				AA13BF111CEFCF85009F0FC2 /* Daycation_me_bar copy.png in Resources */,
 				AA13BEB41CEFCF85009F0FC2 /* DAYC_Icon_Handicap_parking.png in Resources */,
@@ -1362,6 +1393,7 @@
 				AA13BE761CEFCF85009F0FC2 /* DAYC_Blank_map_marker@2x.png in Resources */,
 				AA2F66E61CF4B1A9003464AB /* DAYC_GPS@2x.png in Resources */,
 				AA13BE931CEFCF85009F0FC2 /* DAYC_Icon_Climbing.png in Resources */,
+				AAAD979E1D00CBB100981F76 /* Daycation_sign_up_fb.png in Resources */,
 				AA13BEED1CEFCF85009F0FC2 /* DAYC_Icon_Walking.png in Resources */,
 				AA13BE961CEFCF85009F0FC2 /* DAYC_Icon_DogsAllowed.png in Resources */,
 				AA13BE9C1CEFCF85009F0FC2 /* DAYC_Icon_Duration_FullDay.png in Resources */,

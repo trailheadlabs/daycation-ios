@@ -176,10 +176,10 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         button.frame = CGRectMake(view.w/2-75, tripImage.bottomOffset(-50), 150, 50)
         
         mapView=MKMapView()
-        mapView.userInteractionEnabled = true
+        mapView.userInteractionEnabled = false
         mapView.mapType = MKMapType.Standard
-        mapView.zoomEnabled = true
-        mapView.scrollEnabled = true
+        mapView.zoomEnabled = false
+        mapView.scrollEnabled = false
         mapView.delegate =  self
         mapView.w = view.w
         mapView.h = 125

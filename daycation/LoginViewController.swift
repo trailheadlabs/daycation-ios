@@ -9,27 +9,49 @@ class LoginViewController : FormViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        
+        self.title = "SIGN IN"
+        
+        self.tableView!.backgroundColor = UIColor(hexString: "#fcfbea")
+        self.tableView!.separatorInset = UIEdgeInsetsZero
+        self.tableView!.layoutMargins = UIEdgeInsetsZero
+        self.tableView!.separatorColor = UIColor(hexString: "#fcfbea")
         form  +++=
             
-            Section("")
-            <<< EmailRow("email") {
-                $0.title = "Email"
+            
+            Section(footer: "") {
+                $0.header = HeaderFooterView<HeaderButtonView>(HeaderFooterProvider.Class)
+                
+                let headerView = $0.header?.viewForSection($0, type: HeaderFooterType.Header, controller: self)  as! HeaderButtonView
+                headerView.setTarget(self)
             }
+            
+            <<< EmailRow("email") {
+                $0.placeholder = "Email"
+                }.cellSetup() {cell, row in
+                    self.formatCell(cell)
+                } .cellUpdate() {cell, row in
+                    cell.textField.font = UIFont(name:"Quicksand-Bold", size:20)
+                    cell.textField.textColor = UIColor(hexString: "#aeaca5")
+                }
             <<< PasswordRow("password") {
-                $0.title = "Password"
+                $0.placeholder = "Password"
+                 $0.keyboardReturnType = KeyboardReturnTypeConfiguration(nextKeyboardType: .Next, defaultKeyboardType: .Go)
+                }.cellSetup() {cell, row in
+                    self.formatCell(cell)
+                } .cellUpdate() {cell, row in
+                    cell.textField.font = UIFont(name:"Quicksand-Bold", size:20)
+                    cell.textField.textColor = UIColor(hexString: "#aeaca5")
+                }.onChange { [weak self] row in
+                    self?.navigationOptions = self?.navigationOptions?.union(.StopDisabledRow)
+                    self?.navigationOptions = self?.navigationOptions?.subtract(.StopDisabledRow)
+                    
         }
-        let button  = UIButton(type: UIButtonType.System) as UIButton
-        button.addTarget(self, action: "tappedDone:", forControlEvents: UIControlEvents.TouchUpInside)
-        button.frame = CGRectMake(0, 200, UIScreen.mainScreen().bounds.width, 40)
-        button.setTitle("Sign in", forState: UIControlState.Normal)
-        button.titleLabel!.font  = UIFont.boldSystemFontOfSize(16.0)
-        button.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
-        self.view.addSubview(button)
+
     }
     
-    
-    func tappedDone(sender: UIBarButtonItem){
+     override func textInputShouldReturn<T>(textInput: UITextInput, cell: Cell<T>) -> Bool {
+        super.textInputShouldReturn(textInput, cell: cell)
         let email:String = self.form.values()["email"] as! String
         let password:String = self.form.values()["password"] as! String
         
@@ -46,12 +68,71 @@ class LoginViewController : FormViewController{
                 HUD.flash(.Label(error), delay: 2.0)
             }
         }
-        
+        return true
     }
-    
+    class HeaderButtonView: UIView {
+        
+        var facebookButton:UIButton!
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.backgroundColor = UIColor(hexString: "#fcfbea")
+            
+            facebookButton   = UIButton(type: UIButtonType.System) as UIButton
+            facebookButton.setImage(UIImage(named: "Daycation_sign_up_fb@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+            facebookButton.userInteractionEnabled = true
+            facebookButton.frame = CGRectMake(0, 20, UIScreen.mainScreen().bounds.width, 40)
+            self.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 80)
+            
+            self.addSubview(facebookButton)
+        }
+        
+        func setTarget(target: AnyObject) {
+            facebookButton.addTarget(target, action: #selector(LoginViewController.facebookbuttonAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    func facebookbuttonAction(sender:UIButton?){
+        var backViewController : UIViewController? {
+            
+            var stack = self.navigationController!.viewControllers as Array
+            
+            for (var i = stack.count-1 ; i > 0; --i) {
+                if (stack[i] as UIViewController == self) {
+                    return stack[i-1] as? UIViewController
+                }
+                
+            }
+            return nil
+        }
+        if let parentVC = backViewController {
+            if let parentVC = parentVC as? EntryViewController {
+                parentVC.facebookbuttonAction(sender)
+            }
+        }
+    }
+    func formatCell(cell:BaseCell){
+        
+        cell.separatorInset = UIEdgeInsetsZero
+        cell.layoutMargins = UIEdgeInsetsZero
+        cell.contentView.layoutMargins.left = 30
+        cell.backgroundColor = UIColor(hexString: "#f7f1da")
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated:true)
+        self.view.backgroundColor = UIColor(hexString: "#fcfbea")
+        self.navigationController?.setNavigationBarHidden(false, animated:false)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.translucent = false
+        self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
+        let backgroundImage = UIImage(named:"DAYC_BLUE_TOP@3x")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
+
+        self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
+                                                                    forBarMetrics: .Default)
+        
     }
 }

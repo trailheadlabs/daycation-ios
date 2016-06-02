@@ -160,6 +160,7 @@ class FeatureImage {
 protocol Feature {
     var name: String? { get set }
     var featuredImage: FeatureImage? { get set }
+    var images: [FeatureImage] { get set }
 }
 
 class Waypoint {
@@ -326,6 +327,7 @@ class PointOfInterest: Feature {
     var name: String?
     var location: CLLocation?
     var featuredImage: FeatureImage?
+    var images: [FeatureImage] = []
     func parse(data:NSDictionary) -> PointOfInterest{
         self.id = data["id"] as? Int
         if let name = data["name"] as? String {
@@ -340,6 +342,23 @@ class PointOfInterest: Feature {
                 if featuredImageId == Int(pointOfInterestImage.id!)  {
                     self.featuredImage = pointOfInterestImage
                 }
+            }
+        }
+        
+        if let jsonimages = data["images"] as? NSArray {
+            for jsonimage in jsonimages {
+                let tripImage = FeatureImage()
+                tripImage.parse(jsonimage as! NSDictionary)
+                if featuredImageId == Int(tripImage.id!)  {
+                    self.featuredImage = tripImage
+                }
+                images.append (tripImage)
+                images.append (tripImage)
+                images.append (tripImage)
+                images.append (tripImage)
+                images.append (tripImage)
+                images.append (tripImage)
+                images.append (tripImage)
             }
         }
         if let geometry = data["geometry"] as? NSDictionary {
