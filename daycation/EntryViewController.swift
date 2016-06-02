@@ -33,16 +33,16 @@ extension OAuth2 {
 }
 
 
-class EntryViewController : UIViewController , CLLocationManagerDelegate{
-    var locManager = CLLocationManager()
+class EntryViewController : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor =  UIColor(hexString: "#fff3d6")
         HUD.dimsBackground = false
         HUD.allowsInteraction = false
         //self.client?.logout()
         if  (OuterspatialClient.sharedInstance.isAuthorized() == true){
             
-            HUD.show(.LabeledProgress(title: "Session Exists", subtitle: "Trying to use it"))
+          // HUD.show(.LabeledProgress(title: "Session Exists", subtitle: "Trying to use it"))
             OuterspatialClient.sharedInstance.getUser(){
                 (user: User?,error:String?) in
                 print("got back: \(user)")
@@ -55,54 +55,48 @@ class EntryViewController : UIViewController , CLLocationManagerDelegate{
                 }
                 if let error = error{
                     OuterspatialClient.sharedInstance.logout()
+                    self.showLogin()
                     HUD.flash(.Label(error), delay: 2.0)
                 }
             }
+        } else {
+            showLogin()
         }
-        self.view.backgroundColor = UIColor.blackColor()
+        
+    }
+    
+    func showLogin(){
         
         let facebookButton   = UIButton(type: UIButtonType.System) as UIButton
+        facebookButton.setImage(UIImage(named: "Daycation_sign_up_fb@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+        facebookButton.userInteractionEnabled = true
         facebookButton.addTarget(self, action: "facebookbuttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         facebookButton.frame = CGRectMake(0, UIScreen.mainScreen().bounds.height-124, UIScreen.mainScreen().bounds.width, 40)
-        facebookButton.setTitle("Sign up with Facebook", forState: UIControlState.Normal)
-        facebookButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        facebookButton.titleLabel!.font  = UIFont.boldSystemFontOfSize(16.0)
-        facebookButton.backgroundColor = UIColor(red: 0, green: 0, blue: 1.0, alpha: 0.2)
         
         let button   = UIButton(type: UIButtonType.System) as UIButton
+        button.setImage(UIImage(named: "Daycation_sign_up_email@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+        button.userInteractionEnabled = true
         button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         button.frame = CGRectMake(0, facebookButton.frame.origin.y+facebookButton.frame.height+2, UIScreen.mainScreen().bounds.width, 40)
-        button.setTitle("Sign up with email", forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        button.titleLabel!.font  = UIFont.boldSystemFontOfSize(16.0)
-        button.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
         
         let signInButton   = UIButton(type: UIButtonType.System) as UIButton
+        signInButton.setImage(UIImage(named: "DAYC_Sign_In_type_060216@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+        signInButton.userInteractionEnabled = true
+        
         signInButton.addTarget(self, action: "signinbuttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         signInButton.frame = CGRectMake(0, button.frame.origin.y+button.frame.height+2, UIScreen.mainScreen().bounds.width, 40)
-        signInButton.setTitle("Sign in", forState: UIControlState.Normal)
-        signInButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        signInButton.titleLabel!.font  = UIFont.boldSystemFontOfSize(16.0)
-        signInButton.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
-        //button.layer.borderColor = UIColor(white: 1.0, alpha: borderAlpha).CGColor
         
-        let backgroundImage = UIImageView(frame: UIScreen.mainScreen().bounds)
+        
+        let backgroundImage = UIImageView(frame: CGRectMake(30, 30, UIScreen.mainScreen().bounds.width-60, UIScreen.mainScreen().bounds.height-180))
         backgroundImage.clipsToBounds = true
-        backgroundImage.contentMode = UIViewContentMode.ScaleAspectFill
-        backgroundImage.image = UIImage(named: "75002.jpg")
-        backgroundImage.alpha = 0.3
+        backgroundImage.contentMode = UIViewContentMode.ScaleAspectFit
+        backgroundImage.image = UIImage(named: "DAYC_Splash_main_graphic_060216@2x.png")
         self.view.addSubview(backgroundImage)
         self.view.addSubview(facebookButton)
         self.view.addSubview(button)
         self.view.addSubview(signInButton)
-        
-        locManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locManager.delegate = self
-            locManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locManager.startUpdatingLocation()
-        }
     }
+    
     
     func buttonAction(sender:UIButton!){
         let signupViewController = ProfileEditViewController()
@@ -129,7 +123,7 @@ class EntryViewController : UIViewController , CLLocationManagerDelegate{
                         if let user = user{
                             print("got back: \(user)")
                             let loggedInViewController = LoggedInViewController()
-                            self.navigationController?.pushViewController(loggedInViewController, animated: true)
+                            self.presentViewController(loggedInViewController, animated:true, completion:nil)
                         }
                         
                         if let error = error{
@@ -146,7 +140,6 @@ class EntryViewController : UIViewController , CLLocationManagerDelegate{
             LocationData.locValue = manager.location!.coordinate
     }
     override func viewWillAppear(animated: Bool) {
-        self.view.backgroundColor = UIColor.blackColor()
         self.navigationController?.setNavigationBarHidden(true, animated:false)
     }
     

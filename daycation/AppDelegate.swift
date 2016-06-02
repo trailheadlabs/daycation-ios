@@ -32,11 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBarItem.appearance().setTitleTextAttributes(
             [NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:11)!,NSForegroundColorAttributeName: UIColor.whiteColor()],
             forState: .Normal)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:14)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Normal)
-        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:14)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Selected)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:14)!, NSForegroundColorAttributeName: UIColor(hexString: "#fff9e1")!], forState: UIControlState.Normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:14)!, NSForegroundColorAttributeName: UIColor(hexString: "#fff9e1")!], forState: UIControlState.Selected)
         let navBackgroundImage:UIImage! = UIImage(named: "backgroundNB.png")
         UINavigationBar.appearance().setBackgroundImage(backgroundImage!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 80)), forBarMetrics: .Default)
-        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().tintColor = UIColor(hexString: "#fff9e1")!
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:11)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
         let cancelButtonAttributes: NSDictionary = [NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:14)!, NSForegroundColorAttributeName: UIColor(hexString: "#fff9e1")!]
         // Remove the icon, which is located in the left view
@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(fontName)
             }
         }
+        
         // Override point for customization after application launch.
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }

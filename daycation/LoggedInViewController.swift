@@ -1,10 +1,11 @@
-
+import MapKit
 import UIKit
 import Eureka
 import Haneke
 
 
-class LoggedInViewController : UITabBarController, UITabBarControllerDelegate{
+class LoggedInViewController : UITabBarController, UITabBarControllerDelegate , CLLocationManagerDelegate{
+    var locManager = CLLocationManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,13 @@ class LoggedInViewController : UITabBarController, UITabBarControllerDelegate{
         profileViewController.tabBarItem =  UITabBarItem(title: "Me", image: image.imageWithRenderingMode(.AlwaysOriginal), selectedImage: selectedImage.imageWithRenderingMode(.AlwaysOriginal))
         let controllers = [homeViewController,tripsViewController,postsViewController,profileViewController]
         self.viewControllers = controllers
+        
+        locManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locManager.delegate = self
+            locManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locManager.startUpdatingLocation()
+        }
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
