@@ -10,14 +10,16 @@ class ProfileEditViewController : FormViewController{
         super.viewDidLoad()
         self.isCreating = OuterspatialClient.currentUser==nil
         
-        self.title = "Profile"
         self.tableView!.backgroundColor = UIColor(hexString: "#fff9e1")
         self.tableView!.separatorInset = UIEdgeInsetsZero
         self.tableView!.layoutMargins = UIEdgeInsetsZero
         self.tableView!.separatorColor = UIColor(hexString: "#fff9e1")
         if (self.isCreating == false)  {
+            self.title = "PROFILE"
             let b = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "tappedCancel:")
             self.navigationItem.leftBarButtonItem = b
+        } else {
+            self.title = "MY ACCOUNT"
         }
         let b = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "tappedDone:")
         self.navigationItem.rightBarButtonItem = b
@@ -50,6 +52,12 @@ class ProfileEditViewController : FormViewController{
                 $0.header = HeaderFooterView<EurekaLogoView>(HeaderFooterProvider.Class)
                 let headerView = $0.header?.viewForSection($0, type: HeaderFooterType.Header, controller: self)  as! EurekaLogoView
                 headerView.setTitle("REQUIRED INFO")
+                      if (isCreating == false)  {
+                    headerView.label.textColor = UIColor(hexString: "#f0bb52")
+                    
+                } else  {
+                    headerView.label.textColor = UIColor(hexString: "#5dbedf")
+                }
                 $0.footer = HeaderFooterView<EurekaLogoView>(HeaderFooterProvider.Class)
                 let FooterView = $0.header?.viewForSection($0, type: HeaderFooterType.Footer, controller: self)  as! EurekaLogoView
                 
@@ -111,6 +119,12 @@ class ProfileEditViewController : FormViewController{
                 $0.header = HeaderFooterView<EurekaLogoView>(HeaderFooterProvider.Class)
                 let headerView = $0.header?.viewForSection($0, type: HeaderFooterType.Header, controller: self)  as! EurekaLogoView
                 headerView.setTitle("MORE ABOUT YOU")
+                if (isCreating == false)  {
+                    headerView.label.textColor = UIColor(hexString: "#f0bb52")
+                    
+                } else  {
+                    headerView.label.textColor = UIColor(hexString: "#5dbedf")
+                }
                 $0.footer = HeaderFooterView<EurekaLogoView>(HeaderFooterProvider.Class)
         }
             <<< ImageRow("image"){
@@ -307,7 +321,7 @@ class ProfileEditViewController : FormViewController{
             self.backgroundColor = UIColor(hexString: "#fff9e1")
             self.frame = CGRect(x: 0, y: 0, width: 320, height: 30)
             label = UILabel(frame: CGRect(x: 30, y: 5, width: 40, height: 40))
-            label.textColor = UIColor(hexString: "#f0bb52")
+     
             label.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 20)
             
             self.addSubview(label)
@@ -326,10 +340,14 @@ class ProfileEditViewController : FormViewController{
     }
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         self.view.backgroundColor = UIColor(hexString: "#fff9e1")
         self.navigationController?.setNavigationBarHidden(false, animated:true)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = false
+        let backgroundImage = UIImage(named:"DAYC_BLUE_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
+        self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
+                                                                    forBarMetrics: .Default)
         self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
         if let organization = form.rowByTag("organization")?.baseValue as? Organization where (form.rowByTag("organization") != nil && form.rowByTag("organization")?.baseValue != nil) {
             form.rowByTag("organization")!.title=organization.name
