@@ -269,6 +269,8 @@
 		AAAD97A41D00CC3600981F76 /* Daycation_sign_up_email@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97A21D00CC3600981F76 /* Daycation_sign_up_email@3x.png */; };
 		AAAD97A81D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97A71D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png */; };
 		AAAD97AA1D00EEC900981F76 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97A91D00EEC800981F76 /* Icon-72@2x.png */; };
+		AAAD97AC1D020D0400981F76 /* DAYC_Add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97AB1D020D0400981F76 /* DAYC_Add_photo@3x.png */; };
+		AAAD97AE1D02126200981F76 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAD97AD1D02126200981F76 /* AvatarViewController.swift */; };
 		AAB344A91CEFBD9F006CC849 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */; };
 		AAB344AE1CEFBD9F006CC849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AC1CEFBD9F006CC849 /* Main.storyboard */; };
 		AAB344B01CEFBD9F006CC849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AF1CEFBD9F006CC849 /* Assets.xcassets */; };
@@ -576,6 +578,8 @@
 		AAAD97A21D00CC3600981F76 /* Daycation_sign_up_email@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Daycation_sign_up_email@3x.png"; sourceTree = "<group>"; };
 		AAAD97A71D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_BLUE_TOP@3x.png"; sourceTree = "<group>"; };
 		AAAD97A91D00EEC800981F76 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		AAAD97AB1D020D0400981F76 /* DAYC_Add_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Add_photo@3x.png"; sourceTree = "<group>"; };
+		AAAD97AD1D02126200981F76 /* AvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		AAB344A51CEFBD9F006CC849 /* Daycation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daycation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB344AD1CEFBD9F006CC849 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -656,21 +660,17 @@
 		AA13BD8B1CEFCF84009F0FC2 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				AAAD97A91D00EEC800981F76 /* Icon-72@2x.png */,
-				AAAD97A11D00CC3600981F76 /* DAYC_Sign_In_type_060216@3x.png */,
-				AAAD97A21D00CC3600981F76 /* Daycation_sign_up_email@3x.png */,
-				AAAD979F1D00CBDE00981F76 /* Daycation_sign_up_fb@3x.png */,
-				AAAD979D1D00CBB100981F76 /* Daycation_sign_up_fb.png */,
-				AAAD979B1D00C8C600981F76 /* DAYC_Splash_main_graphic_060216@2x.png */,
+				AA13BD8E1CEFCF84009F0FC2 /* DAYC_Blank_map_marker_selected@3x.png */,
+				AAAD97AB1D020D0400981F76 /* DAYC_Add_photo@3x.png */,
+				AA13BD8C1CEFCF84009F0FC2 /* DAYC_Blank_map_marker@2x.png */,
+				AA13BD8D1CEFCF84009F0FC2 /* DAYC_Blank_map_marker@3x.png */,
+				AAAD97A71D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png */,
+				AA13BD901CEFCF84009F0FC2 /* DAYC_DAYCATIONS_ICON_highlighted@3x.png */,
+				AA13BD8F1CEFCF84009F0FC2 /* DAYC_DAYCATIONS_ICON@3x.png */,
 				AAAD97801CFF901700981F76 /* DAYC_Finish_button@3x.png */,
 				AA2F66E21CF4B1A9003464AB /* DAYC_GPS.png */,
 				AA2F66E31CF4B1A9003464AB /* DAYC_GPS@2x.png */,
 				AA2F66E41CF4B1A9003464AB /* DAYC_GPS@3x.png */,
-				AA13BD8C1CEFCF84009F0FC2 /* DAYC_Blank_map_marker@2x.png */,
-				AA13BD8D1CEFCF84009F0FC2 /* DAYC_Blank_map_marker@3x.png */,
-				AA13BD8E1CEFCF84009F0FC2 /* DAYC_Blank_map_marker_selected@3x.png */,
-				AA13BD8F1CEFCF84009F0FC2 /* DAYC_DAYCATIONS_ICON@3x.png */,
-				AA13BD901CEFCF84009F0FC2 /* DAYC_DAYCATIONS_ICON_highlighted@3x.png */,
 				AA13BD911CEFCF84009F0FC2 /* DAYC_GREEN_TOP@3x.png */,
 				AA13BD921CEFCF84009F0FC2 /* DAYC_GREY_ARROWS_LEFT@3x.png */,
 				AA13BD931CEFCF84009F0FC2 /* DAYC_GREY_ARROWS_RIGHT@3x.png */,
@@ -794,11 +794,14 @@
 				AA13BE091CEFCF84009F0FC2 /* DAYC_Icon_Winter.png */,
 				AA13BE0A1CEFCF84009F0FC2 /* DAYC_Icon_Winter@2x.png */,
 				AA13BE0B1CEFCF84009F0FC2 /* DAYC_Icon_Winter@3x.png */,
-				AA13BE0C1CEFCF84009F0FC2 /* DAYC_Map_marker@3x.png */,
 				AA13BE0D1CEFCF84009F0FC2 /* DAYC_Map_marker_highlighted@3x.png */,
-				AA13BE0E1CEFCF84009F0FC2 /* DAYC_ME_ICON@3x.png */,
+				AA13BE0C1CEFCF84009F0FC2 /* DAYC_Map_marker@3x.png */,
 				AA13BE0F1CEFCF84009F0FC2 /* DAYC_ME_ICON_highlighted@3x.png */,
+				AA13BE0E1CEFCF84009F0FC2 /* DAYC_ME_ICON@3x.png */,
 				AA13BE101CEFCF84009F0FC2 /* DAYC_ORANGE_BOTTOM@3x.png */,
+				AAAD977E1CFDE54900981F76 /* DAYC_Share@3x.png */,
+				AAAD97A11D00CC3600981F76 /* DAYC_Sign_In_type_060216@3x.png */,
+				AAAD979B1D00C8C600981F76 /* DAYC_Splash_main_graphic_060216@2x.png */,
 				AA13BE111CEFCF84009F0FC2 /* DAYC_STREAM_Highlighted@3x.png */,
 				AA13BE121CEFCF84009F0FC2 /* DAYC_STREAM_ICON@3x.png */,
 				AA13BE131CEFCF84009F0FC2 /* DAYC_Take_daycation@3x.png */,
@@ -819,8 +822,8 @@
 				AA13BE221CEFCF84009F0FC2 /* Daycation_Magnifying_glass.png */,
 				AA13BE231CEFCF84009F0FC2 /* Daycation_Main_texture_all_colors.png */,
 				AA13BE241CEFCF84009F0FC2 /* Daycation_Mammals.png */,
-				AA13BE251CEFCF84009F0FC2 /* Daycation_Map_marker.png */,
 				AA13BE261CEFCF84009F0FC2 /* Daycation_Map_marker_highlighted.png */,
+				AA13BE251CEFCF84009F0FC2 /* Daycation_Map_marker.png */,
 				AA13BE271CEFCF84009F0FC2 /* Daycation_me_bar copy.png */,
 				AA13BE281CEFCF84009F0FC2 /* Daycation_me_bar.png */,
 				AA13BE291CEFCF84009F0FC2 /* Daycation_Nav_Daycations.png */,
@@ -851,20 +854,21 @@
 				AA13BE421CEFCF84009F0FC2 /* Daycation_Paddling.png */,
 				AA13BE431CEFCF84009F0FC2 /* Daycation_Plants.png */,
 				AA13BE441CEFCF84009F0FC2 /* Daycation_Rope.png */,
-				AAAD977E1CFDE54900981F76 /* DAYC_Share@3x.png */,
+				AAAD97A21D00CC3600981F76 /* Daycation_sign_up_email@3x.png */,
+				AAAD979D1D00CBB100981F76 /* Daycation_sign_up_fb.png */,
+				AAAD979F1D00CBDE00981F76 /* Daycation_sign_up_fb@3x.png */,
 				AA13BE451CEFCF84009F0FC2 /* Daycation_stream_bar copy 2.png */,
 				AA13BE461CEFCF84009F0FC2 /* Daycation_stream_bar copy 3.png */,
-				AAAD97A71D00D3D100981F76 /* DAYC_BLUE_TOP@3x.png */,
 				AA13BE471CEFCF84009F0FC2 /* Daycation_stream_bar copy.png */,
 				AA13BE481CEFCF84009F0FC2 /* Daycation_stream_bar.png */,
 				AA13BE491CEFCF84009F0FC2 /* Daycation_stream_bar2.png */,
 				AA13BE4A1CEFCF84009F0FC2 /* Daycation_Walking_trail.png */,
 				AA13BE4B1CEFCF84009F0FC2 /* Daycation_Waterway.png */,
 				AA13BE4C1CEFCF84009F0FC2 /* heart.png */,
-				AA13BE4D1CEFCF84009F0FC2 /* home@3x.png */,
 				AA13BE4E1CEFCF84009F0FC2 /* home_selected@3x.png */,
-				AA13BE501CEFCF84009F0FC2 /* Icon-40 copy.png */,
+				AA13BE4D1CEFCF84009F0FC2 /* home@3x.png */,
 				AA13BE4F1CEFCF84009F0FC2 /* Icon-40 copy 2.png */,
+				AA13BE501CEFCF84009F0FC2 /* Icon-40 copy.png */,
 				AA13BE511CEFCF84009F0FC2 /* Icon-40.png */,
 				AA13BE521CEFCF84009F0FC2 /* Icon-40@2x copy 2.png */,
 				AA13BE531CEFCF84009F0FC2 /* Icon-40@2x copy.png */,
@@ -878,6 +882,7 @@
 				AA13BE5B1CEFCF85009F0FC2 /* Icon-60@3x copy 2.png */,
 				AA13BE5C1CEFCF85009F0FC2 /* Icon-60@3x copy.png */,
 				AA13BE5D1CEFCF85009F0FC2 /* Icon-60@3x.png */,
+				AAAD97A91D00EEC800981F76 /* Icon-72@2x.png */,
 				AA13BE5E1CEFCF85009F0FC2 /* Icon-76 copy 2.png */,
 				AA13BE5F1CEFCF85009F0FC2 /* Icon-76 copy.png */,
 				AA13BE601CEFCF85009F0FC2 /* Icon-76.png */,
@@ -952,6 +957,7 @@
 				AAB344DA1CEFC087006CC849 /* ProfileEditViewController.swift */,
 				AA13BD831CEFCC03009F0FC2 /* ProfileViewController.swift */,
 				AA13BD7D1CEFC75F009F0FC2 /* OrganizationViewController.swift */,
+				AAAD97AD1D02126200981F76 /* AvatarViewController.swift */,
 			);
 			name = profile;
 			sourceTree = "<group>";
@@ -1341,6 +1347,7 @@
 				AA13BF171CEFCF85009F0FC2 /* Daycation_Nav_Me.png in Resources */,
 				AA13BF211CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_8.png in Resources */,
 				AAAD97A31D00CC3600981F76 /* DAYC_Sign_In_type_060216@3x.png in Resources */,
+				AAAD97AC1D020D0400981F76 /* DAYC_Add_photo@3x.png in Resources */,
 				AAAD977F1CFDE54900981F76 /* DAYC_Share@3x.png in Resources */,
 				AA13BF301CEFCF85009F0FC2 /* Daycation_stream_bar copy 3.png in Resources */,
 				AA13BEB31CEFCF85009F0FC2 /* DAYC_Icon_Handicap_access@3x.png in Resources */,
@@ -1488,6 +1495,7 @@
 				AAB344E51CEFC087006CC849 /* TripsViewCell.swift in Sources */,
 				AAB344E91CEFC087006CC849 /* ProfileEditViewController.swift in Sources */,
 				AAB344F91CEFC13A006CC849 /* OuterspatialClient.swift in Sources */,
+				AAAD97AE1D02126200981F76 /* AvatarViewController.swift in Sources */,
 				AAB344E71CEFC087006CC849 /* FileExtensions.swift in Sources */,
 				AA13BD841CEFCC03009F0FC2 /* ProfileViewController.swift in Sources */,
 				AA13BD7E1CEFC75F009F0FC2 /* OrganizationViewController.swift in Sources */,
