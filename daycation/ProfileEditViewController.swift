@@ -3,13 +3,84 @@ import UIKit
 import Eureka
 import PKHUD
 
+public class AvatarCell : Cell<UIImage>, CellType {
+    
+
+    
+    public override func setup() {
+        height = { 60 }
+        row.title = nil
+        super.setup()
+        selectionStyle = .None
+        let view = UIView(frame: CGRectMake(0, 0, 190, 44))
+        let addLabel = UILabel(frame: CGRect(x: 60, y: 0, width: 40, height: 40))
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        let imageView = UIImageView(frame: CGRectMake(20, 0, 44, 44))
+        // imageView.image = iView.image
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor(hexString: "#8e8e8e")?.CGColor
+        imageView.layer.cornerRadius = imageView.frame.height/2
+        imageView.clipsToBounds = true
+        
+        
+        label.textColor = UIColor(hexString: "#8e8e8e")
+        label.font = UIFont(name: "Quicksand-Regular", size: 20)
+        label.text = "Choose"
+        label.fitSize()
+        label.y = imageView.bottomOffset(10)
+        view.addSubview(label)
+        
+        addLabel.textColor = UIColor(hexString: "#8e8e8e")
+        addLabel.font = UIFont(name: "Quicksand-Regular", size: 20)
+        addLabel.text = "Add a photo"
+        addLabel.fitSize()
+        addLabel.y = imageView.bottomOffset(10)
+        view.addSubview(addLabel)
+        view.addSubview(imageView)
+        self.accessoryView = view
+
+    }
+    
+    public override func update() {
+        row.title = nil
+        super.update()
+        let value = row.value
+
+    }
+    
+ 
+
+    
+ 
+    
+    private func imageTopTitleBottom(button : UIButton){
+        
+        guard let imageSize = button.imageView?.image?.size else { return }
+        let spacing : CGFloat = 3.0
+        button.titleEdgeInsets = UIEdgeInsetsMake(0.0, -imageSize.width, -(imageSize.height + spacing), 0.0)
+        guard let titleLabel = button.titleLabel, let title = titleLabel.text else { return }
+        let titleSize = title.sizeWithAttributes([NSFontAttributeName: titleLabel.font])
+        button.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0, 0, -titleSize.width)
+    }
+}
+
+//MARK: WeekDayRow
+
+public final class AvatarRow: Row<UIImage, AvatarCell>, RowType  {
+    
+    required public init(tag: String?) {
+        super.init(tag: tag)
+        displayValueFor = nil
+        cellProvider = CellProvider<AvatarCell>()
+    }
+}
 
 class ProfileEditViewController : FormViewController{
     var isCreating:Bool?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.isCreating = OuterspatialClient.currentUser==nil
-        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         self.tableView!.backgroundColor = UIColor(hexString: "#fff9e1")
         self.tableView!.separatorInset = UIEdgeInsetsZero
         self.tableView!.layoutMargins = UIEdgeInsetsZero
@@ -25,26 +96,35 @@ class ProfileEditViewController : FormViewController{
         self.navigationItem.rightBarButtonItem = b
         ImageRow.defaultCellUpdate = { cell, row in
             
-            if let iView = cell.accessoryView as? UIImageView{
-                let view = UIView(frame: CGRectMake(0, 0, 90, 44))
-                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+           // if let iView = cell.accessoryView as? UIImageView{
+            let view = UIView(frame: CGRectMake(0, 0, 190, 44))
+            let addLabel = UILabel(frame: CGRect(x: 60, y: 0, width: 40, height: 40))
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
                 let imageView = UIImageView(frame: CGRectMake(20, 0, 44, 44))
-                imageView.image = iView.image
+               // imageView.image = iView.image
                 imageView.layer.borderWidth = 1
                 imageView.layer.borderColor = UIColor(hexString: "#8e8e8e")?.CGColor
                 imageView.layer.cornerRadius = imageView.frame.height/2
-                imageView.clipsToBounds = true
-                label.textColor = UIColor(hexString: "#8e8e8e")
-                label.font = UIFont(name: "Quicksand-Regular", size: 20)
-                label.text = "Change"
-                
-                label.fitSize()
-                label.y = imageView.bottomOffset(10)
+            imageView.clipsToBounds = true
+            
+
+            label.textColor = UIColor(hexString: "#8e8e8e")
+            label.font = UIFont(name: "Quicksand-Regular", size: 20)
+            label.text = "Choose"
+            label.fitSize()
+            label.y = imageView.bottomOffset(10)
+            view.addSubview(label)
+            
+            addLabel.textColor = UIColor(hexString: "#8e8e8e")
+            addLabel.font = UIFont(name: "Quicksand-Regular", size: 20)
+            addLabel.text = "Add a photo"
+            addLabel.fitSize()
+            addLabel.y = imageView.bottomOffset(10)
+            view.addSubview(addLabel)
                 view.addSubview(imageView)
-                view.addSubview(label)
                 cell.accessoryView = view
                 
-            }
+           // }
         }
         form  +++=
             
@@ -127,25 +207,67 @@ class ProfileEditViewController : FormViewController{
                 }
                 $0.footer = HeaderFooterView<EurekaLogoView>(HeaderFooterProvider.Class)
         }
-            <<< ImageRow("image"){
+            <<< AvatarRow("image"){
                 $0.title = "Avatar"
                 if let user = OuterspatialClient.currentUser  where (user.profile != nil && user.profile!.image != nil) {
                     $0.value=user.profile!.image
                 }
-                }.cellSetup() {cell, row in
-                    cell.height =  {return CGFloat(150)}
-                    self.formatCell(cell)
-                } .cellUpdate() {cell, row in
+            }
+                .cellSetup() { cell, row in
                     cell.indentationLevel = Int(3)
                     cell.textLabel?.font = UIFont(name:"Quicksand-Bold", size:20)
                     cell.textLabel?.textColor = UIColor(hexString: "#8e8e8e")
                     self.formatCell(cell)
                     cell.textLabel?.sizeToFit()
                     cell.textLabel?.y = 0
+                    cell.height =  {return CGFloat(150)}
+                    cell.setup()
+                    cell.selectionStyle = .None
+                    self.formatCell(cell)
+                    // if let iView = cell.accessoryView as? UIImageView{
+                    let view = UIView(frame: CGRectMake(0, 0, 250, 44))
+                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+                    let imageView = UIImageView(frame: CGRectMake(20, 0, 44, 44))
+                    // imageView.image = iView.image
+                    imageView.layer.borderWidth = 1
+                    imageView.layer.borderColor = UIColor(hexString: "#8e8e8e")?.CGColor
+                    imageView.layer.cornerRadius = imageView.frame.height/2
+                    imageView.clipsToBounds = true
                     
-
+                    let addButton   = UIButton(type: UIButtonType.System) as UIButton
+                    addButton.setImage(UIImage(named: "DAYC_Add_photo@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+                    addButton.userInteractionEnabled = true
+                    addButton.frame = CGRectMake(20, 0, 44, 44)
+                    view.addSubview(addButton)
+                    
+                    
+                    let chooseButton   = UIButton(type: UIButtonType.System) as UIButton
+                    chooseButton.setImage(UIImage(named: "DAYC_Add_photo@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+                    chooseButton.userInteractionEnabled = true
+                    chooseButton.frame = CGRectMake(130, 0, 44, 44)
+                    view.addSubview(chooseButton)
+                    
+                    chooseButton.addTarget(self, action: #selector(self.tappedAvatar(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                    
+                    label.textColor = UIColor(hexString: "#8e8e8e")
+                    label.font = UIFont(name: "Quicksand-Regular", size: 20)
+                    label.text = "Choose"
+                    label.fitSize()
+                    label.y = imageView.bottomOffset(10)
+                    view.addSubview(label)
+                    
+                    let addLabel = UILabel(frame: CGRect(x: label.rightOffset(15), y: 0, width: 40, height: 40))
+                    addLabel.textColor = UIColor(hexString: "#8e8e8e")
+                    addLabel.font = UIFont(name: "Quicksand-Regular", size: 20)
+                    addLabel.text = "Add a photo"
+                    addLabel.fitSize()
+                    addLabel.y = imageView.bottomOffset(10)
+                    view.addSubview(addLabel)
+                  //  view.addSubview(imageView)
+                    cell.accessoryView = view
+                    
+                    // }
             }
-            
             <<< LoctionRow("organization") {
                 $0.title = "Organization"
                 
@@ -198,8 +320,14 @@ class ProfileEditViewController : FormViewController{
         cell.contentView.layoutMargins.left = 30
         cell.backgroundColor = UIColor(hexString: "#f7f1da")
     }
+    
+    func tappedAvatar(sender: UIButton){
+        
+         self.navigationController?.pushViewController(AvatarViewController(), animated: true)
+    }
     func tappedDone(sender: UIBarButtonItem){
         
+            
         let profile:Profile = self.isCreating! == true ? Profile() : OuterspatialClient.currentUser!.profile!
         var valid:Bool = true
         if let firstName =  self.form.values()["first_name"] as? String {
