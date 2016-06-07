@@ -83,9 +83,9 @@ class TripsViewCell: UITableViewCell {
             self.tripImage.frame = CGRectMake(5,70,frame.size.width-10,150)
             let cache = Shared.imageCache
             tripImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (UIImage) -> Void in
-                    UIView.animateWithDuration(1.0, animations: {
-                        self.tripImage.alpha = 1
-                    })
+                   // UIView.animateWithDuration(1.0, animations: {
+                    //    self.tripImage.alpha = 1
+                   // })
                     self.tripImage.image = UIImage
                     cache.set(value: UIImage, key: url!.URLString)
                 }, failure: { (Error) -> Void in
@@ -105,6 +105,7 @@ class TripsViewCell: UITableViewCell {
         self.likeCountLabel.frame = CGRectMake(frame.size.width-30,15,40,40)
         self.likeCountLabel.sizeToFit()
         self.heartButton.frame = CGRectMake(self.likeCountLabel.leftOffset(20),9,25,25)
+        self.tripFilterView.w = self.heartButton.left-self.nameText.left-5
         layoutMargins = UIEdgeInsetsZero
     }
     

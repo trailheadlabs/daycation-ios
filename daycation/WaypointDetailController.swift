@@ -83,7 +83,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         //set image for button
         button.setImage(UIImage(named: "DAYC_Finish_button@3x.png"), forState: UIControlState.Normal)
         //add function for button
-        button.addTarget(self, action: "fbButtonPressed", forControlEvents: UIControlEvents.TouchUpInside)
+      //  button.addTarget(self, action: "fbButtonPressed", forControlEvents: UIControlEvents.TouchUpInside)
         //set frame
         button.frame = CGRectMake(-20, 0, 86, 25)
         
@@ -148,11 +148,15 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         waypointNameText.textColor = UIColor(hexString: "#36a174")
         contentView.addSubview(waypointNameText)
         
+        let shareButton  = UIButton(type: UIButtonType.System) as UIButton
+        shareButton.frame = CGRectMake(self.view.rightOffset(-40),self.mapView.bottomOffset(15),20,20)
+        shareButton.setImage(UIImage(named: "DAYC_Share@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
         
-        let shareImage = UIImageView()
-        shareImage.frame = CGRectMake(self.view.rightOffset(-40),self.mapView.bottomOffset(15),20,20)
-        shareImage.image = UIImage(named: "DAYC_Share@3x.png")
-        contentView.addSubview(shareImage)
+        contentView.addSubview(shareButton)
+        
+        shareButton.addTarget(self, action: "shareButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+        shareButton.userInteractionEnabled = true
+
         
         separatorImage=UIImageView(frame: CGRectMake( 0, waypointNameText.bottomOffset(5), self.view.frame.size.width, 5))
         separatorImage.contentMode = UIViewContentMode.ScaleAspectFill
@@ -475,6 +479,16 @@ navigationController?.popViewControllerAnimated(true)
         
     }
     
+    func shareButtonClicked(sender: UIButton) {
+        let textToShare = "Daycation is awesome!  Check it out!"
+        
+        if let myWebsite = NSURL(string: "http://www.google.com/") {
+            let objectsToShare = [textToShare, myWebsite]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            
+            self.presentViewController(activityVC, animated: true, completion: nil)
+        }
+    }
     func tappedButton(sender: DOFavoriteButton) {
         if sender.selected {
             OuterspatialClient.sharedInstance.setTripLikeStatus(self.trip.id!,likeStatus: false) {

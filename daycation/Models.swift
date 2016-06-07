@@ -352,12 +352,6 @@ class PointOfInterest: Feature {
                     self.featuredImage = tripImage
                 }
                 images.append (tripImage)
-                images.append (tripImage)
-                images.append (tripImage)
-                images.append (tripImage)
-                images.append (tripImage)
-                images.append (tripImage)
-                images.append (tripImage)
             }
         }
         if let geometry = data["geometry"] as? NSDictionary {

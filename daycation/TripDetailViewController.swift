@@ -110,10 +110,10 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         broughtToYouByLabel.numberOfLines = 0
         contentView.addSubview(broughtToYouByLabel)
         
-        contributorText = UILabel(frame:CGRect(x:profileImageView!.rightOffset(5), y:tripNameLabel!.bottomOffset(5), width:self.view.frame.width, height:10))
+        contributorText = UILabel(frame:CGRect(x:profileImageView!.rightOffset(5), y:tripNameLabel!.bottomOffset(5), width:self.view.w-profileImageView!.rightOffset(5)-5, height:10))
         contributorText.font = UIFont(name: "Quicksand-Bold", size: 14)
         contributorText.textColor = UIColor(hexString: "#e09b1b")
-        contributorText.numberOfLines = 0
+        contributorText.numberOfLines = 1
         contentView.addSubview(contributorText)
         
         tripImage=UIImageView(frame: CGRectMake(0, 90, view.w, 180))
@@ -195,7 +195,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         aboutButton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
         aboutButton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         aboutButton.tag = 1
-        aboutButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)!
+        aboutButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 12)!
         self.contentView.addSubview(aboutButton)
         selectedButton = aboutButton
         
@@ -205,7 +205,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         waypointsButton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
         waypointsButton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         waypointsButton.tag = 2
-        waypointsButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)!
+        waypointsButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 12)!
         self.contentView.addSubview(waypointsButton)
         
         let galleryButton   = UIButton(type: UIButtonType.Custom) as UIButton
@@ -214,7 +214,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         galleryButton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
         galleryButton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         galleryButton.tag = 3
-        galleryButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)!
+        galleryButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 12)!
         self.contentView.addSubview(galleryButton)
         
         let streamButton   = UIButton(type: UIButtonType.Custom) as UIButton
@@ -223,7 +223,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         streamButton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
         streamButton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
         streamButton.tag = 4
-        streamButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)!
+        streamButton.titleLabel!.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 12)!
         self.contentView.addSubview(streamButton)
         
         aboutView = UIView(frame: CGRectMake(0,streamButton.bottom, self.view.w, 200))
@@ -634,23 +634,28 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
                 
            // self.trip.contributor.profile?.abbreviatedName
             
-            if let contributor = self.trip.contributor{
+            if let contributor = self.trip.contributor where (contributor.profile!.organization!.name != nil){
                 
                 self.profileImageView!.hnk_setImageFromURL(contributor.profile!.imageUrl!)
                 self.broughtToYouByLabel.text = "BROUGHT TO YOU BY"
                 self.broughtToYouByLabel.sizeToFit()
                 self.broughtToYouByLabel.y = self.tripNameLabel!.bottom
-                let text = "\(contributor.profile!.abbreviatedName!) | \(contributor.profile!.organization!.name!)"
-                
+                var text = ""
+                if let abbreviatedName = contributor.profile!.abbreviatedName{
+                    text = "\(abbreviatedName) | \(contributor.profile!.organization!.name!)"
+                } else {
+                    text = "\(contributor.profile!.organization!.name!)"
+                }
                 let attributedString = NSMutableAttributedString(string:text)
                 
                 var range = (text as NSString).rangeOfString("|")
                 attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#949494")! , range: range)
-                range = (text as NSString).rangeOfString("Otters International")
+                range = (text as NSString).rangeOfString(contributor.profile!.organization!.name!)
                 attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#585858")! , range: range)
                 
                 self.contributorText.attributedText = attributedString
-                self.contributorText.sizeToFit()
+                
+                self.contributorText.fitHeight()
                 self.contributorText.y = self.broughtToYouByLabel!.bottom
                 
                 self.broughtToYouByLabel.hidden = false

@@ -28,7 +28,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
         headerImage.clipsToBounds = true
         self.view.addSubview(headerImage!)
         
-        logoImageView=UIImageView(frame: CGRectMake(headerImage.w/2-15, headerImage.h/2-5, 30,30))
+        logoImageView=UIImageView(frame: CGRectMake(headerImage.w/2-15, headerImage.h/2-8, 30,30))
         logoImageView.image = UIImage.scaleTo(image: UIImage(named: "home_selected@3x.png")!, w: 30, h: 30)
 
         self.view.addSubview(logoImageView!)
@@ -216,7 +216,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
         
         
         heartButton = itemView.viewWithTag(3) as! DOFavoriteButton!
-        heartButton.frame = CGRectMake(likeCountLabel.rightOffset(-30), itemView.bottomOffset(-35), 30, 30)
+        heartButton.frame = CGRectMake(likeCountLabel.rightOffset(-35), itemView.bottomOffset(-35), 30, 30)
         
         let image = UIImage(named: "Daycation_Heart_icon.png")!
         heartButton.image =  image

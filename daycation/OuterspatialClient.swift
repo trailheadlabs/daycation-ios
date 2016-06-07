@@ -29,6 +29,7 @@ public class OuterspatialClient {
     func logout() {
         OuterspatialClient.currentUser = nil
         oauth2Client!.forgetTokens()
+        oauth2Client!.forgetClient()
         oauth2Client!.accessToken = nil
         oauth2Client!.username = ""
         oauth2Client!.password = ""
@@ -478,7 +479,7 @@ public class OuterspatialClient {
     func createUser(user: User, completion: (result: User?,error:String?) -> Void) {
         oauth2ClientCredentials!.onAuthorize = { parameters in
             print("Did authorize with parameters: \(parameters)")
-            
+            let email = user.email
             var parameters = [
                 "user[email]":user.email,
                 "user[password]":user.password,
@@ -528,6 +529,7 @@ public class OuterspatialClient {
                                 }else{
                                     user.parse(data as! NSDictionary)
                                     OuterspatialClient.currentUser = user
+                                    user.email = email
                                     completion(result: user,error:nil)
                                 }
                             case .Failure(let error):
