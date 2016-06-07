@@ -37,7 +37,7 @@ class TripsFilterViewController : FormViewController{
                 
             }
             
-            <<< LoctionRow("activities") {
+            <<< OrganizationRow("activities") {
                 $0.title = "Related Activities"
                 
                 if let user = OuterspatialClient.currentUser where (user.profile != nil && user.profile!.organization != nil) {
@@ -61,7 +61,7 @@ class TripsFilterViewController : FormViewController{
                 $0.title = "Business"
         }
             
-            <<< LoctionRow("difficulty") {
+            <<< OrganizationRow("difficulty") {
                 $0.title = "Difficulty"
                 
                 if let user = OuterspatialClient.currentUser where (user.profile != nil && user.profile!.organization != nil) {
@@ -70,7 +70,7 @@ class TripsFilterViewController : FormViewController{
                 
         }
             
-            <<< LoctionRow("duration") {
+            <<< OrganizationRow("duration") {
                 $0.title = "Duration"
                 
                 if let user = OuterspatialClient.currentUser where (user.profile != nil && user.profile!.organization != nil) {
@@ -78,7 +78,7 @@ class TripsFilterViewController : FormViewController{
                 }
                 
             }
-            <<< LoctionRow("best_time_to_go") {
+            <<< OrganizationRow("best_time_to_go") {
                 $0.title = "Best Time to Go"
                 
                 if let user = OuterspatialClient.currentUser where (user.profile != nil && user.profile!.organization != nil) {
@@ -87,7 +87,7 @@ class TripsFilterViewController : FormViewController{
                 
         }
             
-            <<< LoctionRow("suitable_for_kids") {
+            <<< OrganizationRow("suitable_for_kids") {
                 $0.title = "Suitable for Kids"
                 
                 if let user = OuterspatialClient.currentUser where (user.profile != nil && user.profile!.organization != nil) {

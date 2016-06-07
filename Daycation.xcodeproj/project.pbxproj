@@ -271,6 +271,20 @@
 		AAAD97AA1D00EEC900981F76 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97A91D00EEC800981F76 /* Icon-72@2x.png */; };
 		AAAD97AC1D020D0400981F76 /* DAYC_Add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97AB1D020D0400981F76 /* DAYC_Add_photo@3x.png */; };
 		AAAD97AE1D02126200981F76 /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAD97AD1D02126200981F76 /* AvatarViewController.swift */; };
+		AAAD97BC1D05D69500981F76 /* DAY_AVATAR_fish.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97AF1D05D69500981F76 /* DAY_AVATAR_fish.png */; };
+		AAAD97BD1D05D69500981F76 /* DAY_AVATAR_fish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B01D05D69500981F76 /* DAY_AVATAR_fish@2x.png */; };
+		AAAD97BE1D05D69500981F76 /* DAY_AVATAR_fish@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B11D05D69500981F76 /* DAY_AVATAR_fish@3x.png */; };
+		AAAD97BF1D05D69500981F76 /* DAYC_Add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B21D05D69500981F76 /* DAYC_Add_photo@3x.png */; };
+		AAAD97C01D05D69500981F76 /* DAYC_AVATAR_beaver.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B31D05D69500981F76 /* DAYC_AVATAR_beaver.png */; };
+		AAAD97C11D05D69500981F76 /* DAYC_AVATAR_beaver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B41D05D69500981F76 /* DAYC_AVATAR_beaver@2x.png */; };
+		AAAD97C21D05D69500981F76 /* DAYC_AVATAR_beaver@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B51D05D69500981F76 /* DAYC_AVATAR_beaver@3x.png */; };
+		AAAD97C31D05D69500981F76 /* DAYC_AVATAR_deer.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B61D05D69500981F76 /* DAYC_AVATAR_deer.png */; };
+		AAAD97C41D05D69500981F76 /* DAYC_AVATAR_deer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B71D05D69500981F76 /* DAYC_AVATAR_deer@2x.png */; };
+		AAAD97C51D05D69500981F76 /* DAYC_AVATAR_deer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B81D05D69500981F76 /* DAYC_AVATAR_deer@3x.png */; };
+		AAAD97C61D05D69500981F76 /* DAYC_AVATAR_duck.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97B91D05D69500981F76 /* DAYC_AVATAR_duck.png */; };
+		AAAD97C71D05D69500981F76 /* DAYC_AVATAR_duck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97BA1D05D69500981F76 /* DAYC_AVATAR_duck@2x.png */; };
+		AAAD97C81D05D69500981F76 /* DAYC_AVATAR_duck@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97BB1D05D69500981F76 /* DAYC_AVATAR_duck@3x.png */; };
+		AAAD97CA1D06025400981F76 /* empty_avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAD97C91D06025400981F76 /* empty_avatar.png */; };
 		AAB344A91CEFBD9F006CC849 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */; };
 		AAB344AE1CEFBD9F006CC849 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AC1CEFBD9F006CC849 /* Main.storyboard */; };
 		AAB344B01CEFBD9F006CC849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAB344AF1CEFBD9F006CC849 /* Assets.xcassets */; };
@@ -580,6 +594,20 @@
 		AAAD97A91D00EEC800981F76 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		AAAD97AB1D020D0400981F76 /* DAYC_Add_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Add_photo@3x.png"; sourceTree = "<group>"; };
 		AAAD97AD1D02126200981F76 /* AvatarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
+		AAAD97AF1D05D69500981F76 /* DAY_AVATAR_fish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DAY_AVATAR_fish.png; sourceTree = "<group>"; };
+		AAAD97B01D05D69500981F76 /* DAY_AVATAR_fish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAY_AVATAR_fish@2x.png"; sourceTree = "<group>"; };
+		AAAD97B11D05D69500981F76 /* DAY_AVATAR_fish@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAY_AVATAR_fish@3x.png"; sourceTree = "<group>"; };
+		AAAD97B21D05D69500981F76 /* DAYC_Add_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Add_photo@3x.png"; sourceTree = "<group>"; };
+		AAAD97B31D05D69500981F76 /* DAYC_AVATAR_beaver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DAYC_AVATAR_beaver.png; sourceTree = "<group>"; };
+		AAAD97B41D05D69500981F76 /* DAYC_AVATAR_beaver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_AVATAR_beaver@2x.png"; sourceTree = "<group>"; };
+		AAAD97B51D05D69500981F76 /* DAYC_AVATAR_beaver@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_AVATAR_beaver@3x.png"; sourceTree = "<group>"; };
+		AAAD97B61D05D69500981F76 /* DAYC_AVATAR_deer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DAYC_AVATAR_deer.png; sourceTree = "<group>"; };
+		AAAD97B71D05D69500981F76 /* DAYC_AVATAR_deer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_AVATAR_deer@2x.png"; sourceTree = "<group>"; };
+		AAAD97B81D05D69500981F76 /* DAYC_AVATAR_deer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_AVATAR_deer@3x.png"; sourceTree = "<group>"; };
+		AAAD97B91D05D69500981F76 /* DAYC_AVATAR_duck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DAYC_AVATAR_duck.png; sourceTree = "<group>"; };
+		AAAD97BA1D05D69500981F76 /* DAYC_AVATAR_duck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_AVATAR_duck@2x.png"; sourceTree = "<group>"; };
+		AAAD97BB1D05D69500981F76 /* DAYC_AVATAR_duck@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_AVATAR_duck@3x.png"; sourceTree = "<group>"; };
+		AAAD97C91D06025400981F76 /* empty_avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty_avatar.png; sourceTree = "<group>"; };
 		AAB344A51CEFBD9F006CC849 /* Daycation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Daycation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB344AD1CEFBD9F006CC849 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -660,6 +688,20 @@
 		AA13BD8B1CEFCF84009F0FC2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				AAAD97C91D06025400981F76 /* empty_avatar.png */,
+				AAAD97AF1D05D69500981F76 /* DAY_AVATAR_fish.png */,
+				AAAD97B01D05D69500981F76 /* DAY_AVATAR_fish@2x.png */,
+				AAAD97B11D05D69500981F76 /* DAY_AVATAR_fish@3x.png */,
+				AAAD97B21D05D69500981F76 /* DAYC_Add_photo@3x.png */,
+				AAAD97B31D05D69500981F76 /* DAYC_AVATAR_beaver.png */,
+				AAAD97B41D05D69500981F76 /* DAYC_AVATAR_beaver@2x.png */,
+				AAAD97B51D05D69500981F76 /* DAYC_AVATAR_beaver@3x.png */,
+				AAAD97B61D05D69500981F76 /* DAYC_AVATAR_deer.png */,
+				AAAD97B71D05D69500981F76 /* DAYC_AVATAR_deer@2x.png */,
+				AAAD97B81D05D69500981F76 /* DAYC_AVATAR_deer@3x.png */,
+				AAAD97B91D05D69500981F76 /* DAYC_AVATAR_duck.png */,
+				AAAD97BA1D05D69500981F76 /* DAYC_AVATAR_duck@2x.png */,
+				AAAD97BB1D05D69500981F76 /* DAYC_AVATAR_duck@3x.png */,
 				AA13BD8E1CEFCF84009F0FC2 /* DAYC_Blank_map_marker_selected@3x.png */,
 				AAAD97AB1D020D0400981F76 /* DAYC_Add_photo@3x.png */,
 				AA13BD8C1CEFCF84009F0FC2 /* DAYC_Blank_map_marker@2x.png */,
@@ -929,12 +971,12 @@
 				AAB344D91CEFC087006CC849 /* TripsViewController.swift */,
 				AA13BD851CEFCC66009F0FC2 /* TripsFilterViewController.swift */,
 				AAB344DE1CEFC087006CC849 /* TripDetailViewController.swift */,
-				AAB344DD1CEFC087006CC849 /* WaypointDetailController.swift */,
 				AAB344D61CEFC087006CC849 /* TripsViewCell.swift */,
 				AAAD977C1CFCCA8100981F76 /* PhotoCollectionViewCell.swift */,
 				AA2F66EA1CF4E50D003464AB /* TripMapCell.swift */,
 				AA2F66E81CF4E173003464AB /* TripFilterView.swift */,
 				AA2F66EC1CF63734003464AB /* SpeciesViewCell.swift */,
+				AAB344DD1CEFC087006CC849 /* WaypointDetailController.swift */,
 				AAAD977A1CF7ADF900981F76 /* WaypointViewCell.swift */,
 			);
 			name = trips;
@@ -1068,6 +1110,7 @@
 				AAB344A31CEFBD9F006CC849 /* Resources */,
 				FA94355FA5E47CE57C1B3953 /* Embed Pods Frameworks */,
 				5B8DE2255A5FC15AA2BD59B6 /* Copy Pods Resources */,
+				AAAD97CB1D071E1E00981F76 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1165,6 +1208,7 @@
 			files = (
 				AA13BE8E1CEFCF85009F0FC2 /* DAYC_Icon_Body_of_Water_2@2x.png in Resources */,
 				AA13BEB11CEFCF85009F0FC2 /* DAYC_Icon_Handicap_access.png in Resources */,
+				AAAD97C41D05D69500981F76 /* DAYC_AVATAR_deer@2x.png in Resources */,
 				AA13BE941CEFCF85009F0FC2 /* DAYC_Icon_Climbing@2x.png in Resources */,
 				AA13BF0D1CEFCF85009F0FC2 /* Daycation_Main_texture_all_colors.png in Resources */,
 				AA13BF361CEFCF85009F0FC2 /* heart.png in Resources */,
@@ -1213,10 +1257,13 @@
 				AA13BE951CEFCF85009F0FC2 /* DAYC_Icon_Climbing@3x.png in Resources */,
 				AA13BF571CEFCF85009F0FC2 /* Icon-Small@3x copy 2.png in Resources */,
 				AA13BF151CEFCF85009F0FC2 /* Daycation_Nav_Home.png in Resources */,
+				AAAD97C31D05D69500981F76 /* DAYC_AVATAR_deer.png in Resources */,
 				AA13BEFA1CEFCF85009F0FC2 /* DAYC_ORANGE_BOTTOM@3x.png in Resources */,
 				AA13BED61CEFCF85009F0FC2 /* DAYC_Icon_Picnic@2x.png in Resources */,
+				AAAD97C21D05D69500981F76 /* DAYC_AVATAR_beaver@3x.png in Resources */,
 				AA13BEFF1CEFCF85009F0FC2 /* Daycation_Birds.png in Resources */,
 				AA13BEC91CEFCF85009F0FC2 /* DAYC_Icon_Natural_feature.png in Resources */,
+				AAAD97C11D05D69500981F76 /* DAYC_AVATAR_beaver@2x.png in Resources */,
 				AA13BEEC1CEFCF85009F0FC2 /* DAYC_Icon_Trail@3x.png in Resources */,
 				AAAD97A41D00CC3600981F76 /* Daycation_sign_up_email@3x.png in Resources */,
 				AA13BE771CEFCF85009F0FC2 /* DAYC_Blank_map_marker@3x.png in Resources */,
@@ -1285,6 +1332,7 @@
 				AA13BED41CEFCF85009F0FC2 /* DAYC_Icon_Park@3x.png in Resources */,
 				AAAD979C1D00C8C600981F76 /* DAYC_Splash_main_graphic_060216@2x.png in Resources */,
 				AA13BEBB1CEFCF85009F0FC2 /* DAYC_Icon_Historical_1@2x.png in Resources */,
+				AAAD97C81D05D69500981F76 /* DAYC_AVATAR_duck@3x.png in Resources */,
 				AA13BEE81CEFCF85009F0FC2 /* DAYC_Icon_Swimming@2x.png in Resources */,
 				AA13BE831CEFCF85009F0FC2 /* DAYC_Icon_Birds@3x.png in Resources */,
 				AA13BF5E1CEFCF85009F0FC2 /* smile.png in Resources */,
@@ -1302,6 +1350,7 @@
 				AA13BE8B1CEFCF85009F0FC2 /* DAYC_Icon_Body_of_Water_1@2x.png in Resources */,
 				AA13BEA81CEFCF85009F0FC2 /* DAYC_Icon_Fishing.png in Resources */,
 				AA13BE7F1CEFCF85009F0FC2 /* DAYC_Icon_ADA@2x.png in Resources */,
+				AAAD97BC1D05D69500981F76 /* DAY_AVATAR_fish.png in Resources */,
 				AA13BEF31CEFCF85009F0FC2 /* DAYC_Icon_Winter.png in Resources */,
 				AA13BEAD1CEFCF85009F0FC2 /* DAYC_Icon_Food_Drink@3x.png in Resources */,
 				AA13BF321CEFCF85009F0FC2 /* Daycation_stream_bar.png in Resources */,
@@ -1312,10 +1361,12 @@
 				AA13BE911CEFCF85009F0FC2 /* DAYC_Icon_ChildFriendly@2x.png in Resources */,
 				AA13BF091CEFCF85009F0FC2 /* Daycation_home_bar.png in Resources */,
 				AA13BF4D1CEFCF85009F0FC2 /* Icon-76@2x.png in Resources */,
+				AAAD97BF1D05D69500981F76 /* DAYC_Add_photo@3x.png in Resources */,
 				AA13BF0B1CEFCF85009F0FC2 /* Daycation_Magnifying_gla.png in Resources */,
 				AA13BEEE1CEFCF85009F0FC2 /* DAYC_Icon_Walking@2x.png in Resources */,
 				AA13BEEF1CEFCF85009F0FC2 /* DAYC_Icon_Walking@3x.png in Resources */,
 				AA13BE8D1CEFCF85009F0FC2 /* DAYC_Icon_Body_of_Water_2.png in Resources */,
+				AAAD97CA1D06025400981F76 /* empty_avatar.png in Resources */,
 				AA13BF3C1CEFCF85009F0FC2 /* Icon-40@2x copy 2.png in Resources */,
 				AA13BF401CEFCF85009F0FC2 /* Icon-40@3x copy.png in Resources */,
 				AA13BEA11CEFCF85009F0FC2 /* DAYC_Icon_Duration_HalfDay@3x.png in Resources */,
@@ -1342,9 +1393,11 @@
 				AA13BF551CEFCF85009F0FC2 /* Icon-Small@2x copy.png in Resources */,
 				AA13BEC01CEFCF85009F0FC2 /* DAYC_Icon_Historical_3.png in Resources */,
 				AA13BEEA1CEFCF85009F0FC2 /* DAYC_Icon_Trail.png in Resources */,
+				AAAD97C51D05D69500981F76 /* DAYC_AVATAR_deer@3x.png in Resources */,
 				AA13BE801CEFCF85009F0FC2 /* DAYC_Icon_ADA@3x.png in Resources */,
 				AA13BEA21CEFCF85009F0FC2 /* DAYC_Icon_Elderly.png in Resources */,
 				AA13BF171CEFCF85009F0FC2 /* Daycation_Nav_Me.png in Resources */,
+				AAAD97BE1D05D69500981F76 /* DAY_AVATAR_fish@3x.png in Resources */,
 				AA13BF211CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_8.png in Resources */,
 				AAAD97A31D00CC3600981F76 /* DAYC_Sign_In_type_060216@3x.png in Resources */,
 				AAAD97AC1D020D0400981F76 /* DAYC_Add_photo@3x.png in Resources */,
@@ -1372,9 +1425,11 @@
 				AA13BEBA1CEFCF85009F0FC2 /* DAYC_Icon_Historical_1.png in Resources */,
 				AA13BE8C1CEFCF85009F0FC2 /* DAYC_Icon_Body_of_Water_1@3x.png in Resources */,
 				AA13BF541CEFCF85009F0FC2 /* Icon-Small@2x copy 2.png in Resources */,
+				AAAD97C01D05D69500981F76 /* DAYC_AVATAR_beaver.png in Resources */,
 				AA13BF0E1CEFCF85009F0FC2 /* Daycation_Mammals.png in Resources */,
 				AA13BF421CEFCF85009F0FC2 /* Icon-60@2x copy 2.png in Resources */,
 				AAAD97AA1D00EEC900981F76 /* Icon-72@2x.png in Resources */,
+				AAAD97BD1D05D69500981F76 /* DAY_AVATAR_fish@2x.png in Resources */,
 				AA13BF191CEFCF85009F0FC2 /* Daycation_Nav_Stream.png in Resources */,
 				AA13BF111CEFCF85009F0FC2 /* Daycation_me_bar copy.png in Resources */,
 				AA13BEB41CEFCF85009F0FC2 /* DAYC_Icon_Handicap_parking.png in Resources */,
@@ -1405,6 +1460,7 @@
 				AA13BE961CEFCF85009F0FC2 /* DAYC_Icon_DogsAllowed.png in Resources */,
 				AA13BE9C1CEFCF85009F0FC2 /* DAYC_Icon_Duration_FullDay.png in Resources */,
 				AA13BEE11CEFCF85009F0FC2 /* DAYC_Icon_Spring.png in Resources */,
+				AAAD97C61D05D69500981F76 /* DAYC_AVATAR_duck.png in Resources */,
 				AA13BEBC1CEFCF85009F0FC2 /* DAYC_Icon_Historical_1@3x.png in Resources */,
 				AA13BF181CEFCF85009F0FC2 /* Daycation_Nav_Stream copy.png in Resources */,
 				AA13BED01CEFCF85009F0FC2 /* DAYC_Icon_paddling@2x.png in Resources */,
@@ -1417,6 +1473,7 @@
 				AA13BEA41CEFCF85009F0FC2 /* DAYC_Icon_Elderly@3x.png in Resources */,
 				AA13BEE61CEFCF85009F0FC2 /* DAYC_Icon_Summer@3x.png in Resources */,
 				AA13BEE21CEFCF85009F0FC2 /* DAYC_Icon_Spring@2x.png in Resources */,
+				AAAD97C71D05D69500981F76 /* DAYC_AVATAR_duck@2x.png in Resources */,
 				AA13BF131CEFCF85009F0FC2 /* Daycation_Nav_Daycations.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1467,6 +1524,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		AAAD97CB1D071E1E00981F76 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" a40ea207241f7bbbd078fdb431ba0be2f8d7f289 3559f128d549a156d1a01ea1a492a2944bb42db5a41e6abcec9d6207214c316e";
 		};
 		FA94355FA5E47CE57C1B3953 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

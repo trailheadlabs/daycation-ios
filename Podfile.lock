@@ -6,10 +6,13 @@ PODS:
   - Bolts/AppLinks (1.7.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.7.0)
+  - Crashlytics (3.7.0):
+    - Fabric (~> 1.6.3)
   - DOFavoriteButton (0.0.4)
   - Dollar (5.0.1)
   - Eureka (1.5.0)
   - EZSwiftExtensions (1.4)
+  - Fabric (1.6.7)
   - FBSDKCoreKit (4.12.0):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.12.0):
@@ -25,6 +28,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (= 3.2.0)
+  - Crashlytics
   - DOFavoriteButton (from `https://github.com/okmr-d/DOFavoriteButton.git`)
   - Dollar
   - Eureka
@@ -50,10 +54,12 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
+  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   DOFavoriteButton: 866e15af173d2dd5233971a1f657a5f31d2491d5
   Dollar: 9ef817b4f35b61e982f9812a2b01ed6270978cc1
   Eureka: 2fb37bb50569c62ee3284689d5b7aca694b040e0
   EZSwiftExtensions: db7be0022fce8e92cdfe0fadddaf835fcd9696db
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
   FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
   HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8

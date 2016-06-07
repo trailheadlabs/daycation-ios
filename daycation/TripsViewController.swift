@@ -400,8 +400,18 @@ iCarouselDataSource, iCarouselDelegate{
     
     func carousel(carousel: iCarousel, didSelectItemAtIndex: Int) -> Void {
         let trip:Trip = self.highlightedFeatures[didSelectItemAtIndex] as! Trip
-        //   openTrip(trip)
+          openTrip(trip)
     }
+    
+    
+    func openTrip(trip:Trip) {
+        let tabBar: UITabBarController = self.parentViewController?.parentViewController as! UITabBarController
+        let tripsViewNavigationController: UINavigationController = tabBar.viewControllers![1] as! UINavigationController
+        let tripsViewController: TripsViewController = tripsViewNavigationController.viewControllers[0] as! TripsViewController
+        tripsViewController.selectTrip(trip)
+        tabBar.selectedIndex = 1
+    }
+    
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         let selectedAnnotation = view.annotation as? CustomPointAnnotation
         var span = MKCoordinateSpanMake(1, 1)
@@ -555,11 +565,12 @@ iCarouselDataSource, iCarouselDelegate{
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationItem.title = ""
         self.view.backgroundColor = UIColor(hexString: "#fff9e1")
         self.navigationController?.setNavigationBarHidden(false, animated:false)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = false
-        self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
+       //  self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
         let backgroundImage = UIImage(named:"DAYC_GREEN_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
         
      //   self.navigationController?.navigationBar.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.w, 60)
@@ -573,6 +584,7 @@ iCarouselDataSource, iCarouselDelegate{
         self.tableView.pullToRefreshView?.stopAnimating()
         self.tableView.reloadData()
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

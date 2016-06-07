@@ -11,6 +11,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
     var pageControl : UIPageControl!
     var carousel : iCarousel!
     var headerImage : UIImageView!
+    var logoImageView : UIImageView!
     var postsTableView : UITableView!
     var featureBundles : [FeatureBundle] = []
     var highlightedFeatures : [Feature] = []
@@ -26,6 +27,11 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
         headerImage.contentMode = UIViewContentMode.ScaleAspectFill
         headerImage.clipsToBounds = true
         self.view.addSubview(headerImage!)
+        
+        logoImageView=UIImageView(frame: CGRectMake(headerImage.w/2-15, headerImage.h/2-5, 30,30))
+        logoImageView.image = UIImage.scaleTo(image: UIImage(named: "home_selected@3x.png")!, w: 30, h: 30)
+
+        self.view.addSubview(logoImageView!)
         
         scrollView = UIScrollView()
         scrollView.y = 60

@@ -309,14 +309,9 @@ class Trip: Feature {
             }
         }
         
-        if let geometry = data["contributor"] as? NSDictionary {
-            if let type = geometry["type"] as? NSString {
-                if  type == "Point" {
-                    if let coordinates = geometry["coordinates"] as? NSArray {
-                        location = CLLocation(latitude: (coordinates[1] as?  Double)!, longitude: (coordinates[0] as?  Double)!)
-                    }
-                }
-            }
+        if let jsoncontributor = data["contributor"] as? NSDictionary {
+            contributor = User()
+            contributor!.parse(jsoncontributor)
         }
         return self
     }
@@ -328,6 +323,7 @@ class PointOfInterest: Feature {
     var location: CLLocation?
     var featuredImage: FeatureImage?
     var images: [FeatureImage] = []
+    var description: String?
     func parse(data:NSDictionary) -> PointOfInterest{
         self.id = data["id"] as? Int
         if let name = data["name"] as? String {
@@ -335,6 +331,9 @@ class PointOfInterest: Feature {
         }
         let featuredImageId = data["featured_image_id"] as? Int
         
+        if let description = data["text_description"] as? String {
+            self.description = description
+        }
         if let jsonimages = data["images"] as? NSArray {
             for jsonimage in jsonimages {
                 let pointOfInterestImage = FeatureImage()

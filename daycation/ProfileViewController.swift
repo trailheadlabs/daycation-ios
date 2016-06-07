@@ -381,7 +381,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.setNavigationBarHidden(false, animated:false)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = false
-        self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:"MY PROFILE")
+      //   self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:"MY PROFILE")
         self.profileImageView!.hnk_setImageFromURL(OuterspatialClient.currentUser!.profile!.imageUrl!)
     }
     

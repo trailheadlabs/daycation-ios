@@ -39,7 +39,7 @@ class EntryViewController : UIViewController{
         self.view.backgroundColor =  UIColor(hexString: "#fff3d6")
         HUD.dimsBackground = false
         HUD.allowsInteraction = false
-        //self.client?.logout()
+       //  OuterspatialClient.sharedInstance.logout()
         if  (OuterspatialClient.sharedInstance.isAuthorized() == true){
             
           // HUD.show(.LabeledProgress(title: "Session Exists", subtitle: "Trying to use it"))
@@ -71,7 +71,7 @@ class EntryViewController : UIViewController{
         facebookButton.setImage(UIImage(named: "Daycation_sign_up_fb@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
         facebookButton.userInteractionEnabled = true
         facebookButton.addTarget(self, action: "facebookbuttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
-        facebookButton.frame = CGRectMake(0, UIScreen.mainScreen().bounds.height-124, UIScreen.mainScreen().bounds.width, 40)
+        facebookButton.frame = CGRectMake(0, UIScreen.mainScreen().bounds.height-134, UIScreen.mainScreen().bounds.width, 40)
         
         let button   = UIButton(type: UIButtonType.System) as UIButton
         button.setImage(UIImage(named: "Daycation_sign_up_email@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)

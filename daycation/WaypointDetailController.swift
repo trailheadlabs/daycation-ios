@@ -347,7 +347,12 @@ navigationController?.popViewControllerAnimated(true)
         self.feature = waypoint.feature as! PointOfInterest
         waypointNameText.text = self.feature.name
         waypointAddress.text = "50100 Otter Lane"
-        descriptionLabel.text = "This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description. This is a description."
+        
+        if let description = self.feature.description {
+            descriptionLabel.text = description
+        }else {
+            descriptionLabel.text = "No description."
+        }
         let text = "\(String(self.position+1)) / \(String(self.trip.waypoints.count))"
         let attributedString = NSMutableAttributedString(string:text)
         
@@ -456,7 +461,7 @@ navigationController?.popViewControllerAnimated(true)
             anView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker@3x.png")!, w: 25, h: 25)
             
         }
-        
+        anView!.centerOffset = CGPointMake(0, -25 / 2);
         let label = UILabel(frame: CGRect(x: 5, y: 1, width: 20, height: 20))
         label.textColor = UIColor.whiteColor()
         label.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)

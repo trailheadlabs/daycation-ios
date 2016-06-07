@@ -69,7 +69,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = trip.name
+        self.title = "Daycations"
         
         let a = UIBarButtonItem(title: "Share", style: .Plain, target: self, action:#selector(TripDetailViewController.shareButtonClicked(_:)))
         self.navigationItem.rightBarButtonItem = a
@@ -97,10 +97,10 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         self.profileImageView!.clipsToBounds = true
         self.contentView.addSubview(profileImageView!)
         
-        tripNameLabel = UILabel(frame:CGRect(x:profileImageView!.rightOffset(5), y:12, width:self.view.frame.width, height:10))
+        tripNameLabel = UILabel(frame:CGRect(x:profileImageView!.rightOffset(5), y:12, width:self.view.w-profileImageView!.rightOffset(5)-5, height:10))
         tripNameLabel.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 18)
         tripNameLabel.textColor = UIColor(hexString: "#36a174")
-        tripNameLabel.numberOfLines = 0
+        tripNameLabel.numberOfLines = 1
         contentView.addSubview(tripNameLabel)
         
         
@@ -528,7 +528,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         
         
         anView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker@3x.png")!, w: 25, h: 25)
-        
+        anView!.centerOffset = CGPointMake(0, -25 / 2);
         let label = UILabel(frame: CGRect(x: 5, y: 1, width: 20, height: 20))
         label.textColor = UIColor.whiteColor()
         label.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)
@@ -630,22 +630,36 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             }
             
             self.tripNameLabel.text=self.trip.name
-            self.tripNameLabel.sizeToFit()
-            self.broughtToYouByLabel.text = "BROUGHT TO YOU BY"
-            self.broughtToYouByLabel.sizeToFit()
-            self.broughtToYouByLabel.y = self.tripNameLabel!.bottom
-            let text = "otter123 | Otters International"
-            let attributedString = NSMutableAttributedString(string:text)
+            self.tripNameLabel.fitHeight()
+                
+           // self.trip.contributor.profile?.abbreviatedName
             
-            var range = (text as NSString).rangeOfString("|")
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#949494")! , range: range)
-            range = (text as NSString).rangeOfString("Otters International")
-            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#585858")! , range: range)
-            
-            self.contributorText.attributedText = attributedString
-            self.contributorText.sizeToFit()
-            self.contributorText.y = self.broughtToYouByLabel!.bottom
-            
+            if let contributor = self.trip.contributor{
+                
+                self.profileImageView!.hnk_setImageFromURL(contributor.profile!.imageUrl!)
+                self.broughtToYouByLabel.text = "BROUGHT TO YOU BY"
+                self.broughtToYouByLabel.sizeToFit()
+                self.broughtToYouByLabel.y = self.tripNameLabel!.bottom
+                let text = "\(contributor.profile!.abbreviatedName!) | \(contributor.profile!.organization!.name!)"
+                
+                let attributedString = NSMutableAttributedString(string:text)
+                
+                var range = (text as NSString).rangeOfString("|")
+                attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#949494")! , range: range)
+                range = (text as NSString).rangeOfString("Otters International")
+                attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(hexString: "#585858")! , range: range)
+                
+                self.contributorText.attributedText = attributedString
+                self.contributorText.sizeToFit()
+                self.contributorText.y = self.broughtToYouByLabel!.bottom
+                
+                self.broughtToYouByLabel.hidden = false
+                 self.contributorText.hidden = false
+            } else {
+                
+                self.broughtToYouByLabel.hidden = true
+                self.contributorText.hidden = true
+            }
             self.likeCountLabel.text = "\(self.trip.likes!)"
             self.likeCountLabel.fitSize()
             self.likeCountLabel.x = self.view.rightOffset(-25)-self.likeCountLabel.w
@@ -676,7 +690,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         self.navigationController?.navigationBar.topItem?.backBarButtonItem=btn
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = false
-        self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:"Daycations")
+        // self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:"Daycations")
         self.navigationController?.setNavigationBarHidden(false, animated:false)
     }
     

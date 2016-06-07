@@ -32,6 +32,8 @@ public class OuterspatialClient {
         oauth2Client!.accessToken = nil
         oauth2Client!.username = ""
         oauth2Client!.password = ""
+        oauth2ClientCredentials!.forgetTokens()
+        oauth2ClientCredentials!.accessToken = nil        
     }
     
     func isAuthorized() -> Bool {
@@ -98,7 +100,7 @@ public class OuterspatialClient {
                 
                 // import image to request
                 if let image = profile.image {
-                    let imageData = UIImageJPEGRepresentation(image, 0.5)
+                    let imageData = UIImageJPEGRepresentation(image, 0.2)
                     multipartFormData.appendBodyPart(data: imageData!, name: "member_profile[photo_file]", fileName: "profile-\(NSDate().timeIntervalSince1970).png", mimeType: "image/png")
                 }
                 
@@ -175,7 +177,7 @@ public class OuterspatialClient {
     }
     
     func getOrganizations(completion: (result: [Organization]?,error:String?) -> Void) {
-        oauth2Client!.request(.GET, "\(Config.host)/v0/applications/1/organizations")
+        oauth2Client!.request(.GET, "\(Config.host)/v0/applications/\(Config.settings["application_id"]!)/organizations")
             .responseJSON { response in
                 print(response.result.value)   // result of response serialization
                 
@@ -496,7 +498,7 @@ public class OuterspatialClient {
                     
                     // import image to request
                     if let image = user.profile!.image {
-                        let imageData = UIImageJPEGRepresentation(image, 0.5)
+                        let imageData = UIImageJPEGRepresentation(image, 0.2)
                         multipartFormData.appendBodyPart(data: imageData!, name: "member_profile[photo_file]", fileName: "profile-\(NSDate().timeIntervalSince1970).png", mimeType: "image/png")
                     }
                     
