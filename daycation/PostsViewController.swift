@@ -147,7 +147,7 @@ class  PostsViewController : UIViewController, UITableViewDataSource, UITableVie
         
         self.navigationController?.navigationBar.translucent = true
         
-        self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
+        // self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)

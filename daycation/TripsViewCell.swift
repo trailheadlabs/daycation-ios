@@ -53,7 +53,7 @@ class TripsViewCell: UITableViewCell {
         self.addSubview(likeCountLabel!)
         self.backgroundColor = UIColor(hexString: "#fff9e1")
         
-        tripFilterView = TripFilterView(frame: CGRectMake(43, 0, self.w, 40))
+        tripFilterView = TripFilterView(frame: CGRectMake(43, 0, self.w-60, 40))
         self.addSubview(tripFilterView!)
         self.backgroundColor = UIColor(hexString: "#fff9e1")
         

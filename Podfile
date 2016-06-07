@@ -2,6 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
+pod 'Crashlytics'
 pod 'Eureka'
 pod 'Alamofire', "3.2.0"
 pod 'p2.OAuth2'

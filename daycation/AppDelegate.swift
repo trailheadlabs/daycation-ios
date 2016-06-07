@@ -10,6 +10,9 @@
 
 import UIKit
 import FBSDKCoreKit
+import Fabric
+import Crashlytics
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -18,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        Fabric.with([Crashlytics.self, Answers.self])
+
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let navigationController = UINavigationController(rootViewController: EntryViewController())
         window?.rootViewController = navigationController
@@ -37,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navBackgroundImage:UIImage! = UIImage(named: "backgroundNB.png")
         UINavigationBar.appearance().setBackgroundImage(backgroundImage!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 80)), forBarMetrics: .Default)
         UINavigationBar.appearance().tintColor = UIColor(hexString: "#fff9e1")!
-        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:11)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: UIFont(name:"TrueNorthRoughBlack-Regular", size:26)!, NSForegroundColorAttributeName: UIColor(hexString: "#fcfbea")!]
         let cancelButtonAttributes: NSDictionary = [NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:14)!, NSForegroundColorAttributeName: UIColor(hexString: "#fff9e1")!]
         // Remove the icon, which is located in the left view
         for familyName in UIFont.familyNames() {

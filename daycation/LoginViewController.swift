@@ -128,7 +128,7 @@ class LoginViewController : FormViewController{
         self.navigationController?.setNavigationBarHidden(false, animated:false)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = false
-        self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
+        // self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
         let backgroundImage = UIImage(named:"DAYC_BLUE_TOP@3x")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
 
         self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
