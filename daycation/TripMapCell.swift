@@ -15,7 +15,7 @@ class TripMapCell: UIView {
         tripImage=UIImageView(frame: CGRectMake(20,4,50,50))
         tripImage.contentMode = UIViewContentMode.ScaleAspectFill
         tripImage.clipsToBounds = true
-        tripImage.alpha = 0.5
+        //tripImage.alpha = 0.5
         tripImage.setCornerRadius(radius: 3)
         self.addSubview(tripImage!)
 
@@ -55,9 +55,9 @@ class TripMapCell: UIView {
         tripImage.hnk_cancelSetImage()
         let cache = Shared.imageCache
         tripImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (UIImage) -> Void in
-            UIView.animateWithDuration(1.0, animations: {
-                self.tripImage.alpha = 1
-            })
+          //  UIView.animateWithDuration(1.0, animations: {
+          //      self.tripImage.alpha = 1
+         //   })
             self.tripImage.image = UIImage
             cache.set(value: UIImage, key: url!.URLString)
             }, failure: { (Error) -> Void in

@@ -321,7 +321,7 @@ iCarouselDataSource, iCarouselDelegate{
         
         
         heartButton = itemView.viewWithTag(3) as! DOFavoriteButton!
-        heartButton.frame = CGRectMake(likeCountLabel.rightOffset(-30), itemView.bottomOffset(-35), 30, 30)
+        heartButton.frame = CGRectMake(likeCountLabel.rightOffset(-35), itemView.bottomOffset(-35), 30, 30)
     
         let image = UIImage.scaleTo(image: UIImage(named: "Daycation_Heart_icon.png")!, w: 16, h: 16)
         heartButton.image =  image
@@ -414,11 +414,11 @@ iCarouselDataSource, iCarouselDelegate{
     
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         let selectedAnnotation = view.annotation as? CustomPointAnnotation
-        var span = MKCoordinateSpanMake(1, 1)
+    //    var span = MKCoordinateSpanMake(1, 1)
         
-        var region = MKCoordinateRegion(center: (selectedAnnotation?.coordinate)!, span: span)
+      //  var region = MKCoordinateRegion(center: (selectedAnnotation?.coordinate)!, span: span)
         
-        mapView.setRegion(region, animated: true)
+      //  mapView.setRegion(region, animated: true)
         let top = CGAffineTransformMakeTranslation(0, -110)
         UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
             //self.selectedTripView.transform = top
@@ -565,24 +565,25 @@ iCarouselDataSource, iCarouselDelegate{
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = ""
+        self.navigationItem.title = "Daycation"
         self.view.backgroundColor = UIColor(hexString: "#fff9e1")
         self.navigationController?.setNavigationBarHidden(false, animated:false)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = false
-       //  self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
+        //  self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
         let backgroundImage = UIImage(named:"DAYC_GREEN_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
         
-     //   self.navigationController?.navigationBar.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.w, 60)
+        //   self.navigationController?.navigationBar.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.w, 60)
         
         self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
-                                                                  forBarMetrics: .Default)
+                                                                    forBarMetrics: .Default)
         
     }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.pullToRefreshView?.stopAnimating()
-        self.tableView.reloadData()
+       // self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
