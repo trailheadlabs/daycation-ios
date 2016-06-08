@@ -33,7 +33,7 @@ extension OAuth2 {
 }
 
 
-class EntryViewController : UIViewController{
+class EntryViewController : UIViewController,  CLLocationManagerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor =  UIColor(hexString: "#fff3d6")
@@ -62,7 +62,6 @@ class EntryViewController : UIViewController{
         } else {
             showLogin()
         }
-        
     }
     
     func showLogin(){
@@ -113,7 +112,8 @@ class EntryViewController : UIViewController{
         fbLoginManager .logInWithReadPermissions(["email"], handler: { (result, error) -> Void in
             if (error == nil){
                 var fbloginresult : FBSDKLoginManagerLoginResult = result
-                if(fbloginresult.grantedPermissions.contains("email"))
+                
+                if(fbloginresult.grantedPermissions != nil && fbloginresult.grantedPermissions.contains("email"))
                 {
                      HUD.show(.Progress)
                     OuterspatialClient.sharedInstance.loginWithFacebook(FBSDKAccessToken.currentAccessToken().tokenString){
@@ -136,9 +136,6 @@ class EntryViewController : UIViewController{
         })
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            LocationData.locValue = manager.location!.coordinate
-    }
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated:false)
     }

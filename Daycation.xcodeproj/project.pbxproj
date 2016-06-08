@@ -308,6 +308,8 @@
 		AAB344F71CEFC110006CC849 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344F61CEFC110006CC849 /* Models.swift */; };
 		AAB344F91CEFC13A006CC849 /* OuterspatialClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344F81CEFC13A006CC849 /* OuterspatialClient.swift */; };
 		AAB344FB1CEFC154006CC849 /* LoggedInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB344FA1CEFC154006CC849 /* LoggedInViewController.swift */; };
+		AABBFC5B1D08B278005F1AA6 /* UsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBFC5A1D08B278005F1AA6 /* UsersCell.swift */; };
+		AABBFC5D1D08C205005F1AA6 /* DAYC_bar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AABBFC5C1D08C205005F1AA6 /* DAYC_bar_bg.png */; };
 		AAEE4C531CEFC66400746D14 /* EntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEE4C521CEFC66400746D14 /* EntryViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -637,6 +639,8 @@
 		AAB344F61CEFC110006CC849 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		AAB344F81CEFC13A006CC849 /* OuterspatialClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OuterspatialClient.swift; sourceTree = "<group>"; };
 		AAB344FA1CEFC154006CC849 /* LoggedInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedInViewController.swift; sourceTree = "<group>"; };
+		AABBFC5A1D08B278005F1AA6 /* UsersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCell.swift; sourceTree = "<group>"; };
+		AABBFC5C1D08C205005F1AA6 /* DAYC_bar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DAYC_bar_bg.png; sourceTree = "<group>"; };
 		AAEE4C521CEFC66400746D14 /* EntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
 		AAEE4C541CEFC68400746D14 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "daycation/Bridging-Header.h"; sourceTree = "<group>"; };
 		E71C9FD558FD97D5C22BA036 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -688,6 +692,7 @@
 		AA13BD8B1CEFCF84009F0FC2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				AABBFC5C1D08C205005F1AA6 /* DAYC_bar_bg.png */,
 				AAAD97C91D06025400981F76 /* empty_avatar.png */,
 				AAAD97AF1D05D69500981F76 /* DAY_AVATAR_fish.png */,
 				AAAD97B01D05D69500981F76 /* DAY_AVATAR_fish@2x.png */,
@@ -989,6 +994,7 @@
 				AAB344E11CEFC087006CC849 /* PostsViewController.swift */,
 				AAB344E21CEFC087006CC849 /* PostDetailViewController.swift */,
 				AAB344D71CEFC087006CC849 /* PostsViewCell.swift */,
+				AABBFC5A1D08B278005F1AA6 /* UsersCell.swift */,
 			);
 			name = posts;
 			sourceTree = "<group>";
@@ -1407,6 +1413,7 @@
 				AA13BF261CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_highlighted_4.png in Resources */,
 				AA13BF511CEFCF85009F0FC2 /* Icon-Small copy 2.png in Resources */,
 				AA13BF651CEFCFDC009F0FC2 /* Cultivated Mind - True North Rough Black.otf in Resources */,
+				AABBFC5D1D08C205005F1AA6 /* DAYC_bar_bg.png in Resources */,
 				AA13BEE01CEFCF85009F0FC2 /* DAYC_Icon_Shade@3x.png in Resources */,
 				AA13BF3E1CEFCF85009F0FC2 /* Icon-40@2x.png in Resources */,
 				AA13BF1D1CEFCF85009F0FC2 /* Daycation_Numbered_map_markers_4.png in Resources */,
@@ -1563,6 +1570,7 @@
 				AAB344F01CEFC087006CC849 /* PostsViewController.swift in Sources */,
 				AA13BD861CEFCC66009F0FC2 /* TripsFilterViewController.swift in Sources */,
 				AAB344E51CEFC087006CC849 /* TripsViewCell.swift in Sources */,
+				AABBFC5B1D08B278005F1AA6 /* UsersCell.swift in Sources */,
 				AAB344E91CEFC087006CC849 /* ProfileEditViewController.swift in Sources */,
 				AAB344F91CEFC13A006CC849 /* OuterspatialClient.swift in Sources */,
 				AAAD97AE1D02126200981F76 /* AvatarViewController.swift in Sources */,

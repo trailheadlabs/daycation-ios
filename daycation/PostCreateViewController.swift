@@ -27,28 +27,155 @@ class  PostCreateViewController : FormViewController{
             cell.accessoryView?.layer.cornerRadius = 17
             cell.accessoryView?.frame = CGRectMake(0, 0, 34, 34)
         }
-        
         form  +++=
             
-            Section("")
+            Section(""){
+                
+                $0.header = HeaderFooterView<UIView>(.Class)
+                let headerView = $0.header?.viewForSection($0, type: HeaderFooterType.Header, controller: self)
+                headerView!.h = 1
+                
+                
+                $0.footer = HeaderFooterView<UIView>(.Class)
+                let FooterView = $0.header?.viewForSection($0, type: HeaderFooterType.Footer, controller: self)
+                 FooterView!.h = 1
+                let separatorImage=UIImageView(frame: CGRectMake( 0, 2, self.view.frame.size.width, 5))
+                separatorImage.contentMode = UIViewContentMode.ScaleAspectFill
+                separatorImage.clipsToBounds = true
+                separatorImage.image = UIImage(named:"Daycation_Divider-011.png")
+                FooterView!.addSubview(separatorImage)
+            }
+            
             <<< TextAreaRow("postText") {
                 $0.placeholder = "Post text"
                 
+                }.cellSetup() {cell, row in
+                    self.formatCell(cell)
+                    cell.textView.font = UIFont(name:"Quicksand-Regular", size:20)
+                    
+                    cell.placeholderLabel.alpha = 0.5
+                    cell.placeholderLabel.font = UIFont(name:"Quicksand-Regular", size:20)
+                    cell.placeholderLabel.textColor = UIColor(hexString: "#8e8e8e")
+                    cell.textView.textColor = UIColor(hexString: "#8e8e8e")
+                    cell.textView.backgroundColor = UIColor(hexString: "#fff9e1")
+                }
+                .cellUpdate() {cell, row in
+                    cell.textView.font = UIFont(name:"Quicksand-Regular", size:20)
+                    cell.textView.textColor = UIColor(hexString: "#8e8e8e")
+        }
+        form  +++=
+            
+            Section(""){
+                
+                $0.header = HeaderFooterView<UIView>(.Class)
+                let headerView = $0.header?.viewForSection($0, type: HeaderFooterType.Header, controller: self)
+                headerView!.h = 1
+                
+                
+                $0.footer = HeaderFooterView<UIView>(.Class)
+                let FooterView = $0.header?.viewForSection($0, type: HeaderFooterType.Footer, controller: self)
+                FooterView!.h = 1
+                let separatorImage=UIImageView(frame: CGRectMake( 0, 2, self.view.frame.size.width, 5))
+                separatorImage.contentMode = UIViewContentMode.ScaleAspectFill
+                separatorImage.clipsToBounds = true
+                separatorImage.image = UIImage(named:"Daycation_Divider-011.png")
+                FooterView!.addSubview(separatorImage)
             }
             <<< LocationRow("location"){
                 $0.title = "Location"
                 if let locValue =  LocationData.locValue {
                     $0.value = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
                 }
+                }.cellSetup() {cell, row in
+                     cell.detailTextLabel!.hidden=true
+                    let markerImage=UIImageView(frame: CGRectMake(cell.w-5, 12, 20, 20))
+                    markerImage.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Map_marker@3x.png")!, w: 20, h: 20)
+                    cell.addSubview(markerImage)
+
+                    self.formatCell(cell)
+                    cell.indentationLevel = Int(3)
+                } .cellUpdate() {cell, row in
+                    cell.textLabel?.alpha = 0.5
+                    cell.textLabel?.font = UIFont(name:"Quicksand-Regular", size:20)
+                    cell.textLabel?.textColor = UIColor(hexString: "#8e8e8e")
+                    cell.textLabel?.highlightedTextColor = UIColor(hexString: "#8e8e8e")
+                    
+                    cell.detailTextLabel!.hidden=true
+                    self.formatCell(cell)
             }
-            <<< ImageRow("image"){
-                $0.title = "Image"
+        form  +++=
+            
+            Section(""){
+                
+                $0.header = HeaderFooterView<UIView>(.Class)
+                let headerView = $0.header?.viewForSection($0, type: HeaderFooterType.Header, controller: self)
+                headerView!.h = 1
+                
+                
+            }
+            <<< CustomImageRow("image"){
+                $0.title = ""
+                }.cellSetup() {cell, row in
+                    cell.height =  {return CGFloat(150)}
+                    
+                    cell.chosenImage=UIImageView(frame: CGRectMake(50, 30, 40, 40))
+                    cell.addSubview( cell.chosenImage!)
+                    cell.chooseLabel = UILabel(frame: CGRect(x: 0, y:  cell.chosenImage!.bottomOffset(10), width: self.view.w, height: 40))
+                    
+                    cell.chooseLabel!.text = "Add Photo"
+                    cell.chooseLabel!.textColor = UIColor(hexString: "#8e8e8e")
+                    cell.chooseLabel!.font = UIFont(name: "Quicksand-Regular", size: 14)
+                    cell.chooseLabel!.fitSize()
+                    cell.chooseLabel!.x = ( cell.chosenImage!.right - cell.chosenImage!.w/2)-cell.chooseLabel!.w/2
+                    cell.addSubview(cell.chooseLabel!)
+                    self.formatCell(cell)
+                    cell.indentationLevel = Int(3)
+                    cell.accessoryView = nil
+                } .cellUpdate() {cell, row in
+                    
+                    cell.accessoryView = nil
+                    if let chosenImage = row.baseValue as? UIImage {
+                        cell.chooseLabel!.text = "Change Photo"
+                        cell.chooseLabel!.fitSize()
+                        cell.chooseLabel!.x = ( cell.chosenImage!.right - cell.chosenImage!.w/2)-cell.chooseLabel!.w/2
+                        cell.chosenImage!.image = chosenImage
+                    } else {
+                        
+                        cell.chooseLabel!.text = "Add Photo"
+                        cell.chooseLabel!.fitSize()
+                        cell.chooseLabel!.x = ( cell.chosenImage!.right - cell.chosenImage!.w/2)-cell.chooseLabel!.w/2
+                        
+                        cell.chosenImage!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Add_photo@3x.png")!, w: 40, h: 40)
+                    }
+                    cell.textLabel?.alpha = 0.5
+                    cell.textLabel?.font = UIFont(name:"Quicksand-Bold", size:20)
+                    cell.textLabel?.textColor = UIColor(hexString: "#8e8e8e")
+                    cell.textLabel?.highlightedTextColor = UIColor(hexString: "#8e8e8e")
+                    
+                    self.formatCell(cell)
         }
         
+        self.tableView!.backgroundColor = UIColor(hexString: "#fff9e1")
+        self.tableView!.separatorInset = UIEdgeInsetsZero
+        self.tableView!.layoutMargins = UIEdgeInsetsZero
+        self.tableView!.separatorColor = UIColor(hexString: "#fff9e1")
         
         
     }
-    
+
+    public final class CustomImageRow : _ImageRow<CustomPushSelectorCell<UIImage>>, RowType {
+        public required init(tag: String?) {
+            super.init(tag: tag)
+        }
+    }
+
+    func formatCell(cell:BaseCell){
+        
+        cell.separatorInset = UIEdgeInsetsZero
+        cell.layoutMargins = UIEdgeInsetsZero
+        cell.contentView.layoutMargins.left = 30
+        cell.backgroundColor = UIColor(hexString: "#fff9e1")
+    }
     
     
     func tappedDone(sender: UIBarButtonItem){
@@ -90,11 +217,51 @@ class  PostCreateViewController : FormViewController{
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.view.backgroundColor = UIColor(hexString: "#fff9e1")
         self.navigationController?.setNavigationBarHidden(false, animated:true)
+        let backgroundImage = UIImage(named:"DAYC_BLUE_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
+        self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
+                                                                    forBarMetrics: .Default)
     }
 }
 
-public final class LocationRow : SelectorRow<CLLocation, PushSelectorCell<CLLocation>, MapViewController>, RowType {
+public class CustomImageSelectorCell<T: Equatable> : Cell<T>, CellType {
+    public var chosenImage:UIImageView?
+    
+    public var chooseLabel:UILabel?
+    
+    required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        height = { BaseRow.estimatedRowHeight }
+    }
+    
+    public override func update() {
+        super.update()
+        
+        selectionStyle =  .None
+    }
+}
+
+
+public class CustomPushSelectorCell<T: Equatable> : Cell<T>, CellType {
+    
+    public var chooseLabel:UILabel?
+    public var chosenImage:UIImageView?
+    required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        height = { BaseRow.estimatedRowHeight }
+    }
+    
+    public override func update() {
+        super.update()
+        
+        accessoryType = .None
+        editingAccessoryType = accessoryType
+        selectionStyle =  .None
+    }
+}
+
+public final class LocationRow : SelectorRow<CLLocation, CustomPushSelectorCell<CLLocation>, MapViewController>, RowType {
     public required init(tag: String?) {
         super.init(tag: tag)
         presentationMode = .Show(controllerProvider: ControllerProvider.Callback { return MapViewController(){ _ in } }, completionCallback: { vc in vc.navigationController?.popViewControllerAnimated(true) })
@@ -175,7 +342,6 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mapView)
-        
         mapView.delegate = self
         mapView.addSubview(pinView)
         mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
@@ -198,9 +364,14 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.view.backgroundColor = UIColor(hexString: "#fff9e1")
         let center = mapView.convertCoordinate(mapView.centerCoordinate, toPointToView: pinView)
         pinView.center = CGPointMake(center.x, center.y - (CGRectGetHeight(pinView.bounds)/2))
         ellipsisLayer.position = center
+        
+        let backgroundImage = UIImage(named:"DAYC_BLUE_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
+        self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
+                                                                    forBarMetrics: .Default)
     }
     
     
@@ -219,15 +390,15 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         title = "\(latitude), \(longitude)"
     }
     
-    public func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
-        pinAnnotationView.pinColor = MKPinAnnotationColor.Red
-        pinAnnotationView.draggable = false
-        pinAnnotationView.animatesDrop = true
-        return pinAnnotationView
-    }
-    
+//    public func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+//        
+//        let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
+//        pinAnnotationView.pinColor = MKPinAnnotationColor.Red
+//        pinAnnotationView.draggable = false
+//        pinAnnotationView.animatesDrop = true
+//        return pinAnnotationView
+//    }
+//    
     public func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         ellipsisLayer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
         UIView.animateWithDuration(0.2, animations: { [weak self] in

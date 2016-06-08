@@ -47,6 +47,10 @@ class LoggedInViewController : UITabBarController, UITabBarControllerDelegate , 
         print("Should select viewController: \(viewController.title) ?")
         return true;
     }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        LocationData.locValue = manager.location!.coordinate
+    }
     override func viewWillLayoutSubviews() {
         var tabFrame: CGRect = self.tabBar.frame
         tabFrame.size.height = 80
