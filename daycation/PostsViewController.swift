@@ -147,10 +147,13 @@ class  PostsViewController : UIViewController, UITableViewDataSource, UITableVie
         
         self.navigationController?.navigationBar.translucent = true
         
-        // self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
+        let backgroundImage = UIImage(named:"DAYC_BLUE_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
+        self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
+                                                                    forBarMetrics: .Default)
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.view.backgroundColor = UIColor(hexString: "#fff9e1")
         self.tableView.pullToRefreshView?.stopAnimating()
         self.tableView.reloadData()
     }

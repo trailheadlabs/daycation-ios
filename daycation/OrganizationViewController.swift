@@ -62,7 +62,7 @@ public class OrganizationViewController : FormViewController, TypedRowController
         
         let searchHeaderView = UIView()
         let headerImage=UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, 40))
-        headerImage.image = UIImage(named:"DAYC_ORANGE_BOTTOM@3x.png")
+        headerImage.image = UIImage(named:"DAYC_bar_bg.png")
         headerImage.contentMode = UIViewContentMode.ScaleAspectFill
         headerImage.clipsToBounds = true
         searchHeaderView.addSubview(headerImage)

@@ -572,9 +572,6 @@ iCarouselDataSource, iCarouselDelegate{
         self.navigationController?.navigationBar.translucent = false
         //  self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
         let backgroundImage = UIImage(named:"DAYC_GREEN_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
-        
-        //   self.navigationController?.navigationBar.frame=CGRectMake(0, 0, UIScreen.mainScreen().bounds.w, 60)
-        
         self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
                                                                     forBarMetrics: .Default)
         
