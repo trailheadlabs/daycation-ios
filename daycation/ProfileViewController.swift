@@ -20,7 +20,11 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
     var scrollView: UIScrollView!
     var contentView: UIView!
     var backgroundView: UIView!
+    var nameLabel: UILabel!
     var bioLabel: UILabel!
+    var organizationLabel: UILabel!
+    var locationLabel: UILabel!
+    var createdLabel: UILabel!
     var streamactInd : UIActivityIndicatorView!
     
     override func viewDidLoad() {
@@ -56,15 +60,68 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         self.profileImageView!.clipsToBounds = true
         self.contentView.addSubview(profileImageView!)
         
-        self.bioLabel=UILabel(frame: CGRectMake(20, self.profileImageView!.bottomOffset(20), 100, 100))
+        
+        nameLabel = UILabel(frame:CGRect(x:profileImageView!.rightOffset(5), y:25, width:self.view.w-profileImageView!.rightOffset(5)-5, height:10))
+        nameLabel.font = UIFont(name: "Quicksand-Bold", size: 14)
+        nameLabel.textColor = UIColor(hexString: "#e09b1b")
+        nameLabel.numberOfLines = 1
+        nameLabel.text=OuterspatialClient.currentUser!.profile?.abbreviatedName
+        nameLabel.fitHeight()
+        self.contentView.addSubview(nameLabel)
+        
+        
+        if let organization = OuterspatialClient.currentUser!.profile?.organization?.name {
+            organizationLabel = UILabel(frame:CGRect(x:profileImageView!.rightOffset(5), y:nameLabel.bottomOffset(5), width:self.view.w-profileImageView!.rightOffset(5)-5, height:10))
+            organizationLabel.font = UIFont(name: "Quicksand-Bold", size: 12)
+            organizationLabel.textColor = UIColor(hexString: "#504f4f")
+            organizationLabel.numberOfLines = 1
+            organizationLabel.text=organization.uppercaseString
+            organizationLabel.fitHeight()
+            self.contentView.addSubview(organizationLabel)
+        }
+        
+        if let location = OuterspatialClient.currentUser!.profile?.location {
+            locationLabel = UILabel(frame:CGRect(x:profileImageView!.rightOffset(5), y:nameLabel.bottomOffset(35), width:self.view.w-profileImageView!.rightOffset(5)-5, height:10))
+            locationLabel.font = UIFont(name: "Quicksand-Bold", size: 12)
+            locationLabel.textColor = UIColor(hexString: "#504f4f")
+            locationLabel.numberOfLines = 1
+            locationLabel.text=location
+            locationLabel.fitHeight()
+            self.contentView.addSubview(locationLabel)
+        }
+        
+        if let created = OuterspatialClient.currentUser!.createdAt {
+            createdLabel = UILabel(frame:CGRect(x:profileImageView!.rightOffset(5), y:nameLabel.bottomOffset(50), width:self.view.w-profileImageView!.rightOffset(5)-5, height:10))
+            createdLabel.font = UIFont(name: "Quicksand-Regular", size: 12)
+            createdLabel.textColor = UIColor(hexString: "#504f4f")
+            createdLabel.numberOfLines = 1
+            let dayTimePeriodFormatter = NSDateFormatter()
+            dayTimePeriodFormatter.dateFormat = "M/yyyy"
+            
+            let dateString = dayTimePeriodFormatter.stringFromDate(created)
+            createdLabel.text=("User since \(dateString)")
+            createdLabel.fitHeight()
+            self.contentView.addSubview(createdLabel)
+        }
+        
+        self.bioLabel=UILabel(frame: CGRectMake(20, self.profileImageView!.bottomOffset(20), self.view.w-40, 100))
+        bioLabel.font = UIFont(name: "Quicksand-Regular", size: 12)
+        bioLabel.textColor = UIColor(hexString: "#504f4f")
         bioLabel.text=OuterspatialClient.currentUser!.profile?.bio
-        bioLabel.fitSize()
+        bioLabel.numberOfLines = 1000
+        bioLabel.fitHeight()
         self.contentView.addSubview(bioLabel!)
         
         
-       let button   = UIButton(type: UIButtonType.Custom) as UIButton
+        let separatorImage=UIImageView(frame: CGRectMake( 0, bioLabel.bottomOffset(5), self.view.frame.size.width, 5))
+        separatorImage.contentMode = UIViewContentMode.ScaleAspectFill
+        separatorImage.clipsToBounds = true
+        separatorImage.image = UIImage(named:"Daycation_Divider-011.png")
+        self.contentView.addSubview(separatorImage)
+        
+        let button   = UIButton(type: UIButtonType.Custom) as UIButton
         button.setTitle("LIKED", forState: .Normal)
-        button.frame = CGRectMake(20, self.bioLabel!.bottomOffset(0), 80, 60)
+        button.frame = CGRectMake(20,separatorImage.bottomOffset(5), 80, 60)
         
         button.backgroundColor = UIColor(patternImage:UIImage(named:"likedbar")!)
         button.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
@@ -75,7 +132,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         
         let daybutton   = UIButton(type: UIButtonType.Custom) as UIButton
         daybutton.setTitle("DAYCATIONS", forState: .Normal)
-        daybutton.frame = CGRectMake(button.right, self.bioLabel!.bottomOffset(20), self.view.w-220, 40)
+        daybutton.frame = CGRectMake(button.right, separatorImage.bottomOffset(25), self.view.w-220, 40)
         daybutton.backgroundColor = UIColor(patternImage:UIImage(named: "daycationbar")!)
         daybutton.titleLabel!.font = UIFont(name:"Quicksand-Bold", size:14)!
         daybutton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
@@ -84,7 +141,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         
         let streambutton   = UIButton(type: UIButtonType.Custom) as UIButton
         streambutton.setTitle("STREAM", forState: .Normal)
-        streambutton.frame = CGRectMake(daybutton.right, self.bioLabel!.bottomOffset(20), 100, 40)
+        streambutton.frame = CGRectMake(daybutton.right, separatorImage.bottomOffset(25), 100, 40)
         streambutton.backgroundColor = UIColor(patternImage:UIImage(named: "streambar")!)
         streambutton.titleLabel!.font = UIFont(name:"Quicksand-Bold", size:14)!
         streambutton.addTarget(self, action: "btnTouched:", forControlEvents:.TouchUpInside)
@@ -240,6 +297,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        contentView.h = selectedTableView.bottom+10
         scrollView.contentSize = contentView.bounds.size
         print("contentView.bounds.size: \(contentView.bounds.size)")
         print("tableView: \(backgroundView.frame.height)")
@@ -310,7 +368,34 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("You selected cell #\(indexPath.row)!")
        
-
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        if(tableView == self.likesTableView){
+            let trip = likeTrips[indexPath.row]
+            let tabBar: UITabBarController = self.parentViewController?.parentViewController as! UITabBarController
+            let tripsViewNavigationController: UINavigationController = tabBar.viewControllers![1] as! UINavigationController
+            let tripsViewController: TripsViewController = tripsViewNavigationController.viewControllers[0] as! TripsViewController
+            tripsViewController.selectTrip(trip)
+            tabBar.selectedIndex = 1
+            
+        } else if(tableView == self.tripTableView){
+            let trip = trips[indexPath.row]
+            let tabBar: UITabBarController = self.parentViewController?.parentViewController as! UITabBarController
+            let tripsViewNavigationController: UINavigationController = tabBar.viewControllers![1] as! UINavigationController
+            let tripsViewController: TripsViewController = tripsViewNavigationController.viewControllers[0] as! TripsViewController
+            tripsViewController.selectTrip(trip)
+            tabBar.selectedIndex = 1
+            
+        }
+        else{
+            
+            let post = posts[indexPath.row]
+            let tabBar: UITabBarController = self.parentViewController?.parentViewController as! UITabBarController
+            let postsViewNavigationController: UINavigationController = tabBar.viewControllers![2] as! UINavigationController
+            let postsViewController: PostsViewController = postsViewNavigationController.viewControllers[0] as! PostsViewController
+            postsViewController.selectPost(post)
+            tabBar.selectedIndex = 2
+        }
        // tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
     }
@@ -361,8 +446,9 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
                 }, completion: nil)
             loadStream()
         }
-
+        
     }
+    
     
     func tappedDone(sender: UIBarButtonItem){
         OuterspatialClient.sharedInstance.logout()

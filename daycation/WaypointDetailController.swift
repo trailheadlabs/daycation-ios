@@ -106,11 +106,14 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         
         mapView=MKMapView(frame: CGRectMake(0, 0, self.view.w, 145))
         contentView.addSubview(mapView)
-        mapView.userInteractionEnabled = true
         mapView.mapType = MKMapType.Standard
         mapView.zoomEnabled = false
         mapView.scrollEnabled = false
         mapView.delegate =  self
+        mapView.userInteractionEnabled = true
+        mapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(WaypointDetailViewController.mapTapped(_:))))
+        contentView.addSubview(mapView)
+        scrollView.addSubview(contentView)
         scrollView.addSubview(contentView)
         
         let border = UIView(frame: CGRectMake(0,mapView.bottom, self.view.w, 5))
@@ -261,6 +264,12 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         updateFeature(position)
     }
     
+    func mapTapped(gestureRecognizer: UIGestureRecognizer) {
+        
+        let navigationViewController = MapDetailViewController(annotations: mapView.annotations)
+        self.navigationController?.pushViewController(navigationViewController, animated: true)
+    }
+    
     
     func tappedAdd(sender: UIBarButtonItem){
         let navigationController = UINavigationController(rootViewController: PostCreateViewController(completionBlock: {_ in }))
@@ -297,6 +306,15 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         
     }
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if  collectionView == speciesView {
+            return
+        }
+        
+        let navigationViewController = PhotoDetailViewController(trip: trip,image: feature!.images[indexPath.row])
+        self.navigationController?.pushViewController(navigationViewController, animated: true)
+        
+    }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         if  collectionView == speciesView {
@@ -588,7 +606,4 @@ navigationController?.popViewControllerAnimated(true)
         // Dispose of any resources that can be recreated.
     }
     
-    class CustomPointAnnotation: MKPointAnnotation {
-        var position: Int!
-    }
 }

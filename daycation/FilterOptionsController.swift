@@ -12,7 +12,8 @@ public final class FilterOptionsRow : SelectorRow<Organization, PushSelectorCell
     
     public required init(tag: String?) {
         super.init(tag: tag)
-        presentationMode = .Show(controllerProvider: ControllerProvider.Callback { return FilterOptionsViewController(){ _ in } }, completionCallback: { vc in vc.navigationController?.popViewControllerAnimated(true) })
+        presentationMode = .Show(controllerProvider: ControllerProvider.Callback { return FilterOptionsViewController(){ _ in } }, completionCallback: {
+            vc in vc.navigationController?.popViewControllerAnimated(true) })
         displayValueFor = {
             if let value = $0 {
                 return  value.name

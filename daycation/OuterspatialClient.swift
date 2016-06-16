@@ -315,6 +315,40 @@ public class OuterspatialClient {
         })
     }
     
+    func getTrips(filters:[PropertyDescriptor],page:Int,parameters: [String:String],completion: (result: [Trip]?,error:String?) -> Void) {
+        var filterString = ""
+        for filter in filters {
+            filterString = "\(filterString)application_properties[key]=\(filter.key!)&"
+            filterString = "\(filterString)application_properties[value]=\(filter.values!.joinWithSeparator(","))&"
+        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+            self.oauth2Client!.request(.GET, "\(Config.host)/v1/applications/\(Config.settings["application_id"]!)/trips?page=\(page)&summary=true&\(filterString)", parameters: parameters)
+                .responseJSON { response in
+                    print(response.result.value)   // result of response serialization
+                    
+                    if response.response?.statusCode != 200 {
+                        if let JSON = response.result.value {
+                            let errors = JSON["errors"] as! NSArray
+                            completion(result: nil, error:errors[0] as! String)
+                        } else {
+                            completion(result: nil, error:"Could Not Load Trips")
+                        }
+                    }
+                        
+                    else if let JSON = response.result.value {
+                        var trips:[Trip]=[]
+                        if let jsonTrips = JSON["data"] as? NSArray {
+                            for jsonTrip in jsonTrips {
+                                let trip =  Trip().parse(jsonTrip as! NSDictionary)
+                                trips.append(trip)
+                            }
+                            completion(result:trips,error:nil)
+                        }
+                    }
+            }
+            
+        })
+    }
     
     func getTrips(page:Int,parameters: [String:String],completion: (result: [Trip]?,error:String?) -> Void) {
         

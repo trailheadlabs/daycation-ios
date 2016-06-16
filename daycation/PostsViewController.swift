@@ -135,11 +135,17 @@ class  PostsViewController : UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("You selected cell #\(indexPath.row)!")
         
-        let post = posts[indexPath.row]
-        let navigationViewController = PostDetailViewController(post: post, completionBlock: removePost)
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        let post = posts[indexPath.row]
+        selectPost(post)
+    }
+    
+    func selectPost(post: Post) {
+        
+        let navigationViewController = PostDetailViewController(post: post, completionBlock: removePost)
         self.navigationController?.pushViewController(navigationViewController, animated: true)
     }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.view.backgroundColor = UIColor(hexString: "#fff9e1")
