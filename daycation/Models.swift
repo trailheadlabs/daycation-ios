@@ -35,16 +35,27 @@ public func ==(lhs: Organization, rhs: Organization) -> Bool {
     return lhs.id == rhs.id
 }
 
+public func ==(lhs: PropertyDescriptor, rhs: PropertyDescriptor) -> Bool {
+    return lhs.id == rhs.id
+}
+
 public class User {
     var id: Int?
     var email: String?
     var password: String?
     var profile: Profile?
+    var createdAt: NSDate?
     func parse(data:NSDictionary) -> User{
         self.id = data["id"] as? Int
         self.email=data["email"] as! String
         self.profile=Profile()
         self.profile=self.profile!.parse(data["profile"] as! NSDictionary)
+        
+        if let createdAtDateString = data["created_at"] as? String {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            createdAt = dateFormatter.dateFromString(createdAtDateString)
+        }
         return self
     }
 }
@@ -76,11 +87,15 @@ public class Profile {
         if let bio = data["bio"] as? String {
             self.bio=bio
         }
+     //   self.bio="this is my bio.on cycle person and also in every way?this is my bio.on cycle person and also in every way?this is my bio.on cycle person and also in every way?this is my bio.on cycle person and also in every way?"
         if let location = data["location"] as? String {
             self.location=location
         }
         if let organization = data["primary_organization"] as? NSDictionary {
-            self.organization = Organization().parse(organization)
+              self.organization = Organization().parse(organization)
+           // self.organization = Organization()
+           // self.organization?.name = "Washington State DNR"
+           // self.organization?.id = 6077
         }
         if let photo = data["photo"] as? String {
             self.imageUrl=NSURL(string: "\(Config.imagePrefix)\(photo)")
@@ -146,6 +161,7 @@ class FeatureImage {
     var id: String?
     var largeUrl: NSURL?
     var thumbnailUrl: NSURL?
+    var createdAt: NSDate?
     func parse(data:NSDictionary) -> FeatureImage{
         self.id = data["id"] as? String
         if let largeimage = data["large"] as? NSDictionary, let url = largeimage["cdn_url"] as? String{
@@ -153,6 +169,11 @@ class FeatureImage {
         }
         if let thumbnail = data["medium"] as? NSDictionary, let url = thumbnail["cdn_url"] as? String{
             self.thumbnailUrl = NSURL(string: "\(Config.imagePrefix)\(url)")
+        }
+        if let createdAtDateString = data["created_at"] as? String {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            createdAt = dateFormatter.dateFromString(createdAtDateString)
         }
         return self
     }
@@ -176,7 +197,7 @@ class Waypoint {
     }
 }
 
-class PropertyDescriptor {
+public class PropertyDescriptor: Equatable {
     var id: Int?
     var key: String?
     var values: [String]?

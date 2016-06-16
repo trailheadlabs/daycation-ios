@@ -16,9 +16,11 @@ import MapKit
 import iCarousel
 import DOFavoriteButton
 
+typealias FilterSelectionCompletionHandler = (filters: [PropertyDescriptor]?) -> Void
 class  TripsViewController : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, MKMapViewDelegate,
 iCarouselDataSource, iCarouselDelegate{
     
+    var filters: [PropertyDescriptor] = []
     var pageControl : UIPageControl!
     var carousel : iCarousel!
     var tableView: UITableView!
@@ -509,8 +511,37 @@ iCarouselDataSource, iCarouselDelegate{
         self.tableView.reloadData()
     }
     
+    func filterTrips(filters: [PropertyDescriptor]?) {
+        
+        OuterspatialClient.sharedInstance.getTrips(filters!,page: page,parameters: [:]) {
+            (result: [Trip]?,error: String?) in
+            if let trips = result {
+                print("got back: \(result)")
+                self.trips = trips
+                self.contentView.addSubview(self.tableView)
+                
+                self.tableView.h=CGFloat((trips.count*50))
+                self.contentView.h=self.tableView.bottom
+                self.scrollView.contentSize = self.contentView.bounds.size
+             //   actInd.stopAnimating()
+                for trip in trips {
+                    if (trip.location != nil){
+                        let annotation = CustomPointAnnotation()
+                        annotation.title = trip.name
+                        annotation.trip = trip
+                        annotation.coordinate = CLLocationCoordinate2DMake(trip.location!.coordinate.latitude,trip.location!.coordinate.longitude)
+                        self.mapView.addAnnotation(annotation)
+                    }
+                }
+                
+            }
+            if let error = error{
+                HUD.flash(.Label(error), delay: 2.0)
+            }
+        }
+    }
     func tappedFilter(sender: UIBarButtonItem){
-        let navigationController = UINavigationController(rootViewController: TripsFilterViewController())
+        let navigationController = UINavigationController(rootViewController: TripsFilterViewController(filters: filters,completion: filterTrips))
         self.presentViewController(navigationController, animated: true, completion: nil)
     }
     

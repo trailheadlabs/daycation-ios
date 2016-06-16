@@ -92,14 +92,11 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         let button = UIButton(type: UIButtonType.System) as UIButton
         contentView.addSubview(button)
         if  self.owned {
-            button.addTarget(self, action: "tappedDelete:", forControlEvents: UIControlEvents.TouchUpInside)
-            button.setTitle("Delete Post", forState: UIControlState.Normal)
-            button.titleLabel!.font  = UIFont.boldSystemFontOfSize(16.0)
-            button.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
+            button.setImage(UIImage(named: "DAYC_delete_button@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
             button.userInteractionEnabled = true
+            button.addTarget(self, action: "tappedDelete:", forControlEvents: UIControlEvents.TouchUpInside)
             button.frame = CGRectMake(0, postText.bottomOffset(2), self.view.frame.size.width, 50)
-     
-            
+      
         }
         
         let bottomSeparatorImage=UIImageView(frame: CGRectMake( 0, self.owned ? button.bottomOffset(2) : postText.bottomOffset(5), self.view.frame.size.width, 5))
@@ -139,22 +136,15 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2DMake(post.location!.coordinate.latitude,post.location!.coordinate.longitude)
         mapView.addAnnotation(annotation)
+        let markerImage=UIImageView(frame: CGRectMake(15, mapView.bottomOffset(5), 30, 30))
+        markerImage.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Heart_liked@3x.png")!, w: 20, h: 20)
+        contentView.addSubview(markerImage)
         
         
-        heartImage = DOFavoriteButton(frame: CGRectMake(15, mapView.bottomOffset(5), 30, 30))
-
-        heartImage.imageColorOn = UIColor(red: 254/255, green: 110/255, blue: 111/255, alpha: 1.0)
-        heartImage.circleColor = UIColor(red: 254/255, green: 110/255, blue: 111/255, alpha: 1.0)
-        heartImage.lineColor = UIColor(red: 226/255, green: 96/255, blue: 96/255, alpha: 1.0)
-        heartImage.userInteractionEnabled = false
-        contentView.addSubview(heartImage)
-        
-        
-        tableHeader = UILabel(frame: CGRectMake(0, mapView.bottomOffset(5), self.view.frame.size.width-10,  50))
+        tableHeader = UILabel(frame: CGRectMake(markerImage.rightOffset(5), mapView.bottomOffset(5), self.view.frame.size.width-10,  32))
         tableHeader.font = UIFont(name:"Quicksand-Bold", size:14)
         tableHeader.textColor = UIColor(hexString: "#8e8e8e")
         tableHeader.numberOfLines = 1;
-        tableHeader.sizeToFit()
         contentView.addSubview(tableHeader)
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "myCell")
@@ -168,7 +158,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         
         tableView.frame = CGRectMake(0, tableHeader.bottomOffset(2), self.view.frame.size.width, 50)
         tableView.snp_makeConstraints {make in
-            make.top.equalTo(tableHeader.snp_bottom);
+            make.top.equalTo(markerImage.snp_bottom);
             make.left.equalTo(0);
             make.width.equalTo(self.view.frame.size.width);
             make.height.equalTo((self.post.likers.count*50));

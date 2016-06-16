@@ -98,7 +98,6 @@ class PostsViewCell: UITableViewCell {
         self.postImage.frame = CGRectMake(0,0,50,50)
         if let url = url  {
             let cache = Shared.imageCache
-            cache.removeAll()
         postImage.hnk_setImageFromURL(url, placeholder: nil, success: { (image) -> Void in
             self.postImage.image = image
            // self.postImage.image = UIImage(named: "Daycation_Nav_Daycations",imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal)
@@ -127,7 +126,6 @@ class PostsViewCell: UITableViewCell {
     func setPostUserImage(url: NSURL) {
         self.userImage.frame = CGRectMake(0,0,50,50)
         let cache = Shared.imageCache
-        cache.removeAll()
         userImage.hnk_setImageFromURL(url, placeholder: nil, success: { (UIImage) -> Void in
             self.userImage.image = UIImage.circleMask
             cache.set(value: UIImage, key: url.URLString)
@@ -145,7 +143,7 @@ class PostsViewCell: UITableViewCell {
         super.layoutSubviews()
         let offset:CGFloat = (post.thumbnailUrl != nil) ? 60.0 : 20.0
         
-        self.postImage.image = nil
+       // self.postImage.image = nil
         print (postText.text)
         print (offset )
         self.postImage.frame = CGRectMake(frame.size.width-offset,4,40,40)

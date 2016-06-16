@@ -15,11 +15,14 @@ import DOFavoriteButton
 import Haneke
 import SnapKit
 import MapKit
+import YouTubePlayer
+import youtube_ios_player_helper
 
 import UIKit
-class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate{
+class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate,YTPlayerViewDelegate{
     
     var tripImage: UIImageView!
+    var featured: UIView!
     var mapView: MKMapView!
     var likeCountLabel: UILabel!
     var tripNameLabel: UILabel!
@@ -40,6 +43,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     var aboutSeparatorImage: UIImageView!
     var speciesView: DynamicCollectionView!
     var photoCollectionView: DynamicCollectionView!
+    var videoPlayer: YTPlayerView!
     
     var posts = [Post]()
     var page = 1
@@ -75,7 +79,6 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         self.navigationItem.rightBarButtonItem = a
         
         self.view.backgroundColor = UIColor(hexString: "#fff9e1")
-        
         scrollView = UIScrollView()
         scrollView.y = 0
         scrollView.w = view.w
@@ -115,26 +118,57 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         contributorText.textColor = UIColor(hexString: "#e09b1b")
         contributorText.numberOfLines = 1
         contentView.addSubview(contributorText)
-        
-        tripImage=UIImageView(frame: CGRectMake(0, 90, view.w, 180))
-        tripImage.contentMode = UIViewContentMode.ScaleAspectFill
-        tripImage.clipsToBounds = true
-        tripImage.alpha = 0.5
-        if let url = trip.featuredImage?.largeUrl{
-            tripImage.hnk_setImageFromURL(url, placeholder: nil, success: { (UIImage) -> Void in
-                UIView.animateWithDuration(1.0, animations: {
-                    self.tripImage.alpha = 1
-                })
-                self.viewDidLayoutSubviews()
-                self.tripImage.image = UIImage
-                self.cache.set(value: UIImage, key: url.URLString)
-                }, failure: { (Error) -> Void in
-                    
-            })
-        }
-        contentView.addSubview(tripImage!)
-        
         likeCountLabel = UILabel()
+        if let i = trip.properties.indexOf({$0.key == "video_url"}) {
+            
+            var videoPlayer = YTPlayerView( frame: CGRectMake(0, 90, view.w, 180))
+            var videoPlayerVar = [
+                "controls" : 0,
+                "playsinline" : 0,
+                "autohide" : 1,
+                "showinfo" : 0,
+                "modestbranding" :  1,
+                "autoplay" : 1
+            ]
+            videoPlayer.backgroundColor=UIColor(hexString: "#fff9e1")
+            let myVideoURL = trip.properties[i].value
+            let fullNameArr = myVideoURL!.componentsSeparatedByString("v=")
+            videoPlayer.loadWithVideoId(fullNameArr[1], playerVars: videoPlayerVar)
+            videoPlayer.delegate = self
+            videoPlayer.webView!.opaque = false
+            videoPlayer.webView!.backgroundColor = UIColor(hexString: "#000000")
+            contentView.addSubview(videoPlayer)
+            featured=videoPlayer
+            heartButton = DOFavoriteButton(frame: CGRectMake(videoPlayer.rightOffset(-30), videoPlayer.topOffset(-30), 30, 30))
+            
+            self.likeCountLabel.y = self.featured.topOffset(-35)
+        } else {
+            
+            tripImage=UIImageView(frame: CGRectMake(0, 90, view.w, 180))
+            tripImage.contentMode = UIViewContentMode.ScaleAspectFill
+            tripImage.clipsToBounds = true
+            tripImage.alpha = 0.5
+            if let url = trip.featuredImage?.largeUrl{
+                tripImage.hnk_setImageFromURL(url, placeholder: nil, success: { (UIImage) -> Void in
+                    UIView.animateWithDuration(1.0, animations: {
+                        self.tripImage.alpha = 1
+                    })
+                    self.viewDidLayoutSubviews()
+                    self.tripImage.image = UIImage
+                    self.cache.set(value: UIImage, key: url.URLString)
+                    }, failure: { (Error) -> Void in
+                        
+                })
+            }
+            contentView.addSubview(tripImage!)
+            
+            featured=tripImage
+            heartButton = DOFavoriteButton(frame: CGRectMake(tripImage.rightOffset(-30), tripImage.bottomOffset(-41), 30, 30))
+            self.likeCountLabel.y = self.featured.bottomOffset(-35)
+        }
+        
+ 
+        
         likeCountLabel.textColor = UIColor.whiteColor()
         likeCountLabel.backgroundColor = UIColor.clearColor()
         likeCountLabel.font = UIFont(name: "Quicksand-Bold", size: 14)
@@ -145,7 +179,6 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         likeCountLabel.hidden = true
         contentView.addSubview(likeCountLabel)
         
-        heartButton = DOFavoriteButton(frame: CGRectMake(tripImage.rightOffset(-30), tripImage.bottomOffset(-41), 30, 30))
         heartButton.tag = 3
         //   heartButton.layer.borderWidth = 1
         heartButton.layer.borderColor = UIColor(red:0/255.0, green:0/255.0, blue:227/255.0, alpha: 1.0).CGColor
@@ -162,7 +195,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         heartButton.image =  image
         heartButton.selected = trip.liked
         
-        let separatorImage=UIImageView(frame: CGRectMake( 0, tripImage.topOffset(12), self.view.frame.size.width, 5))
+        let separatorImage=UIImageView(frame: CGRectMake( 0, featured.topOffset(12), self.view.frame.size.width, 5))
         separatorImage.contentMode = UIViewContentMode.ScaleAspectFill
         separatorImage.clipsToBounds = true
         separatorImage.image = UIImage(named:"Daycation_Divider-011.png")
@@ -173,10 +206,9 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         contentView.addSubview(button)
         button.addTarget(self, action: "tappedTake:", forControlEvents: UIControlEvents.TouchUpInside)
         button.userInteractionEnabled = true
-        button.frame = CGRectMake(view.w/2-75, tripImage.bottomOffset(-50), 150, 50)
+        button.frame = CGRectMake(view.w/2-75, featured.bottomOffset(-50), 150, 50)
         
         mapView=MKMapView()
-        mapView.userInteractionEnabled = false
         mapView.mapType = MKMapType.Standard
         mapView.zoomEnabled = false
         mapView.scrollEnabled = false
@@ -184,7 +216,9 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         mapView.w = view.w
         mapView.h = 125
         mapView.x = 0
-        mapView.y = tripImage.bottomOffset(5)
+        mapView.y = featured.bottomOffset(5)
+        mapView.userInteractionEnabled = true
+        mapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(TripDetailViewController.mapTapped(_:))))
         contentView.addSubview(mapView)
         scrollView.addSubview(contentView)
         
@@ -240,7 +274,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         aboutView.addSubview(tripDescriptionLabel)
         
         
-        aboutSeparatorImage=UIImageView(frame: CGRectMake( 20, tripImage.topOffset(12), self.view.w-40, 5))
+        aboutSeparatorImage=UIImageView(frame: CGRectMake( 20, featured.topOffset(12), self.view.w-40, 5))
         aboutSeparatorImage.contentMode = UIViewContentMode.ScaleAspectFill
         aboutSeparatorImage.clipsToBounds = true
         aboutSeparatorImage.image = UIImage(named:"Daycation_Divider-011.png")
@@ -313,6 +347,11 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         
     }
     
+    func mapTapped(gestureRecognizer: UIGestureRecognizer) {
+        
+        let navigationViewController = MapDetailViewController(annotations: mapView.annotations)
+        self.navigationController?.pushViewController(navigationViewController, animated: true)
+    }
     
     func loadStream(){
         OuterspatialClient.sharedInstance.getPosts(page,parameters: [:]) {
@@ -328,6 +367,14 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
                 HUD.flash(.Label(error), delay: 2.0)
             }
         }
+    }
+    func playerView(ytPlayerView: YTPlayerView, didChangeToState state:YTPlayerState) {
+        
+        print("got back: \(state)")
+    }
+    func playerView( playerViewDidBecomeReady playerView: YTPlayerView ) {
+        
+        print("got baback:")
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
         return 50.0
@@ -453,6 +500,16 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         }
 
     }
+    
+     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if  collectionView == speciesView {
+ return
+        }
+        
+        let navigationViewController = PhotoDetailViewController(trip: trip,image: self.trip!.images[indexPath.row])
+        self.navigationController?.pushViewController(navigationViewController, animated: true)
+        
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
           if  (self.aboutSeparatorImage != nil) {
@@ -532,7 +589,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         let label = UILabel(frame: CGRect(x: 5, y: 1, width: 20, height: 20))
         label.textColor = UIColor.whiteColor()
         label.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)
-        label.text = cpa.position
+        label.text = String(cpa.position+1)
         label.fitSize()
         label.x = anView!.image!.size.width/2-label.w/2
         anView!.addSubview(label)
@@ -588,7 +645,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         for (index, waypoint) in trip.waypoints.enumerate() {
             let feature = waypoint.feature as! PointOfInterest
             let annotation = CustomPointAnnotation()
-            annotation.position = String(index+1)
+            annotation.position = index
             annotation.coordinate = CLLocationCoordinate2DMake(feature.location!.coordinate.latitude,feature.location!.coordinate.longitude)
             mapView.addAnnotation(annotation)
         }
@@ -668,7 +725,6 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             self.likeCountLabel.text = "\(self.trip.likes!)"
             self.likeCountLabel.fitSize()
             self.likeCountLabel.x = self.view.rightOffset(-25)-self.likeCountLabel.w
-            self.likeCountLabel.y = self.tripImage.bottomOffset(-35)
             self.likeCountLabel.text = String(self.trip.likes!)
             
             self.heartButton.x = self.likeCountLabel.rightOffset(-5)-self.heartButton.w
@@ -703,8 +759,8 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    class CustomPointAnnotation: MKPointAnnotation {
-        var position: String!
-    }
+}
+
+class CustomPointAnnotation: MKPointAnnotation {
+    var position: Int!
 }
