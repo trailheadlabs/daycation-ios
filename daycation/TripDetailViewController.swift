@@ -15,7 +15,6 @@ import DOFavoriteButton
 import Haneke
 import SnapKit
 import MapKit
-import YouTubePlayer
 import youtube_ios_player_helper
 
 import UIKit

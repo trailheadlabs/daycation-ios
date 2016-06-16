@@ -26,7 +26,6 @@ PODS:
   - SnapKit (0.15.0)
   - SwiftKeychain (1.0.0)
   - youtube-ios-player-helper (0.1.6)
-  - YouTubePlayer (0.3.0)
 
 DEPENDENCIES:
   - Alamofire (= 3.2.0)
@@ -44,7 +43,6 @@ DEPENDENCIES:
   - PKHUD
   - SnapKit (~> 0.15.0)
   - youtube-ios-player-helper (~> 0.1.4)
-  - YouTubePlayer
 
 EXTERNAL SOURCES:
   DOFavoriteButton:
@@ -74,6 +72,5 @@ SPEC CHECKSUMS:
   SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
   SwiftKeychain: fd9ad69f7b3ff7a0c7ba579da508bbaa89a395b2
   youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
-  YouTubePlayer: 88713a96c356f2c88da8925eb61438eda88bcd57
 
 COCOAPODS: 0.39.0

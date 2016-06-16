@@ -37,6 +37,9 @@ iCarouselDataSource, iCarouselDelegate{
     var scrollView: UIScrollView!
     var highlightedFeatures : [Feature] = []
     
+    var filterHeaderView: UIView!
+    var filterHeaderLabel:UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Daycations"
@@ -207,6 +210,9 @@ iCarouselDataSource, iCarouselDelegate{
         searchController.searchBar.searchTextPositionAdjustment = UIOffsetMake(10, 0)
         // Place the search bar view to the tableview headerview.
         self.view.addSubview(searchController.searchBar)
+        
+        
+        
         mapView=MKMapView(frame: CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-(44+20+49)))
         mapView.mapType = MKMapType.Standard
         mapView.delegate = self
@@ -233,8 +239,39 @@ iCarouselDataSource, iCarouselDelegate{
         self.view.userInteractionEnabled = true
         self.view.addSubview(selectedTripView)
         self.view.addSubview(mapView)
+        
+        
+        filterHeaderView = UIView()
+        let filterHeaderImage=UIImageView(frame: CGRectMake(0, headerImage.bottom, self.view.frame.size.width, 40))
+        filterHeaderImage.image = UIImage(named:"DAYC_GREEN_TOP@3x.png")
+        filterHeaderImage.contentMode = UIViewContentMode.ScaleAspectFill
+        filterHeaderImage.clipsToBounds = true
+        filterHeaderView.addSubview(filterHeaderImage)
+        
+        filterHeaderLabel = UILabel(frame: CGRectMake(20, headerImage.bottom, self.view.frame.size.width, 40))
+        filterHeaderLabel.textColor = UIColor.whiteColor()
+        filterHeaderLabel.backgroundColor = UIColor.clearColor()
+        filterHeaderLabel.font = UIFont(name: "Quicksand-Bold", size: 14)
+        filterHeaderView.addSubview(filterHeaderLabel)
+        
+        filterHeaderView.hidden = true
+        let button = UIButton(type: UIButtonType.System) as UIButton
+        button.setImage(UIImage(named: "DAYC_Clear_fields@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+        contentView.addSubview(button)
+        button.addTarget(self, action: "tappedFilter:", forControlEvents: UIControlEvents.TouchUpInside)
+        button.userInteractionEnabled = true
+        button.frame = CGRectMake(self.view.frame.size.width-40, headerImage.bottom+10, 20, 20)
+        
+              let gesture = UITapGestureRecognizer(target: self, action: #selector(TripsViewController.tappedFilter(_:)))
+        self.filterHeaderView.userInteractionEnabled = true
+        self.filterHeaderView.addGestureRecognizer(gesture)
+self.view.userInteractionEnabled = true
+        filterHeaderView.addSubview(button)
+        self.view.addSubview(filterHeaderView)
     }
-    
+    func filterBarAction(sender:UITapGestureRecognizer){
+        // do other task
+    }
     func selectedTripViewTapped(img: AnyObject) {
        selectTrip(selectedTrip)
         
@@ -512,7 +549,18 @@ iCarouselDataSource, iCarouselDelegate{
     }
     
     func filterTrips(filters: [PropertyDescriptor]?) {
-        
+        self.filters = filters!
+        if self.filters.count == 1{
+            filterHeaderLabel.text="\(self.filters.count) Active Filter"
+            filterHeaderLabel.fitWidth()
+            filterHeaderView.hidden = false
+        } else if self.filters.count > 0 {
+            filterHeaderLabel.text="\(self.filters.count) Active Filters"
+            filterHeaderLabel.fitWidth()
+            filterHeaderView.hidden = false
+        } else{
+            filterHeaderView.hidden = true
+        }
         OuterspatialClient.sharedInstance.getTrips(filters!,page: page,parameters: [:]) {
             (result: [Trip]?,error: String?) in
             if let trips = result {

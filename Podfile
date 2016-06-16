@@ -16,5 +16,4 @@ pod 'EZSwiftExtensions'
 pod 'FBSDKLoginKit'
 pod 'FBSDKCoreKit'
 pod 'Dollar'
-pod 'YouTubePlayer'
 pod "youtube-ios-player-helper", "~> 0.1.4"
