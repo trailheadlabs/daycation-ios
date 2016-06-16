@@ -44,11 +44,7 @@ class TripsFilterViewController : FormViewController{
             <<< MultiSelectFilterRow("species") {
                 $0.title = "Related Species"
                 
-                if let user = OuterspatialClient.currentUser where (user.profile != nil && user.profile!.organization != nil) {
-                    
-                    let property=PropertyDescriptor ()
-                    property.values=[]
-                    $0.value = property                }
+                    setMultiCellValue($0)
                 
                 }.cellSetup() {cell, row in
                     cell.selectionStyle = .None
@@ -62,9 +58,7 @@ class TripsFilterViewController : FormViewController{
             
             <<< MultiSelectFilterRow("activities") {
                 $0.title = "Related Activities"
-                let property=PropertyDescriptor ()
-                
-                 $0.value = property
+                setMultiCellValue($0)
                 
                 }.cellSetup() {cell, row in
                     cell.selectionStyle = .None
@@ -77,15 +71,17 @@ class TripsFilterViewController : FormViewController{
             }
             <<< SwitchRow("park") {
                 $0.title = "Park"
+              setSwitchCellValue($0)
                 }.cellSetup() {cell, row in
                     self.formatCell(cell)
                     
                 } .cellUpdate() {cell, row in
                     cell.textLabel!.font = UIFont(name:"Quicksand-Bold", size:20)
                     cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
-            }
+                }
             <<< SwitchRow("trail") {
                 $0.title = "Trail"
+                setSwitchCellValue($0)
                 }.cellSetup() {cell, row in
                     self.formatCell(cell)
                 } .cellUpdate() {cell, row in
@@ -94,6 +90,7 @@ class TripsFilterViewController : FormViewController{
             }
             <<< SwitchRow("natural_area") {
                 $0.title = "Natural Area"
+                setSwitchCellValue($0)
                 }.cellSetup() {cell, row in
                     self.formatCell(cell)
                 } .cellUpdate() {cell, row in
@@ -102,14 +99,7 @@ class TripsFilterViewController : FormViewController{
             }
             <<< SwitchRow("body_of_water") {
                 $0.title = "Body of Water"
-                }.cellSetup() {cell, row in
-                    self.formatCell(cell)
-                } .cellUpdate() {cell, row in
-                    cell.textLabel!.font = UIFont(name:"Quicksand-Bold", size:20)
-                    cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
-            }
-            <<< SwitchRow("business") {
-                $0.title = "Business"
+                setSwitchCellValue($0)
                 }.cellSetup() {cell, row in
                     self.formatCell(cell)
                 } .cellUpdate() {cell, row in
@@ -117,11 +107,28 @@ class TripsFilterViewController : FormViewController{
                     cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
             }
             
-            <<< MultiSelectFilterRow("difficulty") {
-                $0.title = "Difficulty"
-                let property=PropertyDescriptor ()
+            <<< SwitchRow("includes_food_and_beverage") {
+                $0.title = "Includes Food and Beverage"
+                setSwitchCellValue($0)
+                }.cellSetup() {cell, row in
+                    self.formatCell(cell)
+                } .cellUpdate() {cell, row in
+                    cell.textLabel!.font = UIFont(name:"Quicksand-Bold", size:20)
+                    cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
+            }
+            <<< SwitchRow("accessible") {
+                $0.title = "Accessible"
+                setSwitchCellValue($0)
+                }.cellSetup() {cell, row in
+                    self.formatCell(cell)
+                } .cellUpdate() {cell, row in
+                    cell.textLabel!.font = UIFont(name:"Quicksand-Bold", size:20)
+                    cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
+            }
+            <<< MultiSelectFilterRow("physical_features") {
+                $0.title = "Physical Features"
+                setMultiCellValue($0)
                 
-                $0.value = property
                 
                 }.cellSetup() {cell, row in
                     cell.selectionStyle = .None
@@ -135,9 +142,8 @@ class TripsFilterViewController : FormViewController{
             
             <<< MultiSelectFilterRow("duration") {
                 $0.title = "Duration"
-                let property=PropertyDescriptor ()
+                setMultiCellValue($0)
                 
-                $0.value = property
                 
                 }.cellSetup() {cell, row in
                     cell.selectionStyle = .None
@@ -151,9 +157,8 @@ class TripsFilterViewController : FormViewController{
             
             <<< MultiSelectFilterRow("best_time_to_go") {
                 $0.title = "Best Time to Go"
-                let property=PropertyDescriptor ()
+                setMultiCellValue($0)
                 
-                $0.value = property
                 
                 }.cellSetup() {cell, row in
                     cell.selectionStyle = .None
@@ -165,39 +170,37 @@ class TripsFilterViewController : FormViewController{
                     
             }
             
-            <<< MultiSelectFilterRow("suitable_for_kids") {
-                $0.title = "Suitable for Kids"
-                let property=PropertyDescriptor ()
-                
-                $0.value = property
-                
-                }.cellSetup() {cell, row in
-                    cell.selectionStyle = .None
-                    self.formatCell(cell)
-                } .cellUpdate() {cell, row in
-                    self.formatCell(cell)
-                    cell.textLabel!.font = UIFont(name:"Quicksand-Bold", size:20)
-                    cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
-                    
-            }
-            <<< SwitchRow("great_for_groups") {
-                $0.title = "Great for Groups"
+            
+            <<< SwitchRow("suitable_for_young_children") {
+                $0.title = "Suitable for Young Children"
+                setSwitchCellValue($0)
                 }.cellSetup() {cell, row in
                     self.formatCell(cell)
                 } .cellUpdate() {cell, row in
                     cell.textLabel!.font = UIFont(name:"Quicksand-Bold", size:20)
                     cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
             }
-            <<< SwitchRow("includes_food_and_beverage") {
-                $0.title = "Includes Food and Beverage"
+            <<< SwitchRow("suitable_for_elderly") {
+                $0.title = "Suitable for Elderly"
+                setSwitchCellValue($0)
                 }.cellSetup() {cell, row in
                     self.formatCell(cell)
                 } .cellUpdate() {cell, row in
                     cell.textLabel!.font = UIFont(name:"Quicksand-Bold", size:20)
                     cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
             }
-            <<< SwitchRow("accessible") {
-                $0.title = "Accessible"
+            <<< SwitchRow("suitable_for_wheeled_devices") {
+                $0.title = "Suitable for Wheeled Devices"
+                setSwitchCellValue($0)
+                }.cellSetup() {cell, row in
+                    self.formatCell(cell)
+                } .cellUpdate() {cell, row in
+                    cell.textLabel!.font = UIFont(name:"Quicksand-Bold", size:20)
+                    cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
+            }
+            <<< SwitchRow("dogs") {
+                $0.title = "Dogs"
+                setSwitchCellValue($0)
                 }.cellSetup() {cell, row in
                     self.formatCell(cell)
                 } .cellUpdate() {cell, row in
@@ -213,6 +216,7 @@ class TripsFilterViewController : FormViewController{
             switchCell.switchControl?.tintColor = UIColor(hexString: "#d3ceb9")
             switchCell.switchControl?.thumbTintColor = UIColor(hexString: "#d3ceb9")
             switchCell.switchControl?.onTintColor = UIColor(hexString: "#bafb9a")
+            
         }
         cell.separatorInset = UIEdgeInsetsZero
         cell.layoutMargins = UIEdgeInsetsZero
@@ -220,7 +224,23 @@ class TripsFilterViewController : FormViewController{
         cell.backgroundColor = UIColor(hexString: "#f7f1da")
         cell.selectionStyle = .None
     }
-    
+    func setMultiCellValue(row:MultiSelectFilterRow){
+        
+        if let i = filters!.indexOf({$0.key == row.tag}) {
+            row.value = filters![i]
+        } else {
+            
+            let property=PropertyDescriptor ()
+            property.values=[]
+            row.value = property
+        }
+    }
+    func setSwitchCellValue(row:SwitchRow){
+        
+        if let i = filters!.indexOf({$0.key == row.tag}) {
+            row.value = true
+        }
+    }
     override func tableView(tableView: UITableView,
                             willDisplayCell cell: UITableViewCell,
                                             forRowAtIndexPath indexPath: NSIndexPath)
@@ -249,9 +269,18 @@ class TripsFilterViewController : FormViewController{
         
         for (key, value) in form.values() {
             if let property = value as? PropertyDescriptor {
-                if let values = property.values  {
+                if let values = property.values where values.count>0{
                     property.key = key
-                filters.append(property)
+                    filters.append(property)
+                }
+            }
+            if let checked = value as? Bool {
+                if checked == true  {
+                    let property=PropertyDescriptor( )
+                    property.key = key
+                    property.values = ["yes"]
+                    
+                    filters.append(property)
                 }
             }
         }

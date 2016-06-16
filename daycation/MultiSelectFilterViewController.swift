@@ -112,7 +112,7 @@ public class MultiSelectFilterViewController : FormViewController, TypedRowContr
         
         
         
-        OuterspatialClient.sharedInstance.getPropertyDescriptor("species") {
+        OuterspatialClient.sharedInstance.getPropertyDescriptor(row.tag!) {
             (result: PropertyDescriptor?,error: String?) in
             if let propertyDescriptor = result {
                 let sortedItems = propertyDescriptor.values!.sort
@@ -129,6 +129,9 @@ public class MultiSelectFilterViewController : FormViewController, TypedRowContr
                         
                         <<< CheckRow() {
                             $0.title = item
+                            if (self.row.value?.values?.contains(item) == true) {
+                                $0.value=true
+                            }
                             }.cellSetup() {cell, row in
                                 
                                 self.formatCell(cell)
@@ -253,6 +256,6 @@ public class MultiSelectFilterViewController : FormViewController, TypedRowContr
         }
     }
     func updateTitle(){
-        title = row.tag
+        title = row.tag!.stringByReplacingOccurrencesOfString("_", withString:" ")
     }
 }
