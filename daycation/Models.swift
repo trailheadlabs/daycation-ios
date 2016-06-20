@@ -276,6 +276,7 @@ class Trip: Feature {
     var properties: [Property] = []
     var lastVisitedWaypoint: Waypoint?
     var featuredImage: FeatureImage?
+    var firstWaypointAddress:  String?
     var location: CLLocation?
     var contributor: User?
     func parse(data:NSDictionary) -> Trip{
@@ -290,6 +291,11 @@ class Trip: Feature {
         if let description = data["text_description"] as? String {
             self.description = description
         }
+        
+        if let firstWaypointAddress = data["first_waypoint_address"] as? String {
+            self.firstWaypointAddress = firstWaypointAddress
+        }
+        
         
         if let jsonproperties = data["application_properties"] as? NSArray {
             for jsonproperty in jsonproperties {
@@ -333,6 +339,15 @@ class Trip: Feature {
         if let jsoncontributor = data["contributor"] as? NSDictionary {
             contributor = User()
             contributor!.parse(jsoncontributor)
+        } else {
+            contributor = User()
+            contributor!.profile = Profile()
+            contributor!.profile!.abbreviatedName = "Intertwine Contributor"
+            contributor!.profile!.imageUrl = NSURL(string: "http://www.theintertwine.org/sites/theintertwine.org/files/resize/intertwine_duck-100x105.png")
+
+            contributor!.profile!.organization = Organization()
+            contributor!.profile!.organization?.name = "The Alliance"
+            
         }
         return self
     }
@@ -345,6 +360,7 @@ class PointOfInterest: Feature {
     var featuredImage: FeatureImage?
     var images: [FeatureImage] = []
     var description: String?
+    var address: String?
     func parse(data:NSDictionary) -> PointOfInterest{
         self.id = data["id"] as? Int
         if let name = data["name"] as? String {
@@ -354,6 +370,10 @@ class PointOfInterest: Feature {
         
         if let description = data["text_description"] as? String {
             self.description = description
+        }
+        
+        if let address = data["address"] as? String {
+            self.address = address
         }
         if let jsonimages = data["images"] as? NSArray {
             for jsonimage in jsonimages {

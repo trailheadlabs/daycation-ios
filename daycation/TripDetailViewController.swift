@@ -131,8 +131,13 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             ]
             videoPlayer.backgroundColor=UIColor(hexString: "#fff9e1")
             let myVideoURL = trip.properties[i].value
-            let fullNameArr = myVideoURL!.componentsSeparatedByString("v=")
-            videoPlayer.loadWithVideoId(fullNameArr[1], playerVars: videoPlayerVar)
+            var fullNameArr = myVideoURL!.componentsSeparatedByString("v=")
+            if fullNameArr.count < 2 {
+                var fullNameArr = myVideoURL!.componentsSeparatedByString("/")
+                videoPlayer.loadWithVideoId(fullNameArr[fullNameArr.count-1], playerVars: videoPlayerVar)
+            } else {
+                videoPlayer.loadWithVideoId(fullNameArr[1], playerVars: videoPlayerVar)
+            }
             videoPlayer.delegate = self
             videoPlayer.webView!.opaque = false
             videoPlayer.webView!.backgroundColor = UIColor(hexString: "#000000")
@@ -201,7 +206,13 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         self.contentView.addSubview(separatorImage)
         
         let button = UIButton(type: UIButtonType.System) as UIButton
-        button.setImage(UIImage(named: "DAYC_Take_daycation@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+        if(trip.lastVisitedWaypoint == nil){
+            button.setImage(UIImage(named: "DAYC_Take_daycation@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+            
+        } else {
+            button.setImage(UIImage(named: "DAYC_Take_daycation@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
+            
+        }
         contentView.addSubview(button)
         button.addTarget(self, action: "tappedTake:", forControlEvents: UIControlEvents.TouchUpInside)
         button.userInteractionEnabled = true
@@ -649,7 +660,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             mapView.addAnnotation(annotation)
         }
         
-        mapView.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        mapView.layoutMargins = UIEdgeInsets(top: 30, left: 40, bottom: 50, right: 40)
         mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
