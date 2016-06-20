@@ -19,10 +19,13 @@ class TripsFilterViewController : FormViewController{
         self.title = "Filter"
         
         self.view.backgroundColor = UIColor.whiteColor()
-            let a = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "tappedCancel:")
-            self.navigationItem.rightBarButtonItem = a
-      
+            let a = UIBarButtonItem(title: "Clear", style: .Plain, target: self, action: "tappedCancel:")
+        self.navigationItem.rightBarButtonItem = a
+        a.setTitlePositionAdjustment(UIOffset.init(horizontal: -15, vertical: 0), forBarMetrics: UIBarMetrics.Default)
+            a.setTitleTextAttributes([NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:14)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Normal)
         let b = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "tappedDone:")
+         b.setTitlePositionAdjustment(UIOffset.init(horizontal: 15, vertical: 0), forBarMetrics: UIBarMetrics.Default)
+            b.setTitleTextAttributes([NSFontAttributeName: UIFont(name:"Quicksand-Bold", size:14)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Normal)
         self.navigationItem.leftBarButtonItem = b
         self.tableView!.backgroundColor = UIColor(hexString: "#f7f1da")
         self.tableView!.separatorInset = UIEdgeInsetsZero
@@ -292,6 +295,7 @@ class TripsFilterViewController : FormViewController{
     
     
     func tappedCancel(sender: UIBarButtonItem){
+        completion!(filters: [PropertyDescriptor]())
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

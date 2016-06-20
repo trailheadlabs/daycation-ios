@@ -36,7 +36,8 @@ iCarouselDataSource, iCarouselDelegate{
     var selectedTripView: TripMapCell!
     var scrollView: UIScrollView!
     var highlightedFeatures : [Feature] = []
-    
+    var actInd : UIActivityIndicatorView!
+    var searchBar: UISearchBar!
     var filterHeaderView: UIView!
     var filterHeaderLabel:UILabel!
     
@@ -87,7 +88,7 @@ iCarouselDataSource, iCarouselDelegate{
         contentView.addSubview(carousel)
         contentView.addSubview(pageControl)
         
-        let actInd : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
+         actInd  = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
@@ -124,7 +125,7 @@ iCarouselDataSource, iCarouselDelegate{
                 self.tableView.h=CGFloat((trips.count*50))
                 self.contentView.h=self.tableView.bottom
                 self.scrollView.contentSize = self.contentView.bounds.size
-                actInd.stopAnimating()
+                self.actInd.stopAnimating()
                 for trip in trips {
                     if (trip.location != nil){
                         let annotation = CustomPointAnnotation()
@@ -165,7 +166,7 @@ iCarouselDataSource, iCarouselDelegate{
         }
         
         
-        let searchHeaderView = UIView()
+        let searchHeaderView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 40))
         let headerImage=UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, 40))
         headerImage.image = UIImage(named:"DAYC_ORANGE_BOTTOM@3x.png")
         headerImage.contentMode = UIViewContentMode.ScaleAspectFill
@@ -180,40 +181,34 @@ iCarouselDataSource, iCarouselDelegate{
         searchHeaderView.addSubview(magnifyingImage)
         self.view.addSubview(searchHeaderView)
         
-        
-        let searchController = UISearchController(searchResultsController: nil)
-        //  searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search for a daycation"
-        searchController.searchBar.delegate = self
-        searchController.searchBar.x = 50
-        searchController.searchBar.y = 0
-        searchController.searchBar.w = self.view.frame.size.width-100
+        searchBar = UISearchBar(frame: CGRectMake(50, 10, self.view.frame.size.width-50, 23))
+        searchBar.placeholder = "Search for a daycation"
+        searchBar.delegate = self
         let searchBarBackground = UIImage.roundedImage(UIImage.imageWithColor(UIColor(hexString: "#fff9e1")!, size: CGSize(width: 28, height: 28)),cornerRadius: 0)
-        searchController.searchBar.setSearchFieldBackgroundImage(searchBarBackground, forState: .Normal)
-        searchController.searchBar.searchTextPositionAdjustment = UIOffsetMake(8.0, 0.0)
-        searchController.searchBar.barTintColor = UIColor.clearColor()
-        searchController.searchBar.backgroundColor = UIColor.clearColor()
-        searchController.searchBar.backgroundImage = UIImage()
-        searchController.searchBar.translucent = true
-        let textFieldInsideSearchBar = searchController.searchBar.valueForKey("searchField") as! UITextField
+        searchBar.setSearchFieldBackgroundImage(searchBarBackground, forState: .Normal)
+        searchBar.searchTextPositionAdjustment = UIOffsetMake(8.0, 0.0)
+        searchBar.barTintColor = UIColor.clearColor()
+        searchBar.backgroundColor = UIColor.clearColor()
+        searchBar.backgroundImage = UIImage()
+        searchBar.translucent = true
+        let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as! UITextField
         textFieldInsideSearchBar.font = UIFont(name: "Quicksand-Bold", size: 12)
         textFieldInsideSearchBar.textColor = UIColor(hexString: "#979796")
         
-        searchController.searchBar.searchBarStyle = .Prominent
-        searchController.searchBar.showsCancelButton = false
-        searchController.searchBar.showsSearchResultsButton = false
+        searchBar.searchBarStyle = .Prominent
+        searchBar.showsCancelButton = false
+        searchBar.showsSearchResultsButton = false
         
         textFieldInsideSearchBar.leftViewMode = UITextFieldViewMode.Never
         textFieldInsideSearchBar.w = 20
         // Give some left padding between the edge of the search bar and the text the user enters
-        searchController.searchBar.searchTextPositionAdjustment = UIOffsetMake(10, 0)
+        searchBar.searchTextPositionAdjustment = UIOffsetMake(10, 0)
         // Place the search bar view to the tableview headerview.
-        self.view.addSubview(searchController.searchBar)
+        self.view.addSubview(searchBar)
         
         
         
-        mapView=MKMapView(frame: CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height-(44+20+49)))
+        mapView=MKMapView(frame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-(44+20+48)))
         mapView.mapType = MKMapType.Standard
         mapView.delegate = self
         mapView.zoomEnabled = true
@@ -237,37 +232,37 @@ iCarouselDataSource, iCarouselDelegate{
         selectedTripView.addGestureRecognizer(selectedTripViewRecognizer)
         selectedTripView.hidden = true
         self.view.userInteractionEnabled = true
-        self.view.addSubview(selectedTripView)
-        self.view.addSubview(mapView)
+        self.contentView.addSubview(selectedTripView)
+        self.contentView.addSubview(mapView)
         
         
-        filterHeaderView = UIView()
-        let filterHeaderImage=UIImageView(frame: CGRectMake(0, headerImage.bottom, self.view.frame.size.width, 40))
+        filterHeaderView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 40))
+        let filterHeaderImage=UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, 40))
         filterHeaderImage.image = UIImage(named:"DAYC_GREEN_TOP@3x.png")
         filterHeaderImage.contentMode = UIViewContentMode.ScaleAspectFill
         filterHeaderImage.clipsToBounds = true
         filterHeaderView.addSubview(filterHeaderImage)
         
-        filterHeaderLabel = UILabel(frame: CGRectMake(20, headerImage.bottom, self.view.frame.size.width, 40))
+        filterHeaderLabel = UILabel(frame: CGRectMake(20,0, self.view.frame.size.width, 40))
         filterHeaderLabel.textColor = UIColor.whiteColor()
         filterHeaderLabel.backgroundColor = UIColor.clearColor()
         filterHeaderLabel.font = UIFont(name: "Quicksand-Bold", size: 14)
         filterHeaderView.addSubview(filterHeaderLabel)
         
-        filterHeaderView.hidden = true
+        filterHeaderView.alpha = 0
         let button = UIButton(type: UIButtonType.System) as UIButton
         button.setImage(UIImage(named: "DAYC_Clear_fields@3x.png")!.imageWithRenderingMode(.AlwaysOriginal), forState: UIControlState.Normal)
         contentView.addSubview(button)
-        button.addTarget(self, action: "tappedFilter:", forControlEvents: UIControlEvents.TouchUpInside)
+        button.addTarget(self, action: "clearFilters:", forControlEvents: UIControlEvents.TouchUpInside)
         button.userInteractionEnabled = true
-        button.frame = CGRectMake(self.view.frame.size.width-40, headerImage.bottom+10, 20, 20)
+        button.frame = CGRectMake(self.view.frame.size.width-40, 10, 20, 20)
         
               let gesture = UITapGestureRecognizer(target: self, action: #selector(TripsViewController.tappedFilter(_:)))
         self.filterHeaderView.userInteractionEnabled = true
         self.filterHeaderView.addGestureRecognizer(gesture)
 self.view.userInteractionEnabled = true
         filterHeaderView.addSubview(button)
-        self.view.addSubview(filterHeaderView)
+        self.contentView.addSubview(filterHeaderView)
     }
     func filterBarAction(sender:UITapGestureRecognizer){
         // do other task
@@ -515,6 +510,7 @@ self.view.userInteractionEnabled = true
         searchBar.endEditing(true)
         searchBar.text=""
         searchBar.setShowsCancelButton(false, animated: true)
+        
         tableView.reloadData()
     }
     
@@ -524,8 +520,7 @@ self.view.userInteractionEnabled = true
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        searchActive = true;
-        searchBar.endEditing(true)
+                searchBar.endEditing(true)
         for view in searchBar.subviews {
             for subview in view.subviews {
                 if let button = subview as? UIButton {
@@ -533,60 +528,89 @@ self.view.userInteractionEnabled = true
                 }
             }
         }
-    }
+        performSearch()
+           }
+    
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        if (searchText.characters.count == 0) {
-            filtered = trips
-        } else {
-            filtered = trips.filter({ (trip) -> Bool in
-                let tmp: NSString = trip.name!
-                let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-                return range.location != NSNotFound
-            })
-        }
-        self.tableView.reloadData()
+     
     }
-    
-    func filterTrips(filters: [PropertyDescriptor]?) {
-        self.filters = filters!
-        if self.filters.count == 1{
-            filterHeaderLabel.text="\(self.filters.count) Active Filter"
-            filterHeaderLabel.fitWidth()
-            filterHeaderView.hidden = false
-        } else if self.filters.count > 0 {
-            filterHeaderLabel.text="\(self.filters.count) Active Filters"
-            filterHeaderLabel.fitWidth()
-            filterHeaderView.hidden = false
-        } else{
-            filterHeaderView.hidden = true
-        }
-        OuterspatialClient.sharedInstance.getTrips(filters!,page: page,parameters: [:]) {
+    func performSearch() {
+        searchActive = true;
+        
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        self.actInd.startAnimating()
+        OuterspatialClient.sharedInstance.getTrips(searchBar.text,filters: filters,page: 1,parameters: [:]) {
             (result: [Trip]?,error: String?) in
             if let trips = result {
                 print("got back: \(result)")
-                self.trips = trips
+                self.filtered = trips
                 self.contentView.addSubview(self.tableView)
                 
                 self.tableView.h=CGFloat((trips.count*50))
                 self.contentView.h=self.tableView.bottom
                 self.scrollView.contentSize = self.contentView.bounds.size
-             //   actInd.stopAnimating()
-                for trip in trips {
-                    if (trip.location != nil){
-                        let annotation = CustomPointAnnotation()
-                        annotation.title = trip.name
-                        annotation.trip = trip
-                        annotation.coordinate = CLLocationCoordinate2DMake(trip.location!.coordinate.latitude,trip.location!.coordinate.longitude)
-                        self.mapView.addAnnotation(annotation)
-                    }
-                }
+                self.actInd.stopAnimating()
+                
+                self.addAnnotations(trips)
+                self.tableView.reloadData()
                 
             }
             if let error = error{
                 HUD.flash(.Label(error), delay: 2.0)
             }
         }
+
+    }
+    func addAnnotations(trips:[Trip]) {
+        for trip in trips {
+            if (trip.location != nil){
+                let annotation = CustomPointAnnotation()
+                annotation.title = trip.name
+                annotation.trip = trip
+                annotation.coordinate = CLLocationCoordinate2DMake(trip.location!.coordinate.latitude,trip.location!.coordinate.longitude)
+                self.mapView.addAnnotation(annotation)
+            }
+        }
+    }
+    
+    func clearFilters(sender: UIBarButtonItem){
+filterTrips([PropertyDescriptor]())
+        
+    }
+    func filterTrips(filters: [PropertyDescriptor]?) {
+        self.filters = filters!
+        if self.filters.count == 1{
+            
+//            UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
+//                //   self.selectedTripView.transform = top
+//                self.carousel.y = self.carousel.y-50
+//                self.carousel.h = self.carousel.h-50
+//                }, completion: nil)
+            filterHeaderLabel.text="\(self.filters.count) Active Filter"
+            filterHeaderLabel.fitWidth()
+            
+            UIView.animateWithDuration(0.5, delay: 0.5, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                self.filterHeaderView.alpha = 1.0
+                }, completion: nil)
+        } else if self.filters.count > 0 {
+            filterHeaderLabel.text="\(self.filters.count) Active Filters"
+            filterHeaderLabel.fitWidth()
+            
+            UIView.animateWithDuration(0.5, delay: 0.5, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                self.filterHeaderView.alpha = 1.0
+                }, completion: nil)
+        } else{
+            UIView.animateWithDuration(0.5, delay: 0.5, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                self.filterHeaderView.alpha = 0.0
+                }, completion: nil)
+//            UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
+//                //   self.selectedTripView.transform = top
+//                self.carousel.y = self.carousel.y-50
+//                self.carousel.h = self.carousel.h+50
+//                }, completion: nil)
+        }
+        performSearch()
     }
     func tappedFilter(sender: UIBarButtonItem){
         let navigationController = UINavigationController(rootViewController: TripsFilterViewController(filters: filters,completion: filterTrips))
@@ -615,12 +639,24 @@ self.view.userInteractionEnabled = true
         return 50.0
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.trips.count;
+        if(searchActive) {
+            return filtered.count
+        }
+        print("trips.count #\(trips.count)!")
+        return trips.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var trip:Trip
+        if(searchActive) {
+            trip = filtered[indexPath.row]
+        } else {
+            if trips.count < indexPath.row-1 {
+                return UITableViewCell()
+            }
+            trip = trips[indexPath.row]
+        }
         let cell:TripsViewCell = self.tableView.dequeueReusableCellWithIdentifier("tripCell")! as! TripsViewCell
-        let trip:Trip = self.trips[indexPath.row]
         cell.loadItem(trip)
         
         return cell
