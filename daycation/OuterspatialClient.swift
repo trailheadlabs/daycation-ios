@@ -315,14 +315,23 @@ public class OuterspatialClient {
         })
     }
     
-    func getTrips(filters:[PropertyDescriptor],page:Int,parameters: [String:String],completion: (result: [Trip]?,error:String?) -> Void) {
+    func getTrips(query:String?,filters:[PropertyDescriptor],page:Int,parameters: [String:String],completion: (result: [Trip]?,error:String?) -> Void) {
         var filterString = ""
-//        for filter in filters {
-//            filterString = "\(filterString)application_properties[key]=\(filter.key!)&"
-//            filterString = "\(filterString)application_properties[value]=\(filter.values!.joinWithSeparator(","))&"
-//        }
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+        for filter in filters {
+            
+            let escapedValues:[String] = filter.values!.map { $0.stringByAddingPercentEncodingWithAllowedCharacters(.URLFragmentAllowedCharacterSet())! }
+            
+            filterString = "\(filterString)application_properties[][key]=\(filter.key!)&"
+            
+            for escapedValue in escapedValues {
+                
+                filterString = "\(filterString)application_properties[][value][]=\(escapedValue)&"
+            }
+        }
+        if let query = query {
+            filterString = "\(filterString)q=\(query)&"
+        }
+              dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             self.oauth2Client!.request(.GET, "\(Config.host)/v1/applications/\(Config.settings["application_id"]!)/trips?page=\(page)&summary=true&\(filterString)", parameters: parameters)
                 .responseJSON { response in
                     print(response.result.value)   // result of response serialization
