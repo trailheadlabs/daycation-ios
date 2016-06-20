@@ -265,6 +265,25 @@ public class OuterspatialClient {
     }
     
     
+    func startTrip(trip_id:Int,completion: (result: Bool?,error:String?) -> Void) {
+        oauth2Client!.request(.POST, "\(Config.host)/v1/trips/\(trip_id)/event", parameters: ["event[event_type]":"start_trip"])
+            .responseJSON { response in
+                print(response.result.value)   // result of response serialization
+                
+                if response.response?.statusCode != 200 {
+                    if let JSON = response.result.value {
+                        let errors = JSON["errors"] as! NSArray
+                        completion(result: nil, error:errors[0] as! String)
+                    } else {
+                        completion(result: nil, error:"Could Not Load Posts")
+                    }
+                }
+                
+                completion(result:true,error:nil)
+        }
+    }
+    
+    
     func setTripLikeStatus(postId:Int,likeStatus:Bool,completion: (result: Bool?,error:String?) -> Void) {
         let method = likeStatus ? Method.POST : Method.DELETE
         oauth2Client!.request(method, "\(Config.host)/v1/trips/\(postId)/like", parameters: ["liked":likeStatus.description])
@@ -329,7 +348,7 @@ public class OuterspatialClient {
             }
         }
         if let query = query {
-            filterString = "\(filterString)q=\(query)&"
+            filterString = "\(filterString)q=\(query.stringByAddingPercentEncodingWithAllowedCharacters(.URLFragmentAllowedCharacterSet())!)&"
         }
               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             self.oauth2Client!.request(.GET, "\(Config.host)/v1/applications/\(Config.settings["application_id"]!)/trips?page=\(page)&summary=true&\(filterString)", parameters: parameters)

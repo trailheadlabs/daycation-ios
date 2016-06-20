@@ -154,7 +154,8 @@ iCarouselDataSource, iCarouselDelegate{
                             
                             self.trips.appendContentsOf(trips)
                             
-                            self.tableView.reloadData()
+                            
+                            self.refreshTable()
                             self.scrollView.infiniteScrollingView?.stopAnimating()
                         }
                         if let error = error{
@@ -446,6 +447,12 @@ self.view.userInteractionEnabled = true
         tabBar.selectedIndex = 1
     }
     
+    
+    func refreshTable() {
+        self.tableView.h=CGFloat((trips.count*50))
+        self.tableView.reloadData()
+    }
+    
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         let selectedAnnotation = view.annotation as? CustomPointAnnotation
     //    var span = MKCoordinateSpanMake(1, 1)
@@ -511,7 +518,9 @@ self.view.userInteractionEnabled = true
         searchBar.text=""
         searchBar.setShowsCancelButton(false, animated: true)
         
-        tableView.reloadData()
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        self.addAnnotations(trips)
+        self.refreshTable()
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
@@ -539,6 +548,10 @@ self.view.userInteractionEnabled = true
         searchActive = true;
         
         self.mapView.removeAnnotations(self.mapView.annotations)
+        
+        UIView.animateWithDuration(0.2, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+            self.tableView.alpha = 0
+            }, completion: nil)
         self.actInd.startAnimating()
         OuterspatialClient.sharedInstance.getTrips(searchBar.text,filters: filters,page: 1,parameters: [:]) {
             (result: [Trip]?,error: String?) in
@@ -553,8 +566,11 @@ self.view.userInteractionEnabled = true
                 self.actInd.stopAnimating()
                 
                 self.addAnnotations(trips)
-                self.tableView.reloadData()
+                self.refreshTable()
                 
+                UIView.animateWithDuration(0.2, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                    self.tableView.alpha = 1
+                    }, completion: nil)
             }
             if let error = error{
                 HUD.flash(.Label(error), delay: 2.0)
@@ -618,6 +634,7 @@ filterTrips([PropertyDescriptor]())
     }
     
     func tappedMap(sender: UIBarButtonItem){
+        
         if (mapView.hidden) {
             tableView.hidden = true
             mapView.hidden = false

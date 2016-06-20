@@ -181,7 +181,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         self.contentView.addSubview(bottomSeparatorImage)
         
         
-        waypointAddress = UILabel(frame: CGRectMake(50,self.mapView.bottomOffset(12),self.view.w-40,40))
+        waypointAddress = UILabel(frame: CGRectMake(50,self.mapView.bottomOffset(12),self.view.w-70,40))
         waypointAddress.font = UIFont(name: "Quicksand-Bold", size: 14)
         waypointAddress.textColor = UIColor(hexString: "#3f3f3f")
         self.contentView.addSubview(waypointAddress)
@@ -368,12 +368,15 @@ navigationController?.popViewControllerAnimated(true)
         let waypoint = trip.waypoints[index]
         self.feature = waypoint.feature as! PointOfInterest
         waypointNameText.text = self.feature.name
-        waypointAddress.text = "50100 Otter Lane"
-        
         if let description = self.feature.description {
             descriptionLabel.text = description
         }else {
             descriptionLabel.text = "No description."
+        }
+        if let address = self.feature.address {
+            waypointAddress.text = address
+        }else {
+            waypointAddress.text = ""
         }
         let text = "\(String(self.position+1)) / \(String(self.trip.waypoints.count))"
         let attributedString = NSMutableAttributedString(string:text)
@@ -395,7 +398,7 @@ navigationController?.popViewControllerAnimated(true)
         self.featuredImage.y=self.separatorImage.bottomOffset(10)
         self.bottomSeparatorImage.y=self.featuredImage.bottomOffset(5)
         
-        self.waypointAddress.fitSize()
+        self.waypointAddress.fitHeight()
         self.waypointAddress.w=self.view.rightOffset(-60)-self.waypointNameText.x
         self.waypointAddress.x=self.featuredImage.rightOffset(10)
         self.waypointAddress.y=self.featuredImage.y
