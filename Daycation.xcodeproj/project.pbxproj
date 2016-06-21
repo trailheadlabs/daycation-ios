@@ -252,6 +252,7 @@
 		AA13BF661CEFCFDC009F0FC2 /* Cultivated Mind - True North.otf in Resources */ = {isa = PBXBuildFile; fileRef = AA13BF631CEFCFDC009F0FC2 /* Cultivated Mind - True North.otf */; };
 		AA13BF691CEFD064009F0FC2 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA13BF671CEFD064009F0FC2 /* Quicksand-Bold.ttf */; };
 		AA13BF6A1CEFD064009F0FC2 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA13BF681CEFD064009F0FC2 /* Quicksand-Regular.ttf */; };
+		AA1E61A51D1985B10079355D /* LinearGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1E61A41D1985B10079355D /* LinearGradient.png */; };
 		AA2F66E51CF4B1A9003464AB /* DAYC_GPS.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2F66E21CF4B1A9003464AB /* DAYC_GPS.png */; };
 		AA2F66E61CF4B1A9003464AB /* DAYC_GPS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2F66E31CF4B1A9003464AB /* DAYC_GPS@2x.png */; };
 		AA2F66E71CF4B1A9003464AB /* DAYC_GPS@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2F66E41CF4B1A9003464AB /* DAYC_GPS@3x.png */; };
@@ -583,6 +584,7 @@
 		AA13BF631CEFCFDC009F0FC2 /* Cultivated Mind - True North.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Cultivated Mind - True North.otf"; sourceTree = "<group>"; };
 		AA13BF671CEFD064009F0FC2 /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.ttf"; sourceTree = "<group>"; };
 		AA13BF681CEFD064009F0FC2 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.ttf"; sourceTree = "<group>"; };
+		AA1E61A41D1985B10079355D /* LinearGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinearGradient.png; sourceTree = "<group>"; };
 		AA2F66E21CF4B1A9003464AB /* DAYC_GPS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DAYC_GPS.png; sourceTree = "<group>"; };
 		AA2F66E31CF4B1A9003464AB /* DAYC_GPS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_GPS@2x.png"; sourceTree = "<group>"; };
 		AA2F66E41CF4B1A9003464AB /* DAYC_GPS@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_GPS@3x.png"; sourceTree = "<group>"; };
@@ -704,6 +706,7 @@
 		AA13BD8B1CEFCF84009F0FC2 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				AA1E61A41D1985B10079355D /* LinearGradient.png */,
 				AABBFC5C1D08C205005F1AA6 /* DAYC_bar_bg.png */,
 				AABBFC601D09E2EE005F1AA6 /* DAYC_delete_button@3x.png */,
 				AAAD97C91D06025400981F76 /* empty_avatar.png */,
@@ -1414,6 +1417,7 @@
 				AA13BF021CEFCF85009F0FC2 /* Daycation_daycations_bar12 copy.png in Resources */,
 				AA13BF2F1CEFCF85009F0FC2 /* Daycation_stream_bar copy 2.png in Resources */,
 				AA13BF2D1CEFCF85009F0FC2 /* Daycation_Plants.png in Resources */,
+				AA1E61A51D1985B10079355D /* LinearGradient.png in Resources */,
 				AA13BE7A1CEFCF85009F0FC2 /* DAYC_DAYCATIONS_ICON_highlighted@3x.png in Resources */,
 				AA13BEDA1CEFCF85009F0FC2 /* DAYC_Icon_Plants@3x.png in Resources */,
 				AA13BEAB1CEFCF85009F0FC2 /* DAYC_Icon_Food_Drink.png in Resources */,

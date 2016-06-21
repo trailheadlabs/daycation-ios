@@ -30,12 +30,13 @@ class PostsViewCell: UITableViewCell {
         userImage=UIImageView()
         userImage.contentMode = UIViewContentMode.ScaleAspectFill
         userImage.clipsToBounds = true
+        self.userImage.alpha = 0
         self.addSubview(userImage!)
         
         postImage=UIImageView()
         postImage.contentMode = UIViewContentMode.ScaleAspectFill
         postImage.clipsToBounds = true
-        
+        self.postImage.alpha = 0
         postImage.setCornerRadius(radius: 3)
         self.addSubview(postImage!)
         
@@ -98,9 +99,11 @@ class PostsViewCell: UITableViewCell {
         self.postImage.frame = CGRectMake(0,0,50,50)
         if let url = url  {
             let cache = Shared.imageCache
-        postImage.hnk_setImageFromURL(url, placeholder: nil, success: { (image) -> Void in
+        postImage.hnk_setImageFromURL(url, placeholder: UIImage(named:"LinearGradient.png"), success: { (image) -> Void in
             self.postImage.image = image
-           // self.postImage.image = UIImage(named: "Daycation_Nav_Daycations",imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal)
+                          UIView.animateWithDuration(1.0, animations: {
+                                self.postImage.alpha = 1
+                           })
             cache.set(value: image, key: url.URLString)
             }, failure: { (Error) -> Void in
                 
@@ -126,9 +129,12 @@ class PostsViewCell: UITableViewCell {
     func setPostUserImage(url: NSURL) {
         self.userImage.frame = CGRectMake(0,0,50,50)
         let cache = Shared.imageCache
-        userImage.hnk_setImageFromURL(url, placeholder: nil, success: { (UIImage) -> Void in
+        userImage.hnk_setImageFromURL(url, placeholder: UIImage(named:"LinearGradient.png"), success: { (UIImage) -> Void in
             self.userImage.image = UIImage.circleMask
             cache.set(value: UIImage, key: url.URLString)
+            UIView.animateWithDuration(1.0, animations: {
+                self.userImage.alpha = 1
+            })
             }, failure: { (Error) -> Void in
                 
         })
