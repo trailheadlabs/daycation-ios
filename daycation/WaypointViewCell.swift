@@ -86,8 +86,9 @@ class WaypointViewCell: UITableViewCell {
         super.layoutSubviews()
         self.markerImage.frame = CGRectMake(20,4,40,40)
         self.waypointImage.frame = CGRectMake(markerImage.rightOffset(10),4,40,40)
-        self.nameText.frame = CGRectMake(self.waypointImage.rightOffset(10), 4,  self.rightOffset(-50), 21)
-        self.nameText.sizeToFit()
+        print(self.w-self.nameText.x-30)
+        self.nameText.frame = CGRectMake(self.waypointImage.rightOffset(10), 4,  self.w-self.waypointImage.rightOffset(10)-30, 21)
+        self.nameText.fitHeight()
         layoutMargins = UIEdgeInsetsZero
     }
 

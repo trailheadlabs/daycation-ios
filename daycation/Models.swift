@@ -117,6 +117,7 @@ public class Post {
     var createdAt: NSDate?
     var user = User()
     var likers = [User]()
+    var featureImage: FeatureImage?
     
     func parse(data:NSDictionary) -> Post{
         id = data["id"] as? Int
@@ -144,6 +145,9 @@ public class Post {
                 if let large = image!["large"] as? NSDictionary, let url = large["url"] as? String{
                     self.imageUrl=NSURL(string: "\(Config.imagePrefix)\(url)")
                 }
+                let featureImage = FeatureImage()
+               featureImage.parse(image!)
+                self.featureImage = featureImage
             }
         }
         if let likers = data["likers"] as? NSArray {
