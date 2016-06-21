@@ -253,6 +253,7 @@
 		AA13BF691CEFD064009F0FC2 /* Quicksand-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA13BF671CEFD064009F0FC2 /* Quicksand-Bold.ttf */; };
 		AA13BF6A1CEFD064009F0FC2 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA13BF681CEFD064009F0FC2 /* Quicksand-Regular.ttf */; };
 		AA1E61A51D1985B10079355D /* LinearGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1E61A41D1985B10079355D /* LinearGradient.png */; };
+		AA1E61A71D198A220079355D /* PostPhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1E61A61D198A220079355D /* PostPhotoDetailViewController.swift */; };
 		AA2F66E51CF4B1A9003464AB /* DAYC_GPS.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2F66E21CF4B1A9003464AB /* DAYC_GPS.png */; };
 		AA2F66E61CF4B1A9003464AB /* DAYC_GPS@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2F66E31CF4B1A9003464AB /* DAYC_GPS@2x.png */; };
 		AA2F66E71CF4B1A9003464AB /* DAYC_GPS@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2F66E41CF4B1A9003464AB /* DAYC_GPS@3x.png */; };
@@ -313,7 +314,7 @@
 		AABBFC5D1D08C205005F1AA6 /* DAYC_bar_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AABBFC5C1D08C205005F1AA6 /* DAYC_bar_bg.png */; };
 		AABBFC5F1D08D613005F1AA6 /* DAYC_Heart_liked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AABBFC5E1D08D613005F1AA6 /* DAYC_Heart_liked@3x.png */; };
 		AABBFC611D09E2EE005F1AA6 /* DAYC_delete_button@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AABBFC601D09E2EE005F1AA6 /* DAYC_delete_button@3x.png */; };
-		AABBFC631D0A1EFD005F1AA6 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBFC621D0A1EFD005F1AA6 /* PhotoDetailViewController.swift */; };
+		AABBFC631D0A1EFD005F1AA6 /* TripPhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBFC621D0A1EFD005F1AA6 /* TripPhotoDetailViewController.swift */; };
 		AABBFC651D0B1C1F005F1AA6 /* MultiSelectFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBFC641D0B1C1F005F1AA6 /* MultiSelectFilterViewController.swift */; };
 		AABBFC671D0B48F1005F1AA6 /* MapDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBFC661D0B48F0005F1AA6 /* MapDetailViewController.swift */; };
 		AAE210381D1359F800EDC4BF /* DAYC_Clear_fields@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE210371D1359F800EDC4BF /* DAYC_Clear_fields@3x.png */; };
@@ -585,6 +586,7 @@
 		AA13BF671CEFD064009F0FC2 /* Quicksand-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Bold.ttf"; sourceTree = "<group>"; };
 		AA13BF681CEFD064009F0FC2 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.ttf"; sourceTree = "<group>"; };
 		AA1E61A41D1985B10079355D /* LinearGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LinearGradient.png; sourceTree = "<group>"; };
+		AA1E61A61D198A220079355D /* PostPhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostPhotoDetailViewController.swift; sourceTree = "<group>"; };
 		AA2F66E21CF4B1A9003464AB /* DAYC_GPS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DAYC_GPS.png; sourceTree = "<group>"; };
 		AA2F66E31CF4B1A9003464AB /* DAYC_GPS@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_GPS@2x.png"; sourceTree = "<group>"; };
 		AA2F66E41CF4B1A9003464AB /* DAYC_GPS@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_GPS@3x.png"; sourceTree = "<group>"; };
@@ -651,7 +653,7 @@
 		AABBFC5C1D08C205005F1AA6 /* DAYC_bar_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DAYC_bar_bg.png; sourceTree = "<group>"; };
 		AABBFC5E1D08D613005F1AA6 /* DAYC_Heart_liked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Heart_liked@3x.png"; sourceTree = "<group>"; };
 		AABBFC601D09E2EE005F1AA6 /* DAYC_delete_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_delete_button@3x.png"; sourceTree = "<group>"; };
-		AABBFC621D0A1EFD005F1AA6 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
+		AABBFC621D0A1EFD005F1AA6 /* TripPhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripPhotoDetailViewController.swift; sourceTree = "<group>"; };
 		AABBFC641D0B1C1F005F1AA6 /* MultiSelectFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiSelectFilterViewController.swift; sourceTree = "<group>"; };
 		AABBFC661D0B48F0005F1AA6 /* MapDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapDetailViewController.swift; sourceTree = "<group>"; };
 		AAE210371D1359F800EDC4BF /* DAYC_Clear_fields@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Clear_fields@3x.png"; sourceTree = "<group>"; };
@@ -995,6 +997,7 @@
 				AA13BD851CEFCC66009F0FC2 /* TripsFilterViewController.swift */,
 				AAB344DE1CEFC087006CC849 /* TripDetailViewController.swift */,
 				AAB344D61CEFC087006CC849 /* TripsViewCell.swift */,
+				AABBFC621D0A1EFD005F1AA6 /* TripPhotoDetailViewController.swift */,
 				AAAD977C1CFCCA8100981F76 /* PhotoCollectionViewCell.swift */,
 				AA2F66EA1CF4E50D003464AB /* TripMapCell.swift */,
 				AA2F66E81CF4E173003464AB /* TripFilterView.swift */,
@@ -1015,6 +1018,7 @@
 				AAB344E21CEFC087006CC849 /* PostDetailViewController.swift */,
 				AAB344D71CEFC087006CC849 /* PostsViewCell.swift */,
 				AABBFC5A1D08B278005F1AA6 /* UsersCell.swift */,
+				AA1E61A61D198A220079355D /* PostPhotoDetailViewController.swift */,
 			);
 			name = posts;
 			sourceTree = "<group>";
@@ -1093,7 +1097,6 @@
 				AA2CA6C61CF35DBE00523784 /* posts */,
 				AA2CA6C71CF35DDF00523784 /* profile */,
 				AAB344E01CEFC087006CC849 /* IconTitleView.swift */,
-				AABBFC621D0A1EFD005F1AA6 /* PhotoDetailViewController.swift */,
 				AABBFC661D0B48F0005F1AA6 /* MapDetailViewController.swift */,
 				AAB344A81CEFBD9F006CC849 /* AppDelegate.swift */,
 				AA13BD891CEFCD04009F0FC2 /* LocationData.swift */,
@@ -1616,9 +1619,10 @@
 				AAB344FB1CEFC154006CC849 /* LoggedInViewController.swift in Sources */,
 				AAAD977D1CFCCA8200981F76 /* PhotoCollectionViewCell.swift in Sources */,
 				AAB344F51CEFC109006CC849 /* Config.swift in Sources */,
-				AABBFC631D0A1EFD005F1AA6 /* PhotoDetailViewController.swift in Sources */,
+				AABBFC631D0A1EFD005F1AA6 /* TripPhotoDetailViewController.swift in Sources */,
 				AAB344E81CEFC087006CC849 /* TripsViewController.swift in Sources */,
 				AA2F66E91CF4E173003464AB /* TripFilterView.swift in Sources */,
+				AA1E61A71D198A220079355D /* PostPhotoDetailViewController.swift in Sources */,
 				AAB344EC1CEFC087006CC849 /* WaypointDetailController.swift in Sources */,
 				AAB344E61CEFC087006CC849 /* PostsViewCell.swift in Sources */,
 				AAEE4C531CEFC66400746D14 /* EntryViewController.swift in Sources */,

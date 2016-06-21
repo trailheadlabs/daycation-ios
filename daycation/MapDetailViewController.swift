@@ -67,6 +67,7 @@ class  MapDetailViewController : UIViewController, MKMapViewDelegate{
         if anView == nil {
             anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             anView!.canShowCallout = false
+            
             anView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker@3x.png")!, w: 25, h: 25)
             anView!.centerOffset = CGPointMake(0, -25 / 2);
             let label = UILabel(frame: CGRect(x: 5, y: 1, width: 20, height: 20))
@@ -85,10 +86,15 @@ class  MapDetailViewController : UIViewController, MKMapViewDelegate{
         let cpa = annotation as! CustomPointAnnotation
         
         if let label = anView!.viewWithTag(1) as? UILabel {
-            
-            label.text = String(cpa.position+1)
+            if let position = cpa.position {
+                
+            label.text = String(position)
             label.fitSize()
             label.x = anView!.image!.size.width/2-label.w/2
+                
+            } else {
+                 anView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Map_marker@3x.png")!, w: 25, h: 25)
+            }
         }
         return anView
         

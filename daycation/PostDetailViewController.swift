@@ -106,12 +106,15 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         self.contentView.addSubview(bottomSeparatorImage)
         
         postImage=UIImageView(frame: CGRectMake(0, bottomSeparatorImage.bottomOffset(5), self.view.frame.size.width, post.imageUrl == nil ? 0 : 200))
-        contentView.addSubview(postImage!)
+        scrollView.addSubview(postImage!)
         postImage.contentMode = UIViewContentMode.ScaleAspectFill
         postImage.clipsToBounds = true
         postImage.alpha = 0.5
         if let url = post.imageUrl{
-          
+            let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(PostDetailViewController.imageTapped(_:)))
+            postImage.userInteractionEnabled = true
+            postImage.addGestureRecognizer(tapGestureRecognizer)
+
             postImage.hnk_setImageFromURL(url, placeholder: nil, success: { (UIImage) -> Void in
                 UIView.animateWithDuration(1.0, animations: {
                     self.postImage.alpha = 1
@@ -124,16 +127,18 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         }
         
         mapView=MKMapView(frame: CGRectMake(0, postImage.bottomOffset(5), self.view.frame.size.width,  200))
-        contentView.addSubview(mapView)
+        scrollView.addSubview(mapView)
         mapView.userInteractionEnabled = true
         mapView.mapType = MKMapType.Standard
         mapView.zoomEnabled = false
         mapView.scrollEnabled = false
         mapView.delegate =  self
+        mapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailViewController.mapTapped(_:))))
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(post.location!.coordinate,
                                                                   2000, 2000)
         mapView.setRegion(coordinateRegion, animated: true)
-        let annotation = MKPointAnnotation()
+        let annotation = CustomPointAnnotation()
+
         annotation.coordinate = CLLocationCoordinate2DMake(post.location!.coordinate.latitude,post.location!.coordinate.longitude)
         mapView.addAnnotation(annotation)
         let markerImage=UIImageView(frame: CGRectMake(15, mapView.bottomOffset(5), 30, 30))
@@ -174,6 +179,20 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         
         contentView.backgroundColor = UIColor(hexString: "#fff9e1")
     }
+    
+    func mapTapped(gestureRecognizer: UIGestureRecognizer) {
+        
+        let navigationViewController = MapDetailViewController(annotations: mapView.annotations)
+        self.navigationController?.pushViewController(navigationViewController, animated: true)
+    }
+    func imageTapped(img: AnyObject)
+    {
+        
+        let navigationViewController = PostPhotoDetailViewController(post: post)
+        self.navigationController?.pushViewController(navigationViewController, animated: true)
+        
+    }
+    
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         if tableView == userTableView{
             return 1

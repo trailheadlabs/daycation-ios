@@ -311,7 +311,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
             return
         }
         
-        let navigationViewController = PhotoDetailViewController(trip: trip,image: feature!.images[indexPath.row])
+        let navigationViewController = TripPhotoDetailViewController(trip: trip,image: feature!.images[indexPath.row])
         self.navigationController?.pushViewController(navigationViewController, animated: true)
         
     }

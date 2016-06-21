@@ -516,7 +516,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
  return
         }
         
-        let navigationViewController = PhotoDetailViewController(trip: trip,image: self.trip!.images[indexPath.row])
+        let navigationViewController = TripPhotoDetailViewController(trip: trip,image: self.trip!.images[indexPath.row])
         self.navigationController?.pushViewController(navigationViewController, animated: true)
         
     }
