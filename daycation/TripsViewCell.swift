@@ -32,6 +32,7 @@ class TripsViewCell: UITableViewCell {
         tripImage.contentMode = UIViewContentMode.ScaleAspectFill
         tripImage.clipsToBounds = true
         tripImage.setCornerRadius(radius: 5)
+        self.tripImage.alpha = 0
         self.addSubview(tripImage!)
         
         heartButton = DOFavoriteButton(frame: CGRectMake(3, 4, 25, 25), image: UIImage(named: "Daycation_Heart_icon.png"))
@@ -80,13 +81,18 @@ class TripsViewCell: UITableViewCell {
     
     func setPostThumbnailImage(url: NSURL?) {
         tripImage.hnk_cancelSetImage()
+        let view: UIView = UIView(frame: CGRectMake(0.0, 0.0, 320.0, 50.0))
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = view.bounds
+        gradient.colors = [UIColor.whiteColor().CGColor, UIColor.blackColor().CGColor]
+        view.layer.insertSublayer(gradient, atIndex: 0)
             self.tripImage.frame = CGRectMake(5,70,frame.size.width-10,150)
             let cache = Shared.imageCache
-            tripImage.hnk_setImageFromURL(url!, placeholder: nil, success: { (UIImage) -> Void in
-                   // UIView.animateWithDuration(1.0, animations: {
-                    //    self.tripImage.alpha = 1
-                   // })
-                    self.tripImage.image = UIImage
+        tripImage.hnk_setImageFromURL(url!, placeholder: UIImage(named:"LinearGradient.png"), success: { (UIImage) -> Void in
+            self.tripImage.image = UIImage
+                   UIView.animateWithDuration(1.0, animations: {
+                       self.tripImage.alpha = 1
+                   })
                     cache.set(value: UIImage, key: url!.URLString)
                 }, failure: { (Error) -> Void in
             })
