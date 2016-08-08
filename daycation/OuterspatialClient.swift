@@ -29,7 +29,7 @@ public class OuterspatialClient {
     func logout() {
         OuterspatialClient.currentUser = nil
         oauth2Client!.forgetTokens()
-        oauth2Client!.forgetClient()
+       // oauth2Client!.forgetClient()
         oauth2Client!.accessToken = nil
         oauth2Client!.username = ""
         oauth2Client!.password = ""
@@ -90,7 +90,7 @@ public class OuterspatialClient {
             "member_profile[location]":profile.location,
             "member_profile[bio]":profile.bio
         ]
-        if let organization = profile.organization {
+        if let organization = profile.organization where organization.id != nil{
             parameters["organization[id]"]=String(organization.id!)
             parameters["organization[primary]"]="true"
         }

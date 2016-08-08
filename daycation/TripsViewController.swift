@@ -88,7 +88,7 @@ iCarouselDataSource, iCarouselDelegate{
         contentView.addSubview(carousel)
         contentView.addSubview(pageControl)
         
-         actInd  = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
+        actInd  = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
@@ -258,10 +258,10 @@ iCarouselDataSource, iCarouselDelegate{
         button.userInteractionEnabled = true
         button.frame = CGRectMake(self.view.frame.size.width-40, 10, 20, 20)
         
-              let gesture = UITapGestureRecognizer(target: self, action: #selector(TripsViewController.tappedFilter(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(TripsViewController.tappedFilter(_:)))
         self.filterHeaderView.userInteractionEnabled = true
         self.filterHeaderView.addGestureRecognizer(gesture)
-self.view.userInteractionEnabled = true
+        self.view.userInteractionEnabled = true
         filterHeaderView.addSubview(button)
         self.contentView.addSubview(filterHeaderView)
     }
@@ -269,7 +269,7 @@ self.view.userInteractionEnabled = true
         // do other task
     }
     func selectedTripViewTapped(img: AnyObject) {
-       selectTrip(selectedTrip)
+        selectTrip(selectedTrip)
         
     }
     
@@ -357,7 +357,7 @@ self.view.userInteractionEnabled = true
         
         heartButton = itemView.viewWithTag(3) as! DOFavoriteButton!
         heartButton.frame = CGRectMake(likeCountLabel.rightOffset(-35), itemView.bottomOffset(-35), 30, 30)
-    
+        
         let image = UIImage.scaleTo(image: UIImage(named: "Daycation_Heart_icon.png")!, w: 16, h: 16)
         heartButton.image =  image
         heartButton.selected = trip.liked
@@ -377,9 +377,9 @@ self.view.userInteractionEnabled = true
             guard let filteredImage = filter.outputImage else { return }
             
             let context = CIContext(options: nil)
-                itemView.image = UIImage(CGImage: context.createCGImage(filteredImage, fromRect: filteredImage.extent))
-
-
+            itemView.image = UIImage(CGImage: context.createCGImage(filteredImage, fromRect: filteredImage.extent))
+            
+            
             }, failure: { (Error) -> Void in
                 
         })
@@ -435,7 +435,7 @@ self.view.userInteractionEnabled = true
     
     func carousel(carousel: iCarousel, didSelectItemAtIndex: Int) -> Void {
         let trip:Trip = self.highlightedFeatures[didSelectItemAtIndex] as! Trip
-          openTrip(trip)
+        openTrip(trip)
     }
     
     
@@ -455,11 +455,11 @@ self.view.userInteractionEnabled = true
     
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         let selectedAnnotation = view.annotation as? CustomPointAnnotation
-    //    var span = MKCoordinateSpanMake(1, 1)
+        //    var span = MKCoordinateSpanMake(1, 1)
         
-      //  var region = MKCoordinateRegion(center: (selectedAnnotation?.coordinate)!, span: span)
+        //  var region = MKCoordinateRegion(center: (selectedAnnotation?.coordinate)!, span: span)
         
-      //  mapView.setRegion(region, animated: true)
+        //  mapView.setRegion(region, animated: true)
         let top = CGAffineTransformMakeTranslation(0, -110)
         UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
             //self.selectedTripView.transform = top
@@ -470,7 +470,7 @@ self.view.userInteractionEnabled = true
         selectedTripView.loadItem(selectedTrip)
         for annotation in mapView.annotations {
             if let annotation = annotation as? CustomPointAnnotation {
-        //        mapView.viewForAnnotation(annotation)!.image = UIImage(named:"DAYC_Map_marker@3x.png")
+                //        mapView.viewForAnnotation(annotation)!.image = UIImage(named:"DAYC_Map_marker@3x.png")
             }
         }
         view.image = UIImage(named:"DAYC_Map_marker_highlighted@3x.png")
@@ -484,7 +484,7 @@ self.view.userInteractionEnabled = true
         
         
         UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
-         //   self.selectedTripView.transform = top
+            //   self.selectedTripView.transform = top
             self.mapView.h = self.view.frame.size.height-(36)
             self.gpsImage.y = mapView.h-50
             }, completion: nil)
@@ -521,6 +521,8 @@ self.view.userInteractionEnabled = true
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.addAnnotations(trips)
         self.refreshTable()
+        viewDidLayoutSubviews()
+
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
@@ -529,7 +531,7 @@ self.view.userInteractionEnabled = true
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-                searchBar.endEditing(true)
+        searchBar.endEditing(true)
         for view in searchBar.subviews {
             for subview in view.subviews {
                 if let button = subview as? UIButton {
@@ -538,11 +540,11 @@ self.view.userInteractionEnabled = true
             }
         }
         performSearch()
-           }
+    }
     
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-     
+        
     }
     func performSearch() {
         searchActive = true;
@@ -568,6 +570,8 @@ self.view.userInteractionEnabled = true
                 self.addAnnotations(trips)
                 self.refreshTable()
                 
+                self.tableView.h=CGFloat((self.filtered.count*50))
+                self.contentView.h=self.tableView.bottom
                 UIView.animateWithDuration(0.2, delay: 0.2, options: UIViewAnimationOptions.CurveEaseOut, animations: {
                     self.tableView.alpha = 1
                     }, completion: nil)
@@ -576,7 +580,7 @@ self.view.userInteractionEnabled = true
                 HUD.flash(.Label(error), delay: 2.0)
             }
         }
-
+        
     }
     func addAnnotations(trips:[Trip]) {
         for trip in trips {
@@ -591,18 +595,18 @@ self.view.userInteractionEnabled = true
     }
     
     func clearFilters(sender: UIBarButtonItem){
-filterTrips([PropertyDescriptor]())
+        filterTrips([PropertyDescriptor]())
         
     }
     func filterTrips(filters: [PropertyDescriptor]?) {
         self.filters = filters!
         if self.filters.count == 1{
             
-//            UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
-//                //   self.selectedTripView.transform = top
-//                self.carousel.y = self.carousel.y-50
-//                self.carousel.h = self.carousel.h-50
-//                }, completion: nil)
+            //            UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
+            //                //   self.selectedTripView.transform = top
+            //                self.carousel.y = self.carousel.y-50
+            //                self.carousel.h = self.carousel.h-50
+            //                }, completion: nil)
             filterHeaderLabel.text="\(self.filters.count) Active Filter"
             filterHeaderLabel.fitWidth()
             
@@ -620,11 +624,11 @@ filterTrips([PropertyDescriptor]())
             UIView.animateWithDuration(0.5, delay: 0.5, options: UIViewAnimationOptions.CurveEaseOut, animations: {
                 self.filterHeaderView.alpha = 0.0
                 }, completion: nil)
-//            UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
-//                //   self.selectedTripView.transform = top
-//                self.carousel.y = self.carousel.y-50
-//                self.carousel.h = self.carousel.h+50
-//                }, completion: nil)
+            //            UIView.animateWithDuration(0.4, delay: 0.0,  usingSpringWithDamping: 0.5, initialSpringVelocity: 1,options: [], animations: {
+            //                //   self.selectedTripView.transform = top
+            //                self.carousel.y = self.carousel.y-50
+            //                self.carousel.h = self.carousel.h+50
+            //                }, completion: nil)
         }
         performSearch()
     }
@@ -683,7 +687,12 @@ filterTrips([PropertyDescriptor]())
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("You selected cell #\(indexPath.row)!")
         
-        let trip = trips[indexPath.row]
+        var trip:Trip
+        if(searchActive) {
+            trip = filtered[indexPath.row]
+        } else {
+            trip = trips[indexPath.row]
+        }
         selectTrip(trip)
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
@@ -708,11 +717,18 @@ filterTrips([PropertyDescriptor]())
                                                                     forBarMetrics: .Default)
         
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        contentView.h = tableView.bottom
+        scrollView.contentSize = contentView.bounds.size
+        print("contentView.bounds.size: \(contentView.bounds.size)")
+        print("tableView: \(tableView.frame.height)")
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.pullToRefreshView?.stopAnimating()
-       // self.tableView.reloadData()
+        // self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {

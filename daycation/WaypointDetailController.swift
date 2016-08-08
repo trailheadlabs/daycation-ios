@@ -43,24 +43,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
     var nextButton:UIButton!
     var speciesView: DynamicCollectionView!
     var photoCollectionView: DynamicCollectionView!
-    var species = ["Opossum",
-                   "Shrews",
-                   "Bats",
-                   "Pikas",
-                   "Mountain beaver",
-                   "Squirrels",
-                   "Pocket gophers",
-                   "Beavers",
-                   "Rats",
-                   "Porcupines",
-                   "Coyotes",
-                   "Bears",
-                   "Seals and sea lions",
-                   "Ringtails and raccoons",
-                   "Weasels",
-                   "Cats",
-                   "Hoofed mammals",
-                   "Whales"]
+    var species = [String]()
     convenience init(trip: Trip, index:Int) {
         self.init()
         self.trip = trip
@@ -83,7 +66,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         //set image for button
         button.setImage(UIImage(named: "DAYC_Finish_button@3x.png"), forState: UIControlState.Normal)
         //add function for button
-      //  button.addTarget(self, action: "fbButtonPressed", forControlEvents: UIControlEvents.TouchUpInside)
+        button.addTarget(self, action: "tappedFinished:", forControlEvents: UIControlEvents.TouchUpInside)
         //set frame
         button.frame = CGRectMake(-20, 0, 86, 25)
         
@@ -276,6 +259,11 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         self.presentViewController( navigationController, animated: true, completion: nil)
     }
     
+    
+    func tappedFinished(sender: UIBarButtonItem){
+navigationController!.popViewControllerAnimated(true)
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if  collectionView == speciesView {
@@ -337,12 +325,22 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
     }
     
     func didDirectionsLabel() {
-        let url = NSURL(string: "http://www.google.com/")
-        UIApplication.sharedApplication().openURL(url!)
+        
+        if let address = self.feature.address {
+            var escapedAddress = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            var urlString = "http://trimet.org/ride/planner_form.html?to="+escapedAddress!
+            if let location = LocationData.locValue {
+                urlString = urlString+"&from="+String(location.latitude)+","+String(location.longitude)
+            }
+            UIApplication.sharedApplication().openURL(NSURL(string: urlString)!)
+        }
     }
     func didGoogleDirectionsLabel() {
-        let url = NSURL(string: "http://www.google.com/")
-        UIApplication.sharedApplication().openURL(url!)
+        if let address = self.feature.address {
+            var escapedAddress = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            let url = NSURL(string: "http://maps.google.com/maps?daddr="+escapedAddress!)
+            UIApplication.sharedApplication().openURL(url!)
+        }
     }
     func tappedBack(sender: UIButton) {
         if position>0 {
@@ -425,13 +423,18 @@ navigationController?.popViewControllerAnimated(true)
         
         self.speciesView.y=self.speciesText.bottomOffset(2)
         
+        speciesSeparatorImage.y=self.speciesView.bottomOffset(2)
+        self.galleryText.fitSize()
+        galleryText.y=self.speciesSeparatorImage.bottomOffset(5)
         
+        photoCollectionView.y=self.galleryText.bottomOffset(2)
         photoCollectionView.reloadData()
         for annotation in mapView.annotations {
             let aView = mapView.viewForAnnotation(annotation)
             let cpa = annotation as! CustomPointAnnotation
             if cpa.position == index{
                     aView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker_selected@3x.png")!, w: 25, h: 25)
+                mapView.selectAnnotation(annotation,animated:false)
                 }else{
                     aView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker@3x.png")!, w: 25, h: 25)
                     
@@ -447,6 +450,7 @@ navigationController?.popViewControllerAnimated(true)
 //            mapView.removeAnnotation(mapView.annotations.get(i)!)
 //            mapView.addAnnotation(t)
 //        }
+        viewDidLayoutSubviews()
         OuterspatialClient.sharedInstance.visitWaypoint(waypoint.id!,trip_id: trip.id!) {
             (result: Bool?,error: String?) in
             if let error = error{

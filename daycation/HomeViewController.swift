@@ -84,7 +84,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
         
         contentView.h=separatorImage.bottom
         
-        OuterspatialClient.sharedInstance.getPosts(1, parameters: ["editors_pick" : "true"]) {
+        OuterspatialClient.sharedInstance.getPosts(1, parameters: [:]) {
             (result: [Post]?,error: String?) in
             if let posts = result {
                 print("got back: \(result)")
@@ -338,7 +338,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
         if(tableView == self.postsTableView){
             
             let label = UILabel(frame: CGRect(x: 0, y: 7,  width: tableView.frame.size.width, height: 18))
-            label.text = "MY STREAM"
+            label.text = "STREAM"
             label.textAlignment = NSTextAlignment.Center
             
             label.textColor = UIColor(hexString: "#fc763a")

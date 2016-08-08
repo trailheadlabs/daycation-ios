@@ -10,6 +10,10 @@ class TripFilterView: UIView {
         let filterIconMapping: [String:String] = [
             "park" : "DAYC_Icon_Park.png",
             "trail" : "DAYC_Icon_Trail@3x.png",
+            "body_of_water" : "DAYC_Icon_Body_of_Water_2@3x.png",
+            "dogs" : "DAYC_Icon_DogsAllowed@3x.png",
+            "young_children" : "DAYC_Icon_ChildFriendly@3x.png",
+            "natural_area" : "DAYC_Icon_Natural_feature@3x.png",
             "accessible" : "DAYC_Icon_ADA@3x.png",
             "refreshment" : "DAYC_Icon_Food_Drink@3x.png",
             "plants" : "DAYC_Icon_Plants@3x.png"

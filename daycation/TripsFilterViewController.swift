@@ -110,7 +110,7 @@ class TripsFilterViewController : FormViewController{
                     cell.textLabel!.textColor = UIColor(hexString: "#8e8e8e")
             }
             
-            <<< SwitchRow("includes_food_and_beverage") {
+            <<< SwitchRow("refreshment") {
                 $0.title = "Includes Food and Beverage"
                 setSwitchCellValue($0)
                 }.cellSetup() {cell, row in
