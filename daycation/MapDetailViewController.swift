@@ -88,7 +88,7 @@ class  MapDetailViewController : UIViewController, MKMapViewDelegate{
         if let label = anView!.viewWithTag(1) as? UILabel {
             if let position = cpa.position {
                 
-            label.text = String(position)
+            label.text = String(position+1)
             label.fitSize()
             label.x = anView!.image!.size.width/2-label.w/2
                 

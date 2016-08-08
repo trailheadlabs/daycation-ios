@@ -44,27 +44,11 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     var photoCollectionView: DynamicCollectionView!
     var videoPlayer: YTPlayerView!
     
+    var tripFullyLoaded = false
     var posts = [Post]()
     var page = 1
     var profileImageView:UIImageView?
-    var species = ["Opossum",
-                   "Shrews",
-                   "Bats",
-                   "Pikas",
-                   "Mountain beaver",
-                   "Squirrels",
-                   "Pocket gophers",
-                   "Beavers",
-                   "Rats",
-                   "Porcupines",
-                   "Coyotes",
-                   "Bears",
-                   "Seals and sea lions",
-                   "Ringtails and raccoons",
-                   "Weasels",
-                   "Cats",
-                   "Hoofed mammals",
-                   "Whales"]
+    var species = [String]()
     convenience init(trip: Trip) {
         self.init()
         self.trip = trip
@@ -126,6 +110,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
                 "playsinline" : 0,
                 "autohide" : 1,
                 "showinfo" : 0,
+                "rel" : 0,
                 "modestbranding" :  1,
                 "autoplay" : 1
             ]
@@ -364,7 +349,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     }
     
     func loadStream(){
-        OuterspatialClient.sharedInstance.getPosts(page,parameters: [:]) {
+        OuterspatialClient.sharedInstance.getPosts(page,parameters: ["trip_id":String(self.trip.id!),"radius_meters":"200"]) {
             (result: [Post]?,error: String?) in
             if let posts = result {
                 print("got back: \(result)")
@@ -609,13 +594,15 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     }
     
     func tappedTake(sender: UIButton) {
+        if (tripFullyLoaded==true) {
         var index = 0
         if (trip.lastVisitedWaypoint != nil) {
             index = trip.waypoints.indexOf { $0.id! == trip.lastVisitedWaypoint!.id! }!
         }
         
         let navigationViewController = WaypointDetailViewController(trip: trip,index: index)
-        self.navigationController?.pushViewController(navigationViewController, animated: true)
+            self.navigationController?.pushViewController(navigationViewController, animated: true)
+        }
     }
     
     
@@ -691,6 +678,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             (result: Trip?,error: String?) in
             print("got back: \(result)")
             self.trip=result
+            self.tripFullyLoaded=true
             if let error = error{
                 HUD.flash(.Label(error), delay: 2.0)
                 return

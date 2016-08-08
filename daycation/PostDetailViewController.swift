@@ -86,7 +86,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         
         postText.font = UIFont(name: "Quicksand-Regular", size: 14)
         setTextWithLineSpacing(postText,text: (post.postText)!,lineSpacing: 9)
-        postText.numberOfLines = 2;
+        postText.numberOfLines = 1000;
         postText.sizeToFit()
         postText.y = separatorImage.bottomOffset(5)
         let button = UIButton(type: UIButtonType.System) as UIButton
@@ -107,7 +107,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         
         postImage=UIImageView(frame: CGRectMake(0, bottomSeparatorImage.bottomOffset(5), self.view.frame.size.width, post.imageUrl == nil ? 0 : 200))
         scrollView.addSubview(postImage!)
-        postImage.contentMode = UIViewContentMode.ScaleAspectFill
+        postImage.contentMode = UIViewContentMode.ScaleAspectFit
         postImage.clipsToBounds = true
         postImage.alpha = 0.5
         if let url = post.imageUrl{

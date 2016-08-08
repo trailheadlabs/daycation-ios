@@ -34,7 +34,7 @@
             var attributedString:NSMutableAttributedString=NSMutableAttributedString()
             if let abbreviatedName = user.profile!.abbreviatedName{
                 text = "\(abbreviatedName)"
-                if let organization = user.profile!.organization!.name{
+                if let organization = user.profile?.organization?.name{
                     text += " | \(organization)"
                     attributedString = NSMutableAttributedString(string:text)
                     var range = (text as NSString).rangeOfString("|")
