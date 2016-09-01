@@ -16,6 +16,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
     var featureBundles : [FeatureBundle] = []
     var highlightedFeatures : [Feature] = []
     var posts : [Post] = []
+    var tables : [UITableView] = []
     var contentView: UIView!
     var scrollView: UIScrollView!
     
@@ -127,6 +128,7 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
                     bottom = tableView.bottom
                     self.contentView.h=bottom
                     self.scrollView.contentSize = self.contentView.bounds.size
+                    self.tables.append(tableView)
                 }
             }
             
@@ -136,7 +138,39 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
             }
             
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.profileChanged), name: "PROFILE_CHANGED", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.updateLikeStatus), name: "LIKE_STATUS", object: nil)
     }
+    func profileChanged(notification:NSNotification) {
+        postsTableView.reloadData()
+        
+    }
+    func updateLikeStatus(notification:NSNotification) {
+        
+        let userInfo:Dictionary<String,String!> = notification.userInfo as! Dictionary<String,String!>
+        let tripId = Int(userInfo["tripId"]!)
+        let likes = Int(userInfo["likes"]!)
+        let liked = userInfo["liked"] != nil
+        
+        for (index, bundle) in self.featureBundles.enumerate(){
+            
+            for (index, feature) in bundle.features.enumerate(){
+                let trip:Trip = feature as! Trip
+                if (trip.id == tripId) {
+                    trip.liked = liked
+                    trip.likes = likes
+                }
+            }
+        }
+        self.carousel.reloadData()
+        for (index, table) in self.tables.enumerate(){
+            table.reloadData()
+        }
+        
+        
+    }
+    
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -270,6 +304,9 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
             trip.liked=false
             updateLikeCount()
             sender.deselect()
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                      userInfo:["tripId":String(trip.id!),"likes":String(trip.likes!)])
         } else {
             OuterspatialClient.sharedInstance.setTripLikeStatus(trip.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
@@ -282,6 +319,9 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
             trip.liked=true
             updateLikeCount()
             sender.select()
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                      userInfo:["tripId":String(trip.id!),"liked":"true","likes":String(trip.likes!)])
         }
     }
     

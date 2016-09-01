@@ -127,6 +127,9 @@ class TripsViewCell: UITableViewCell {
             self.trip.liked=false
             updateLikeCount()
             sender.deselect()
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                      userInfo:["tripId":String(trip.id!),"likes":String(trip.likes!)])
         } else {
             OuterspatialClient.sharedInstance.setTripLikeStatus(self.trip.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
@@ -137,6 +140,9 @@ class TripsViewCell: UITableViewCell {
             
             self.trip.likes! += 1
             self.trip.liked=true
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                      userInfo:["tripId":String(trip.id!),"liked":"true","likes":String(trip.likes!)])
             updateLikeCount()
             sender.select()
         }

@@ -4,6 +4,8 @@ import p2_OAuth2
 import Alamofire
 import PKHUD
 import Foundation
+import Haneke
+
 
 class ProfileViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -223,7 +225,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
     }
     
     func loadStream(){
-        OuterspatialClient.sharedInstance.getPosts(page,parameters: [:]) {
+        OuterspatialClient.sharedInstance.getPosts(page,parameters: ["liked":"true"]) {
             (result: [Post]?,error: String?) in
             if let posts = result {
                 print("got back: \(result)")
@@ -244,7 +246,6 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
-    
     
     func loadLikeTrips(){
         OuterspatialClient.sharedInstance.getTrips(page,parameters: ["liked":"true"]) {
@@ -269,7 +270,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
     
     
     func loadTrips(){
-        OuterspatialClient.sharedInstance.getTrips(page,parameters: [:]) {
+        OuterspatialClient.sharedInstance.getTrips(page,parameters: ["finished":"true"]) {
             (result: [Trip]?,error: String?) in
             if let trips = result {
                 print("got back: \(result)")
@@ -467,8 +468,21 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
         self.navigationController?.setNavigationBarHidden(false, animated:false)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = false
-      //   self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:"MY PROFILE")
-        self.profileImageView!.hnk_setImageFromURL(OuterspatialClient.currentUser!.profile!.imageUrl!)
+        //   self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:"MY PROFILE")
+        let cache = Shared.imageCache
+        cache.fetch(key: "PROFILE").onSuccess { data in
+            self.profileImageView!.image = data
+            }.onFailure { data in
+               self.profileImageView!.hnk_setImageFromURL(OuterspatialClient.currentUser!.profile!.imageUrl!)
+        }
+            
+       
+        if ((selectedButton) != nil) {
+            btnTouched(selectedButton!)
+        }
+        
+    }
+    override func viewDidAppear(animated: Bool) {
     }
     
     override func didReceiveMemoryWarning() {

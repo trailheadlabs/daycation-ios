@@ -2,6 +2,7 @@
 import UIKit
 import Eureka
 import PKHUD
+import Haneke
 
 public class AvatarCell : Cell<UIImage>, CellType {
     
@@ -403,7 +404,29 @@ class ProfileEditViewController : FormViewController{
                 print("got back: \(result)")
                 HUD.hide(afterDelay: 0)
                 OuterspatialClient.currentUser!.profile=result
-                self.dismissViewControllerAnimated(true, completion: nil)
+                if let image = self.form.values()["image"]  as? UIImage {
+                    profile.image=image
+                    let cache = Shared.imageCache
+                    cache.set(value: image, key: "PROFILE", success: { data in
+                        
+                        let size = CGSizeApplyAffineTransform(image.size, CGAffineTransformMakeScale(0.7, 0.7))
+                        let hasAlpha = false
+                        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+                        
+                        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
+                        image.drawInRect(CGRect(origin: CGPointZero, size: size))
+                        
+                        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+                        UIGraphicsEndImageContext()
+                        cache.set(value: scaledImage, key: "PROFILE_SMALL", success: { data in
+                            NSNotificationCenter.defaultCenter().postNotificationName("PROFILE_CHANGED", object: self)
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                            
+                        })
+                        
+                        })
+                    
+                }
             }
             
         }
@@ -463,9 +486,6 @@ class ProfileEditViewController : FormViewController{
         let backgroundImage = UIImage(named:"DAYC_BLUE_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
         self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
                                                                     forBarMetrics: .Default)
-       //  self.navigationItem.titleView = IconTitleView(frame: CGRect(x: 0, y: 0, width: 200, height: 40),title:title!)
-      //  if let organization = form.rowByTag("organization")?.baseValue as? Organization where (form.rowByTag("organization") != nil && form.rowByTag("organization")?.baseValue != nil) {
-       //     form.rowByTag("organization")!.title=organization.name
-      //  }
+  
     }
 }

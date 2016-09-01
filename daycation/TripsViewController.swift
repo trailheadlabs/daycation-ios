@@ -264,7 +264,34 @@ iCarouselDataSource, iCarouselDelegate{
         self.view.userInteractionEnabled = true
         filterHeaderView.addSubview(button)
         self.contentView.addSubview(filterHeaderView)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TripsViewController.updateLikeStatus), name: "LIKE_STATUS", object: nil)
     }
+    func updateLikeStatus(notification:NSNotification) {
+        
+        let userInfo:Dictionary<String,String!> = notification.userInfo as! Dictionary<String,String!>
+        let tripId = Int(userInfo["tripId"]!)
+        let likes = Int(userInfo["likes"]!)
+        let liked = userInfo["liked"] != nil
+        
+        for (index, trip) in self.trips.enumerate(){
+            if (trip.id == tripId) {
+                trip.liked = liked
+                trip.likes = likes
+            }
+        }
+        for (index, feature) in  self.highlightedFeatures.enumerate(){
+            let trip:Trip = feature as! Trip
+            if (trip.id == tripId) {
+                trip.liked = liked
+                trip.likes = likes
+            }
+        }
+        
+        tableView.reloadData()
+        updateLikeCount()
+    }
+    
     func filterBarAction(sender:UITapGestureRecognizer){
         // do other task
     }
@@ -410,6 +437,10 @@ iCarouselDataSource, iCarouselDelegate{
             trip.liked=false
             updateLikeCount()
             sender.deselect()
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                      userInfo:["tripId":String(trip.id!),"likes":String(trip.likes!)])
+         
         } else {
             OuterspatialClient.sharedInstance.setTripLikeStatus(trip.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
@@ -422,6 +453,9 @@ iCarouselDataSource, iCarouselDelegate{
             trip.liked=true
             updateLikeCount()
             sender.select()
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                      userInfo:["tripId":String(trip.id!),"liked":"true","likes":String(trip.likes!)])
         }
     }
     

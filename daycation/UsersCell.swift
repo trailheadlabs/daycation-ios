@@ -1,4 +1,5 @@
-    
+import Haneke
+
     class UserView: UITableViewCell {
         var profileImageView:UIImageView?
         var contributorText: UILabel!
@@ -29,7 +30,16 @@
             self.backgroundColor = UIColor(hexString: "#fff9e1")
         }
         func setUser(user: User) {
-            self.profileImageView!.hnk_setImageFromURL(user.profile!.imageUrl!)
+            if (user.id == OuterspatialClient.currentUser!.id){
+                let cache = Shared.imageCache
+                cache.fetch(key: "PROFILE").onSuccess { data in
+                    self.profileImageView!.image = data
+                    }.onFailure { data in
+                        self.profileImageView!.hnk_setImageFromURL(user.profile!.imageUrl!)
+                }
+            } else {
+                self.profileImageView!.hnk_setImageFromURL(user.profile!.imageUrl!)
+            }
             var text = ""
             var attributedString:NSMutableAttributedString=NSMutableAttributedString()
             if let abbreviatedName = user.profile!.abbreviatedName{

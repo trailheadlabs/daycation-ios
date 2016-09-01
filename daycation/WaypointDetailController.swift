@@ -41,13 +41,15 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
     let cache = Shared.imageCache
     var backButton:UIButton!
     var nextButton:UIButton!
+    var take:Bool!
     var speciesView: DynamicCollectionView!
     var photoCollectionView: DynamicCollectionView!
     var species = [String]()
-    convenience init(trip: Trip, index:Int) {
+    convenience init(trip: Trip, index:Int,take: Bool) {
         self.init()
         self.trip = trip
         self.position = index
+        self.take = take
         let waypoint = trip.waypoints[index]
         self.feature = waypoint.feature as! PointOfInterest
     }
@@ -58,23 +60,20 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         
         let a = UIBarButtonItem(title: "Post", style: .Plain, target: self, action:"tappedAdd:")
         
-        //var bu = UIBarButtonItem(title: "< YourTitle", style: UIBarButtonItemStyle.Bordered, target: self, action: "goBack:")
-        //self.navigationItem.leftBarButtonItem = bu
         a.setTitlePositionAdjustment(UIOffset.init(horizontal: -15, vertical: 0), forBarMetrics: UIBarMetrics.Default)
-        //create a new button
-        let button: UIButton = UIButton(type: UIButtonType.Custom)
-        //set image for button
-        button.setImage(UIImage(named: "DAYC_Finish_button@3x.png"), forState: UIControlState.Normal)
-        //add function for button
-        button.addTarget(self, action: "tappedFinished:", forControlEvents: UIControlEvents.TouchUpInside)
-        //set frame
-        button.frame = CGRectMake(-20, 0, 86, 25)
+
+        if (take == true) {
+            let button: UIButton = UIButton(type: UIButtonType.Custom)
+            button.setImage(UIImage(named: "DAYC_Finish_button@3x.png"), forState: UIControlState.Normal)
+            button.addTarget(self, action: "tappedFinished:", forControlEvents: UIControlEvents.TouchUpInside)
+            button.frame = CGRectMake(-20, 0, 86, 25)
+            let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
+            flexibleItem.width = 20
+            let barButton = UIBarButtonItem(customView: button)
+            self.navigationItem.setRightBarButtonItems([a,flexibleItem,barButton], animated: true)
+        }
         
-        let flexibleItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FixedSpace, target: nil, action: nil)
-        flexibleItem.width = 20
-        let barButton = UIBarButtonItem(customView: button)
         
-        self.navigationItem.setRightBarButtonItems([a,flexibleItem,barButton], animated: true)
         
         scrollView = UIScrollView(frame: CGRectMake(0,0, self.view.w,  self.view.bottomOffset(-40)))
         scrollView.userInteractionEnabled = true
@@ -244,7 +243,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         photoCollectionView.backgroundColor = UIColor(hexString: "#fff9e1")
         //photoCollectionView.contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20)
         contentView.addSubview(photoCollectionView)
-        updateFeature(position)
+        self.updateFeature(self.position)
     }
     
     func mapTapped(gestureRecognizer: UIGestureRecognizer) {
@@ -261,6 +260,13 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
     
     
     func tappedFinished(sender: UIBarButtonItem){
+        
+        OuterspatialClient.sharedInstance.finishTripEvent(feature.id!,trip_id: trip.id!) {
+            (result: Bool?,error: String?) in
+            if let error = error{
+                HUD.flash(.Label(error), delay: 2.0)
+            }
+        }
 navigationController!.popViewControllerAnimated(true)
     }
     
@@ -430,18 +436,29 @@ navigationController?.popViewControllerAnimated(true)
         photoCollectionView.y=self.galleryText.bottomOffset(2)
         photoCollectionView.reloadData()
         for annotation in mapView.annotations {
-            let aView = mapView.viewForAnnotation(annotation)
+            if let aView = mapView.viewForAnnotation(annotation){
+            
             let cpa = annotation as! CustomPointAnnotation
             if cpa.position == index{
-                    aView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker_selected@3x.png")!, w: 25, h: 25)
+                    aView.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker_selected@3x.png")!, w: 25, h: 25)
                 mapView.selectAnnotation(annotation,animated:false)
                 }else{
-                    aView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker@3x.png")!, w: 25, h: 25)
-                    
-                }
+                    aView.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker@3x.png")!, w: 25, h: 25)
+            
+            }
+            }
             
         }
-//        
+        
+        let latitude = feature.location!.coordinate.latitude
+        let longitude = feature.location!.coordinate.longitude
+        let latDelta: CLLocationDegrees = 0.02
+        let lonDelta: CLLocationDegrees = 0.02
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
+        let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+        let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+        self.mapView.setRegion(region, animated: true)
+//
 //        if let i = mapView.annotations.indexOf({
 //            let po = $0 as! CustomPointAnnotation
 //            return po.position  == index
@@ -451,12 +468,12 @@ navigationController?.popViewControllerAnimated(true)
 //            mapView.addAnnotation(t)
 //        }
         viewDidLayoutSubviews()
-        OuterspatialClient.sharedInstance.visitWaypoint(waypoint.id!,trip_id: trip.id!) {
-            (result: Bool?,error: String?) in
-            if let error = error{
-                HUD.flash(.Label(error), delay: 2.0)
-            }
-        }
+//        OuterspatialClient.sharedInstance.visitWaypoint(waypoint.id!,trip_id: trip.id!) {
+//            (result: Bool?,error: String?) in
+//            if let error = error{
+//                HUD.flash(.Label(error), delay: 2.0)
+//            }
+//        }
         
         
     }
@@ -474,6 +491,11 @@ navigationController?.popViewControllerAnimated(true)
         if anView == nil {
             anView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             anView!.canShowCallout = false
+            let label = UILabel(frame: CGRect(x: 5, y: 1, width: 20, height: 20))
+            label.textColor = UIColor.whiteColor()
+            label.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)
+            label.tag = 2
+            anView!.addSubview(label)
         }
         else {
             anView!.annotation = annotation
@@ -491,14 +513,12 @@ navigationController?.popViewControllerAnimated(true)
             
         }
         anView!.centerOffset = CGPointMake(0, -25 / 2);
-        let label = UILabel(frame: CGRect(x: 5, y: 1, width: 20, height: 20))
-        label.textColor = UIColor.whiteColor()
-        label.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 14)
+        let label = anView!.viewWithTag(2) as! UILabel
+
         label.text = String(cpa.position+1)
         label.fitSize()
         label.x = anView!.image!.size.width/2-label.w/2
         
-        anView!.addSubview(label)
         print(anView!.bounds )
         return anView
         
@@ -565,7 +585,11 @@ navigationController?.popViewControllerAnimated(true)
         }
         
         mapView.layoutMargins = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
-        mapView.showAnnotations(mapView.annotations, animated: true)
+        mapView.showAnnotations(mapView.annotations, animated: false)
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            self.updateFeature(self.position)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -613,4 +637,5 @@ navigationController?.popViewControllerAnimated(true)
         // Dispose of any resources that can be recreated.
     }
     
+
 }

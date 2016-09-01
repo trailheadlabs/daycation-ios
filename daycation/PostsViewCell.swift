@@ -73,6 +73,7 @@ class PostsViewCell: UITableViewCell {
         self.addSubview(postText)
         
         self.backgroundColor = UIColor(hexString: "#fff9e1")
+        
     }
     
     func loadItem(post:  Post) {
@@ -82,12 +83,22 @@ class PostsViewCell: UITableViewCell {
         nameText.text = post.user.profile?.abbreviatedName
         
         updateLikeCount()
+        if (post.user.id == OuterspatialClient.currentUser!.id){
+            let cache = Shared.imageCache
+            cache.fetch(key: "PROFILE_SMALL").onSuccess { data in
+                self.userImage!.image = data.circleMask
+                UIView.animateWithDuration(1.0, animations: {
+                    self.userImage.alpha = 1
+                })
+                }.onFailure { data in
+                    self.setPostUserImage((post.user.profile?.imageUrl)!)
+            }
+        } else {
         setPostUserImage((post.user.profile?.imageUrl)!)
-        
+        }
         setPostThumbnailImage(post.thumbnailUrl)
         //setPostThumbnailImage((post.user.profile?.imageUrl)!)
     }
-    
     
     func  updateLikeCount() {
         likeCountLabel.text = String(self.post.likes!)
@@ -100,6 +111,7 @@ class PostsViewCell: UITableViewCell {
         if let url = url  {
             let cache = Shared.imageCache
         postImage.hnk_setImageFromURL(url, placeholder: UIImage(named:"LinearGradient.png"), success: { (image) -> Void in
+            
             self.postImage.image = image
                           UIView.animateWithDuration(1.0, animations: {
                                 self.postImage.alpha = 1
@@ -129,15 +141,16 @@ class PostsViewCell: UITableViewCell {
     func setPostUserImage(url: NSURL) {
         self.userImage.frame = CGRectMake(0,0,50,50)
         let cache = Shared.imageCache
-        userImage.hnk_setImageFromURL(url, placeholder: UIImage(named:"LinearGradient.png"), success: { (UIImage) -> Void in
-            self.userImage.image = UIImage.circleMask
-            cache.set(value: UIImage, key: url.URLString)
-            UIView.animateWithDuration(1.0, animations: {
-                self.userImage.alpha = 1
-            })
-            }, failure: { (Error) -> Void in
                 
-        })
+                self.userImage.hnk_setImageFromURL(url, placeholder: UIImage(named:"LinearGradient.png"), success: { (UIImage) -> Void in
+                    self.userImage.image = UIImage.circleMask
+                    cache.set(value: UIImage, key: url.URLString)
+                    UIView.animateWithDuration(1.0, animations: {
+                        self.userImage.alpha = 1
+                    })
+                    }, failure: { (Error) -> Void in
+                        
+                })
     }
     
     override var layoutMargins: UIEdgeInsets {
