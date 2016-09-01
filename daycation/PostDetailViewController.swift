@@ -134,12 +134,15 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         mapView.scrollEnabled = false
         mapView.delegate =  self
         mapView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(PostDetailViewController.mapTapped(_:))))
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(post.location!.coordinate,
+     
+        
+        let coordinate = post.location != nil ? post.location!.coordinate : CLLocationCoordinate2D(latitude: 45.523064, longitude: -122.676483)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate,
                                                                   2000, 2000)
         mapView.setRegion(coordinateRegion, animated: true)
         let annotation = CustomPointAnnotation()
 
-        annotation.coordinate = CLLocationCoordinate2DMake(post.location!.coordinate.latitude,post.location!.coordinate.longitude)
+        annotation.coordinate = CLLocationCoordinate2DMake(coordinate.latitude,coordinate.longitude)
         mapView.addAnnotation(annotation)
         let markerImage=UIImageView(frame: CGRectMake(15, mapView.bottomOffset(5), 30, 30))
         markerImage.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Heart_liked@3x.png")!, w: 20, h: 20)
@@ -219,19 +222,6 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
             cell.setUser(self.post.likers[indexPath.row])
             
             return cell
-//            
-//            var cell:UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("myCell")! as UITableViewCell
-//            
-//            cell.textLabel!.text = self.post.likers[indexPath.row].profile?.abbreviatedName
-//            let fetcher = NetworkFetcher<UIImage>(URL: (self.post.likers[indexPath.row].profile?.imageUrl)!)
-//            
-//            let cache = Shared.imageCache
-//            cell.imageView!.frame = CGRectMake(3,8,50,50)
-//            cache.fetch(fetcher: fetcher).onSuccess { image in
-//                cell.imageView!.image = image.circleMask
-//            }
-//            tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-//            return cell
         }
     }
     

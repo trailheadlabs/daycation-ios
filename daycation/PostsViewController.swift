@@ -97,7 +97,13 @@ class  PostsViewController : UIViewController, UITableViewDataSource, UITableVie
                     })
             })
         }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PostsViewController.profileChanged), name: "PROFILE_CHANGED", object: nil)
         
+    }
+    
+    
+    func  profileChanged() {
+        self.tableView.reloadData()
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat

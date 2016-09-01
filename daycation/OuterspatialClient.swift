@@ -132,10 +132,12 @@ public class OuterspatialClient {
     }
     
     func createPost(post: Post, completion: (result: Post?,error:String?) -> Void) {
-        let parameters = [
-            "post[post_text]":post.postText,
-            "post[geom_text]": "\(post.location!.coordinate.latitude.description),\(post.location!.coordinate.longitude.description)"
+        var parameters = [
+            "post[post_text]":post.postText
         ]
+        if let coordinate = post.location?.coordinate {
+            parameters["post[geom_text]"] = "\(coordinate.latitude.description),\(coordinate.longitude.description)"
+        }
         Alamofire.upload(.POST, "\(Config.host)/v1/posts",
             // define your headers here
             headers: ["Authorization":  "Bearer \(self.oauth2Client!.accessToken!)"],
@@ -264,9 +266,8 @@ public class OuterspatialClient {
         }
     }
     
-    
-    func startTrip(trip_id:Int,completion: (result: Bool?,error:String?) -> Void) {
-        oauth2Client!.request(.POST, "\(Config.host)/v1/trips/\(trip_id)/event", parameters: ["event[event_type]":"start_trip"])
+    func startTripEvent(waypointId:Int,trip_id:Int,completion: (result: Bool?,error:String?) -> Void) {
+        oauth2Client!.request(.POST, "\(Config.host)/v1/trips/\(trip_id)/event", parameters: ["event[waypoint_id]":waypointId,"event[event_type]":"start"])
             .responseJSON { response in
                 print(response.result.value)   // result of response serialization
                 
@@ -282,6 +283,26 @@ public class OuterspatialClient {
                 completion(result:true,error:nil)
         }
     }
+    
+    
+    func finishTripEvent(waypointId:Int,trip_id:Int,completion: (result: Bool?,error:String?) -> Void) {
+        oauth2Client!.request(.POST, "\(Config.host)/v1/trips/\(trip_id)/event", parameters: ["event[waypoint_id]":waypointId,"event[event_type]":"finish"])
+            .responseJSON { response in
+                print(response.result.value)   // result of response serialization
+                
+                if response.response?.statusCode != 200 {
+                    if let JSON = response.result.value {
+                        let errors = JSON["errors"] as! NSArray
+                        completion(result: nil, error:errors[0] as! String)
+                    } else {
+                        completion(result: nil, error:"Could Not Load Posts")
+                    }
+                }
+                
+                completion(result:true,error:nil)
+        }
+    }
+    
     
     
     func setTripLikeStatus(postId:Int,likeStatus:Bool,completion: (result: Bool?,error:String?) -> Void) {

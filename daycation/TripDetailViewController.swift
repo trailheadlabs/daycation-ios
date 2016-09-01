@@ -339,7 +339,21 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         contentView.addSubview(streamTableView)
         
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TripDetailViewController.updateLikeStatus), name: "LIKE_STATUS", object: nil)
         
+    }
+    
+    func updateLikeStatus(notification:NSNotification) {
+        
+        let userInfo:Dictionary<String,String!> = notification.userInfo as! Dictionary<String,String!>
+        let tripId = Int(userInfo["tripId"]!)
+        let likes = Int(userInfo["likes"]!)
+        let liked = userInfo["liked"] != nil
+        
+                trip.liked = liked
+                trip.likes = likes
+        
+        updateLikeCount()
     }
     
     func mapTapped(gestureRecognizer: UIGestureRecognizer) {
@@ -415,7 +429,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             var index = 0
           index = trip.waypoints.indexOf { $0.id! == waypoint.id! }!
             
-            let navigationViewController = WaypointDetailViewController(trip: trip,index: index)
+            let navigationViewController = WaypointDetailViewController(trip: trip,index: index,take: false)
             self.navigationController?.pushViewController(navigationViewController, animated: true)
         }
         else{
@@ -599,8 +613,14 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         if (trip.lastVisitedWaypoint != nil) {
             index = trip.waypoints.indexOf { $0.id! == trip.lastVisitedWaypoint!.id! }!
         }
-        
-        let navigationViewController = WaypointDetailViewController(trip: trip,index: index)
+            
+            OuterspatialClient.sharedInstance.startTripEvent(trip.waypoints[0].id!,trip_id: trip.id!) {
+                (result: Bool?,error: String?) in
+                if let error = error{
+                    HUD.flash(.Label(error), delay: 2.0)
+                }
+            }
+            let navigationViewController = WaypointDetailViewController(trip: trip,index:0,take: true)
             self.navigationController?.pushViewController(navigationViewController, animated: true)
         }
     }
@@ -618,6 +638,9 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             self.trip.liked = false
             updateLikeCount()
             sender.deselect()
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                      userInfo:["tripId":String(trip.id!),"likes":String(trip.likes!)])
         } else {
             OuterspatialClient.sharedInstance.setTripLikeStatus(self.trip.id!,likeStatus: true) {
                 (result: Bool?,error: String?) in
@@ -629,6 +652,9 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             self.trip.likes!++
             updateLikeCount()
             sender.select()
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                      userInfo:["tripId":String(trip.id!),"liked":"true","likes":String(trip.likes!)])
         }
     }
     
@@ -673,7 +699,6 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     
     
     override func viewWillAppear(animated: Bool) {
-        updateLikeCount()
         OuterspatialClient.sharedInstance.getTrip(trip.id!) {
             (result: Trip?,error: String?) in
             print("got back: \(result)")
@@ -691,7 +716,17 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             
             if let contributor = self.trip.contributor where (contributor.profile!.organization!.name != nil){
                 
-                self.profileImageView!.hnk_setImageFromURL(contributor.profile!.imageUrl!)
+                if contributor.id == OuterspatialClient.currentUser!.id {
+                    let cache = Shared.imageCache
+                    cache.fetch(key: "PROFILE").onSuccess { data in
+                        self.profileImageView!.image = data
+                        }.onFailure { data in
+                            self.profileImageView!.hnk_setImageFromURL(OuterspatialClient.currentUser!.profile!.imageUrl!)
+                    }
+                    
+                } else{
+                    self.profileImageView!.hnk_setImageFromURL(contributor.profile!.imageUrl!)
+                }
                 self.broughtToYouByLabel.text = "BROUGHT TO YOU BY"
                 self.broughtToYouByLabel.sizeToFit()
                 self.broughtToYouByLabel.y = self.tripNameLabel!.bottom
