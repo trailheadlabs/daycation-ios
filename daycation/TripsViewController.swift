@@ -107,8 +107,11 @@ iCarouselDataSource, iCarouselDelegate{
             print("got back: \(result)")
             self.highlightedFeatures = (result?.featureBundles)![0].features
             self.pageControl.numberOfPages = self.highlightedFeatures.count
-            self.carousel.reloadData()
             
+            let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), Int64(0.4 * Double(NSEC_PER_SEC)))
+            dispatch_after(time, dispatch_get_main_queue()) {
+                self.carousel.reloadData()
+            }
             if let error = error{
                 HUD.flash(.Label(error), delay: 2.0)
                 return
@@ -372,8 +375,12 @@ iCarouselDataSource, iCarouselDelegate{
         }
         
         let trip:Trip = self.highlightedFeatures[index] as! Trip
+        var name:String = trip.name!
         
-        label.text = "\(trip.name!)"
+        if let i = trip.properties.indexOf({$0.key == "short_name"}) {
+            name = trip.properties[i].value!
+        }
+        label.text = "\(name)"
         label.setLineHeight(0.7)
         likeCountLabel.text = "\(trip.likes!)"
         likeCountLabel.fitSize()
@@ -414,13 +421,18 @@ iCarouselDataSource, iCarouselDelegate{
     }
     
     func updateLikeCount() {
-        let trip:Trip = self.highlightedFeatures[carousel.currentItemIndex] as! Trip
-        let itemView = carousel.itemViewAtIndex(carousel.currentItemIndex) as! UIImageView
-        let likeCountLabel = itemView.viewWithTag(2) as! UILabel!
-        let heartButton = itemView.viewWithTag(3) as! DOFavoriteButton!
-        likeCountLabel.text = String(trip.likes!)
-        likeCountLabel.fitSize()
-        heartButton.selected = trip.liked
+        print (carousel.currentItemIndex)
+        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), Int64(0.4 * Double(NSEC_PER_SEC)))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            
+            let trip:Trip = self.highlightedFeatures[self.carousel.currentItemIndex] as! Trip
+            let itemView = self.carousel.itemViewAtIndex(self.carousel.currentItemIndex) as! UIImageView
+            let likeCountLabel = itemView.viewWithTag(2) as! UILabel!
+            let heartButton = itemView.viewWithTag(3) as! DOFavoriteButton!
+            likeCountLabel.text = String(trip.likes!)
+            likeCountLabel.fitSize()
+            heartButton.selected = trip.liked
+        }
     }
     
     

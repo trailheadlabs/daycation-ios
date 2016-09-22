@@ -509,7 +509,7 @@ public class OuterspatialClient {
     
     func getApplication(completion: (result: Application?,error:String?) -> Void) {
          if application == nil {
-            
+            print(OuterspatialClient.currentUser?.id)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
             self.oauth2Client!.request(.GET, "\(Config.host)/v1/applications/\(Config.settings["application_id"]!)?expand=true", parameters: [:])
                 .responseJSON { response in

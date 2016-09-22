@@ -475,7 +475,11 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
             }.onFailure { data in
                self.profileImageView!.hnk_setImageFromURL(OuterspatialClient.currentUser!.profile!.imageUrl!)
         }
-            
+        
+        if let organization = OuterspatialClient.currentUser!.profile?.organization?.name {
+            organizationLabel.text=organization.uppercaseString
+            organizationLabel.fitHeight()
+        }
        
         if ((selectedButton) != nil) {
             btnTouched(selectedButton!)
