@@ -19,6 +19,7 @@ class  MapDetailViewController : UIViewController, MKMapViewDelegate{
     
     var mapView: MKMapView!
     var annotations:[MKAnnotation]?
+    var selectedAnnotation:Int?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = ""
@@ -47,6 +48,11 @@ class  MapDetailViewController : UIViewController, MKMapViewDelegate{
     convenience init(annotations:[MKAnnotation]) {
         self.init()
         self.annotations = annotations
+    }
+    convenience init(annotations:[MKAnnotation], selectedAnnotation:Int) {
+        self.init()
+        self.annotations = annotations
+        self.selectedAnnotation = selectedAnnotation
     }
     
     func gpsTapped(img: AnyObject) {
@@ -90,8 +96,13 @@ class  MapDetailViewController : UIViewController, MKMapViewDelegate{
                 
             label.text = String(position+1)
             label.fitSize()
-            label.x = anView!.image!.size.width/2-label.w/2
-                
+                label.x = anView!.image!.size.width/2-label.w/2
+                if let selectedAnnotation = selectedAnnotation {
+                    if  position == selectedAnnotation {
+
+                anView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Blank_map_marker_selected@3x.png")!, w: 25, h: 25)
+                }
+                }
             } else {
                  anView!.image = UIImage.scaleTo(image: UIImage(named:"DAYC_Map_marker@3x.png")!, w: 25, h: 25)
             }

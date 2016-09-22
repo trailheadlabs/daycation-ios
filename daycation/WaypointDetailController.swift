@@ -153,7 +153,6 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         featuredImage = UIImageView()
         featuredImage.frame = CGRectMake(10,self.separatorImage.bottomOffset(5),60,60)
         featuredImage.setCornerRadius(radius: 5)
-        featuredImage.image = UIImage(named: "Icon-60@3x.png")
         contentView.addSubview(featuredImage)
         
         bottomSeparatorImage=UIImageView(frame: CGRectMake( 0, featuredImage.bottomOffset(5), self.view.frame.size.width, 5))
@@ -191,7 +190,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         
         
         descriptionLabel = UILabel(frame: CGRectMake(10,self.view.bottomOffset(12),self.view.w-20,40))
-        descriptionLabel.font = UIFont(name: "Quicksand-Bold", size: 14)
+        descriptionLabel.font = UIFont(name: "Quicksand-Regular", size: 14)
         descriptionLabel.numberOfLines = 1000
         descriptionLabel.textColor = UIColor(hexString: "#3f3f3f")
         self.contentView.addSubview(descriptionLabel)
@@ -203,11 +202,11 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         self.contentView.addSubview(descriptionSeparatorImage)
         
         
-        speciesText = UILabel(frame: CGRectMake(10,self.mapView.bottomOffset(10),self.view.rightOffset(-145),40))
+        speciesText = UILabel(frame: CGRectMake(10,self.mapView.bottomOffset(10),self.view.rightOffset(-145),0))
         speciesText.text = "SPECIES"
         speciesText.font = UIFont(name: "TrueNorthRoughBlack-Regular", size: 18)
         speciesText.textColor = UIColor(hexString: "#36a174")
-        contentView.addSubview(speciesText)
+      //  contentView.addSubview(speciesText)
         
         let layout: UICollectionViewFlowLayout = UICollectionViewLeftAlignedLayout()
         layout.sectionInset = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
@@ -218,13 +217,13 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
         speciesView!.delegate = self
         speciesView!.backgroundColor = UIColor(hexString: "#fff9e1")
         speciesView!.registerClass(SpeciesViewCell.self, forCellWithReuseIdentifier: "SpeciesViewCell")
-        self.contentView.addSubview(speciesView)
+     //   self.contentView.addSubview(speciesView)
         
         speciesSeparatorImage=UIImageView(frame: CGRectMake( 0, featuredImage.bottomOffset(5), self.view.frame.size.width, 5))
         speciesSeparatorImage.contentMode = UIViewContentMode.ScaleAspectFill
         speciesSeparatorImage.clipsToBounds = true
         speciesSeparatorImage.image = UIImage(named:"Daycation_Divider-011.png")
-        self.contentView.addSubview(speciesSeparatorImage)
+     //   self.contentView.addSubview(speciesSeparatorImage)
         
         
         galleryText = UILabel(frame: CGRectMake(10,self.mapView.bottomOffset(10),self.view.rightOffset(-145),40))
@@ -248,7 +247,7 @@ class  WaypointDetailViewController : UIViewController, MKMapViewDelegate, UICol
     
     func mapTapped(gestureRecognizer: UIGestureRecognizer) {
         
-        let navigationViewController = MapDetailViewController(annotations: mapView.annotations)
+        let navigationViewController = MapDetailViewController(annotations: mapView.annotations,selectedAnnotation: position)
         self.navigationController?.pushViewController(navigationViewController, animated: true)
     }
     
@@ -373,10 +372,30 @@ navigationController?.popViewControllerAnimated(true)
         self.feature = waypoint.feature as! PointOfInterest
         waypointNameText.text = self.feature.name
         if let description = self.feature.description {
-            descriptionLabel.text = description
+            
+            var boldText  = "\(self.feature.name!):\n"
+            let attrs:[String:AnyObject] = [NSFontAttributeName : UIFont(name: "Quicksand-Bold", size: 14)!]
+            var attrString = NSMutableAttributedString(string:boldText, attributes:attrs)
+            
+            var normalText = description
+            var normalString = NSMutableAttributedString(string:normalText)
+            attrString.appendAttributedString(normalString)
+            descriptionLabel.attributedText = attrString
         }else {
-            descriptionLabel.text = "No description."
+            var boldText  = "\(self.feature.name!)"
+            var attrs = [NSFontAttributeName : UIFont.boldSystemFontOfSize(15)]
+            var attrString = NSMutableAttributedString(string:boldText, attributes:attrs)
+            
+            descriptionLabel.attributedText = attrString
         }
+        if let image = self.feature.featuredImage {
+            
+            self.featuredImage.hnk_setImageFromURL(image.thumbnailUrl!)
+        }else {
+            
+            featuredImage.image = UIImage(named: "DAYC_Blank_map_marker@3x.png")
+        }
+    
         if let address = self.feature.address {
             waypointAddress.text = address
         }else {
@@ -423,15 +442,9 @@ navigationController?.popViewControllerAnimated(true)
         self.descriptionLabel.y=self.bottomSeparatorImage.bottomOffset(10)
         
         self.descriptionSeparatorImage.y=self.descriptionLabel.bottomOffset(10)
-        
-        self.speciesText.fitSize()
-        self.speciesText.y=self.descriptionSeparatorImage.bottomOffset(5)
-        
-        self.speciesView.y=self.speciesText.bottomOffset(2)
-        
-        speciesSeparatorImage.y=self.speciesView.bottomOffset(2)
+     
         self.galleryText.fitSize()
-        galleryText.y=self.speciesSeparatorImage.bottomOffset(5)
+        galleryText.y=self.descriptionSeparatorImage.bottomOffset(5)
         
         photoCollectionView.y=self.galleryText.bottomOffset(2)
         photoCollectionView.reloadData()
@@ -452,8 +465,8 @@ navigationController?.popViewControllerAnimated(true)
         
         let latitude = feature.location!.coordinate.latitude
         let longitude = feature.location!.coordinate.longitude
-        let latDelta: CLLocationDegrees = 0.02
-        let lonDelta: CLLocationDegrees = 0.02
+        let latDelta: CLLocationDegrees = 0.01
+        let lonDelta: CLLocationDegrees = 0.01
         let span:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
         let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
@@ -527,7 +540,7 @@ navigationController?.popViewControllerAnimated(true)
     func shareButtonClicked(sender: UIButton) {
         let textToShare = "Daycation is awesome!  Check it out!"
         
-        if let myWebsite = NSURL(string: "http://www.google.com/") {
+        if let myWebsite = NSURL(string: "http://itunes.com/apps/daycation") {
             let objectsToShare = [textToShare, myWebsite]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             
@@ -595,11 +608,8 @@ navigationController?.popViewControllerAnimated(true)
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        self.speciesView.h = self.speciesView.contentSize.height
-        self.speciesSeparatorImage.y=self.speciesView.bottomOffset(2)
-        
         self.galleryText.fitSize()
-        self.galleryText.y=self.speciesSeparatorImage.bottomOffset(5)
+        self.galleryText.y=self.descriptionSeparatorImage.bottomOffset(5)
         
         
         self.photoCollectionView.h = self.photoCollectionView.contentSize.height

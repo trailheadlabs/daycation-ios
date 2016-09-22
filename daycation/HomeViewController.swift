@@ -105,6 +105,10 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
             self.featureBundles = (result?.featureBundles)!
             self.highlightedFeatures = self.featureBundles[0].features
             self.pageControl.numberOfPages = self.highlightedFeatures.count
+            let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), Int64(0.4 * Double(NSEC_PER_SEC)))
+            dispatch_after(time, dispatch_get_main_queue()) {
+               self.carousel.reloadData()
+            }
             self.carousel.reloadData()
             var bottom = self.postsTableView.bottomOffset(7)
             for (index, featureBundle) in self.featureBundles.enumerate(){
@@ -163,7 +167,10 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
                 }
             }
         }
-        self.carousel.reloadData()
+        let time = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), Int64(0.4 * Double(NSEC_PER_SEC)))
+        dispatch_after(time, dispatch_get_main_queue()) {
+            self.carousel.reloadData()
+        }
         for (index, table) in self.tables.enumerate(){
             table.reloadData()
         }
@@ -239,8 +246,12 @@ class HomeViewController : UIViewController, iCarouselDataSource, iCarouselDeleg
         }
         
         let trip:Trip = self.highlightedFeatures[index] as! Trip
+        var name:String = trip.name!
         
-        label.text = "\(trip.name!)"
+        if let i = trip.properties.indexOf({$0.key == "short_name"}) {
+            name = trip.properties[i].value!
+        }
+        label.text = "\(name)"
         label.setLineHeight(0.7)
         likeCountLabel.text = "\(trip.likes!)"
         likeCountLabel.fitSize()

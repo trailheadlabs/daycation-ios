@@ -686,9 +686,9 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     }
     
     func shareButtonClicked(sender: UIButton) {
-        let textToShare = "Daycation is awesome!  Check it out!"
+        let textToShare = "Check out \(self.trip.name!) on Daycation!"
         
-        if let myWebsite = NSURL(string: "http://www.google.com/") {
+        if let myWebsite = NSURL(string: "http://itunes.com/apps/daycation") {
             let objectsToShare = [textToShare, myWebsite]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             
@@ -709,7 +709,20 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
                 return
             }
             
-            self.tripNameLabel.text=self.trip.name
+            if  self.trip.liked{
+                NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                          userInfo:["tripId":String(self.trip.id!),"liked":"true","likes":String(self.trip.likes!)])
+            } else {
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("LIKE_STATUS", object: self,
+                                                                          userInfo:["tripId":String(self.trip.id!),"likes":String(self.trip.likes!)])
+            }
+            
+            var name:String = self.trip.name!
+            if let i = self.trip.properties.indexOf({$0.key == "short_name"}) {
+                name = self.trip.properties[i].value!
+            }
+            self.tripNameLabel.text=name
             self.tripNameLabel.fitHeight()
                 
            // self.trip.contributor.profile?.abbreviatedName
@@ -766,7 +779,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             self.heartButton.hidden = false
            // hnk_setImageFromURL(self.trip.contributor.currentUser!.profile!.imageUrl!)
             
-            self.tripDescriptionLabel.text = self.trip.description
+            self.tripDescriptionLabel.text = "\(self.trip.name!): \(self.trip.description!)"
             self.tripDescriptionLabel.sizeToFit()
             if let i = self.trip.properties.indexOf({$0.key == "species"}) {
                 self.species = self.trip.properties[i].values!
