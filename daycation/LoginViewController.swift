@@ -24,6 +24,10 @@ class LoginViewController : FormViewController{
                 
                 let headerView = $0.header?.viewForSection($0, type: HeaderFooterType.Header, controller: self)  as! HeaderButtonView
                 headerView.setTarget(self)
+                $0.footer = HeaderFooterView<FooterButtonView>(HeaderFooterProvider.Class)
+                let footerView = $0.footer?.viewForSection($0, type: HeaderFooterType.Footer, controller: self)  as! FooterButtonView
+                footerView.setTarget(self)
+                
             }
             
             <<< EmailRow("email") {
@@ -52,8 +56,14 @@ class LoginViewController : FormViewController{
     
      override func textInputShouldReturn<T>(textInput: UITextInput, cell: Cell<T>) -> Bool {
         super.textInputShouldReturn(textInput, cell: cell)
-        let email:String = self.form.values()["email"] as! String
-        let password:String = self.form.values()["password"] as! String
+        guard let email = self.form.values()["email"] as? String where !email.isEmpty else {
+            print("String is nil or empty.")
+            return true
+        }
+        guard let password = self.form.values()["password"] as? String where !password.isEmpty else {
+            print("String is nil or empty.")
+            return true
+        }
         
         HUD.show(.Progress)
         OuterspatialClient.sharedInstance.loginWithEmailAndPassword(email, password: password) {
@@ -94,6 +104,64 @@ class LoginViewController : FormViewController{
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+    }
+    class FooterButtonView: UIView {
+        
+        var loginLabel:UILabel!
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.backgroundColor = UIColor(hexString: "#fcfbea")
+            
+            loginLabel = UILabel()
+            loginLabel.textAlignment = .Center
+            loginLabel.userInteractionEnabled = true
+            loginLabel.text="Forgot password?"
+            loginLabel.frame = CGRectMake(0, 20, UIScreen.mainScreen().bounds.width, 40)
+            
+            loginLabel.font = UIFont(name:"Quicksand-Bold", size:18)
+            loginLabel.textColor = UIColor(hexString: "#aeaca5")
+            self.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 80)
+            
+            self.addSubview(loginLabel)
+        }
+        
+        func setTarget(target: AnyObject) {
+            
+            let gestureRecognizer = UITapGestureRecognizer(target: target, action: #selector(LoginViewController.resetAction(_:)))
+            loginLabel.addGestureRecognizer(gestureRecognizer)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+    func resetAction(sender:AnyObject?){
+        var alert = UIAlertController(title: "Password Recovery", message: "Enter your email:", preferredStyle: .Alert)
+        
+        alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            
+        })
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+            let textField = alert.textFields![0] as UITextField
+            OuterspatialClient.sharedInstance.resetPassword(textField.text!){
+                (result: String?, error: String?) in
+                print("got back: \(result)")
+                HUD.hide(afterDelay: 0)
+                
+                if let error = error{
+                    HUD.flash(.Label(error), delay: 2.0)
+                }
+                
+            }
+            var alert = UIAlertController(title: "Password Recovery", message: "Check your email to reset your password.", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+                
+            }))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }))
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     func facebookbuttonAction(sender:UIButton?){
         var backViewController : UIViewController? {

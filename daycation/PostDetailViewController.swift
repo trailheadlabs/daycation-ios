@@ -106,7 +106,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         self.contentView.addSubview(bottomSeparatorImage)
         
         postImage=UIImageView(frame: CGRectMake(0, bottomSeparatorImage.bottomOffset(5), self.view.frame.size.width, post.imageUrl == nil ? 0 : 200))
-        scrollView.addSubview(postImage!)
+        contentView.addSubview(postImage!)
         postImage.contentMode = UIViewContentMode.ScaleAspectFit
         postImage.clipsToBounds = true
         postImage.alpha = 0.5
@@ -125,9 +125,10 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
                     
             })
         }
-        
+        self.postImage.layer.borderWidth = 1
+        self.postImage.layer.borderColor = UIColor(red:222/255.0, green:225/255.0, blue:227/255.0, alpha: 1.0).CGColor
         mapView=MKMapView(frame: CGRectMake(0, postImage.bottomOffset(5), self.view.frame.size.width,  200))
-        scrollView.addSubview(mapView)
+        contentView.addSubview(mapView)
         mapView.userInteractionEnabled = true
         mapView.mapType = MKMapType.Standard
         mapView.zoomEnabled = false
@@ -328,6 +329,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
         }
         self.contentView.snp_updateConstraints {make in
             make.bottom.equalTo(self.tableView.snp_bottom);
+            make.right.equalTo(self.tableView.snp_right);
             make.top.equalTo(0);
         }
         //self.scrollView.contentSize = self.contentView.bounds.size
@@ -359,6 +361,7 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+       // contentView.w = self.view.frame.size.width
         scrollView.contentSize = contentView.bounds.size
         print("contentView.bounds.size: \(contentView.bounds.size)")
         print("tableView: \(tableView.frame.height)")
@@ -381,13 +384,13 @@ class  PostDetailViewController : UIViewController, UITableViewDelegate, UITable
             self.updateLikeCount()
             
         }
-        
         self.navigationController?.setNavigationBarHidden(false, animated:false)
         
         let backgroundImage = UIImage(named:"DAYC_BLUE_TOP@3x.png")!.croppedImage(CGRect(x: 0, y: 0, w: UIScreen.mainScreen().bounds.w, h: 60))
         self.navigationController?.navigationBar.setBackgroundImage(backgroundImage,
                                                                     forBarMetrics: .Default)
         self.navigationController?.navigationBar.translucent = false
+        contentView.w = self.view.frame.size.width
     }
     
     override func didReceiveMemoryWarning() {

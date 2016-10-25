@@ -8,7 +8,7 @@
 import Foundation
 import p2_OAuth2
 struct Config {
-   static var host: String { return "https://www.outerspatial.com" }
+   static var host: String { return "https://api.outerspatial.com" }
    // static var host: String { return "http://10.0.0.5:3000/" }
      static var imagePrefix: String { return "" }
     static var settings: OAuth2JSON { return   [

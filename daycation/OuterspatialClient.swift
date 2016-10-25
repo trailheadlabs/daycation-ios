@@ -577,7 +577,7 @@ public class OuterspatialClient {
                 parameters["organization[primary]"]="true"
             }
             Alamofire.upload(.POST, "\(Config.host)/v1/users",
-                // define your headers here
+                             // define your headers here
                 headers: ["Authorization":  "Bearer \(self.oauth2ClientCredentials!.accessToken!)"],
                 multipartFormData: { multipartFormData in
                     
@@ -590,7 +590,7 @@ public class OuterspatialClient {
                     // import parameters
                     for (key, value) in parameters {
                         if let value = value {
-                        multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
+                            multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
                         }
                     }
                 }, // you can customise Threshold if you wish. This is the alamofire's default value
@@ -624,6 +624,22 @@ public class OuterspatialClient {
                         print(encodingError)
                     }
             })
+        }
+        oauth2ClientCredentials!.authorize()
+    }
+    
+    
+    func resetPassword(email: String, completion: (result: String?,error:String?) -> Void) {
+        oauth2ClientCredentials!.onAuthorize = { parameters in
+            print("Did authorize with parameters: \(parameters)")
+            var parameters = [
+                "email":email
+            ]
+            Alamofire.request(.POST,"\(Config.host)/v1/users/password", headers: ["Authorization":  "Bearer \(self.oauth2ClientCredentials!.accessToken!)"], parameters: parameters).response { request, response, data, error in
+                print(request)
+                print(response)
+                print(error)
+            }
         }
         oauth2ClientCredentials!.authorize()
     }
