@@ -1785,6 +1785,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation;
 				PRODUCT_NAME = Daycation;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1804,6 +1805,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation;
 				PRODUCT_NAME = Daycation;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

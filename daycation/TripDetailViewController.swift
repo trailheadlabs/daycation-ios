@@ -17,6 +17,8 @@ import SnapKit
 import MapKit
 import youtube_ios_player_helper
 
+import AVFoundation
+
 import UIKit
 class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate,YTPlayerViewDelegate{
     
@@ -57,7 +59,15 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Daycations"
-        
+        do
+        {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }
+        catch let error as NSError
+        {
+            print(error)
+        }
         let a = UIBarButtonItem(title: "Share", style: .Plain, target: self, action:#selector(TripDetailViewController.shareButtonClicked(_:)))
         self.navigationItem.rightBarButtonItem = a
         
@@ -263,7 +273,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
         
         
         tripDescriptionLabel = UILabel(frame:CGRectMake(20,15, self.view.w-40, 200))
-        tripDescriptionLabel.font = UIFont(name: "Quicksand-Bold", size: 12)
+        tripDescriptionLabel.font = UIFont(name: "Quicksand-Regular", size: 12)
         tripDescriptionLabel.textColor = UIColor(hexString: "#5f5f5f")
         tripDescriptionLabel.numberOfLines = 1000
         aboutView.addSubview(tripDescriptionLabel)
@@ -688,7 +698,7 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
     func shareButtonClicked(sender: UIButton) {
         let textToShare = "Check out \(self.trip.name!) on Daycation!"
         
-        if let myWebsite = NSURL(string: "http://itunes.com/apps/daycation") {
+        if let myWebsite = NSURL(string: "https://itunes.apple.com/us/app/daycation-explore-portland/id1116254732") {
             let objectsToShare = [textToShare, myWebsite]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             
@@ -779,7 +789,23 @@ class  TripDetailViewController : UIViewController, MKMapViewDelegate, UICollect
             self.heartButton.hidden = false
            // hnk_setImageFromURL(self.trip.contributor.currentUser!.profile!.imageUrl!)
             
-            self.tripDescriptionLabel.text = "\(self.trip.name!): \(self.trip.description!)"
+            if let description = self.trip.description {
+                
+                var boldText  = "\(self.trip.name!):\n"
+                let attrs:[String:AnyObject] = [NSFontAttributeName : UIFont(name: "Quicksand-Bold", size: 14)!]
+                var attrString = NSMutableAttributedString(string:boldText, attributes:attrs)
+                
+                var normalText = description
+                var normalString = NSMutableAttributedString(string:normalText)
+                attrString.appendAttributedString(normalString)
+                self.tripDescriptionLabel.attributedText = attrString
+            }else {
+                var boldText  = "\(self.trip.name!)"
+                var attrs = [NSFontAttributeName : UIFont.boldSystemFontOfSize(15)]
+                var attrString = NSMutableAttributedString(string:boldText, attributes:attrs)
+                
+                self.tripDescriptionLabel.attributedText = attrString
+            }
             self.tripDescriptionLabel.sizeToFit()
             if let i = self.trip.properties.indexOf({$0.key == "species"}) {
                 self.species = self.trip.properties[i].values!

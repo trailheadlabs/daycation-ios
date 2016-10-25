@@ -331,21 +331,28 @@ navigationController!.popViewControllerAnimated(true)
     
     func didDirectionsLabel() {
         
-        if let address = self.feature.address {
-            var escapedAddress = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-            var urlString = "http://trimet.org/ride/planner_form.html?to="+escapedAddress!
-            if let location = LocationData.locValue {
-                urlString = urlString+"&from="+String(location.latitude)+","+String(location.longitude)
-            }
-            UIApplication.sharedApplication().openURL(NSURL(string: urlString)!)
+        var destination:String
+        if let address = self.feature.address where !address.isEmpty{
+             destination = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        } else {
+            destination = String(feature.location!.coordinate.latitude)+","+String(feature.location!.coordinate.longitude)
         }
+        var urlString = "http://trimet.org/ride/planner_form.html?to="+destination
+       if let location = LocationData.locValue {
+            urlString = urlString+"&from="+String(location.latitude)+","+String(location.longitude)
+      }
+       UIApplication.sharedApplication().openURL(NSURL(string: urlString)!)
+       
     }
-    func didGoogleDirectionsLabel() {
-        if let address = self.feature.address {
-            var escapedAddress = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-            let url = NSURL(string: "http://maps.google.com/maps?daddr="+escapedAddress!)
+func didGoogleDirectionsLabel() {
+    var destination:String
+    if let address = self.feature.address  where !address.isEmpty{
+        destination = address.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+    } else {
+        destination = String(feature.location!.coordinate.latitude)+","+String(feature.location!.coordinate.longitude)
+    }
+            let url = NSURL(string: "http://maps.google.com/maps?daddr="+destination)
             UIApplication.sharedApplication().openURL(url!)
-        }
     }
     func tappedBack(sender: UIButton) {
         if position>0 {

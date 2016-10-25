@@ -229,7 +229,6 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
             (result: [Post]?,error: String?) in
             if let posts = result {
                 print("got back: \(result)")
-              //  self.streamactInd.stopAnimating()
                 self.posts = posts
                 self.streamTableView.reloadData()
                 
@@ -238,7 +237,7 @@ class ProfileViewController : UIViewController, UITableViewDataSource, UITableVi
                                             
                                             self.streamTableView.h = CGFloat(self.posts.count * 50)
                                             self.backgroundView.h = CGFloat((self.posts.count * 50) + 20)
-                                            self.contentView.h = self.backgroundView.h
+                                           // self.contentView.h = self.backgroundView.h
                     }, completion: nil)
             }
             if let error = error{
