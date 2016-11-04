@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (3.2.0)
+  - Alamofire (4.0.1)
   - Bolts (1.7.0):
     - Bolts/AppLinks (= 1.7.0)
     - Bolts/Tasks (= 1.7.0)
@@ -9,9 +9,9 @@ PODS:
   - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
   - DOFavoriteButton (0.0.4)
-  - Dollar (5.0.1)
-  - Eureka (1.5.0)
-  - EZSwiftExtensions (1.4)
+  - Dollar (6.1.0)
+  - Eureka (2.0.0-beta.1)
+  - EZSwiftExtensions (1.7)
   - Fabric (1.6.7)
   - FBSDKCoreKit (4.12.0):
     - Bolts (~> 1.7)
@@ -20,57 +20,69 @@ PODS:
   - HanekeSwift (0.10.1)
   - iCarousel (1.8.2)
   - ICSPullToRefresh (0.4)
-  - p2.OAuth2 (2.2.6):
-    - SwiftKeychain (~> 1.0)
-  - PKHUD (3.1.0)
-  - SnapKit (0.15.0)
-  - SwiftKeychain (1.0.0)
+  - p2.OAuth2 (3.0.0)
+  - PKHUD (4.0.0)
+  - SnapKit (3.0.2)
   - youtube-ios-player-helper (0.1.6)
 
 DEPENDENCIES:
-  - Alamofire (= 3.2.0)
+  - Alamofire (~> 4.0)
   - Crashlytics
-  - DOFavoriteButton (from `https://github.com/okmr-d/DOFavoriteButton.git`)
-  - Dollar
-  - Eureka
-  - EZSwiftExtensions
+  - DOFavoriteButton (from `https://github.com/seemakamath/DOFavoriteButton`, branch `swift3`)
+  - Dollar (~> 6.1.0)
+  - Eureka (= 2.0.0-beta.1)
+  - EZSwiftExtensions (~> 1.7)
   - FBSDKCoreKit
   - FBSDKLoginKit
-  - HanekeSwift
+  - HanekeSwift (from `https://github.com/Haneke/HanekeSwift`, branch `feature/swift-3`)
   - iCarousel
-  - ICSPullToRefresh
-  - p2.OAuth2
-  - PKHUD
-  - SnapKit (~> 0.15.0)
+  - ICSPullToRefresh (from `https://github.com/icodesign/ICSPullToRefresh.Swift`, branch `swift-3.0`)
+  - p2.OAuth2 (~> 3.0.0)
+  - PKHUD (~> 4.0.0)
+  - SnapKit (~> 3.0.2)
   - youtube-ios-player-helper (~> 0.1.4)
 
 EXTERNAL SOURCES:
   DOFavoriteButton:
-    :git: https://github.com/okmr-d/DOFavoriteButton.git
+    :branch: swift3
+    :git: https://github.com/seemakamath/DOFavoriteButton
+  HanekeSwift:
+    :branch: feature/swift-3
+    :git: https://github.com/Haneke/HanekeSwift
+  ICSPullToRefresh:
+    :branch: swift-3.0
+    :git: https://github.com/icodesign/ICSPullToRefresh.Swift
 
 CHECKOUT OPTIONS:
   DOFavoriteButton:
-    :commit: a77045870c00af4dc7c1808397fdb482caf9775d
-    :git: https://github.com/okmr-d/DOFavoriteButton.git
+    :commit: bbacb99647968cf16b1922109185944bc4d3560b
+    :git: https://github.com/seemakamath/DOFavoriteButton
+  HanekeSwift:
+    :commit: 1157a124ec699f4ad926cb054f1d0bfce88ae7a9
+    :git: https://github.com/Haneke/HanekeSwift
+  ICSPullToRefresh:
+    :commit: fcb570932ff8625c1d13924507a8f50b1d3d29ac
+    :git: https://github.com/icodesign/ICSPullToRefresh.Swift
 
 SPEC CHECKSUMS:
-  Alamofire: 4da478599fccddff361205c8929333d7fe18dceb
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   DOFavoriteButton: 866e15af173d2dd5233971a1f657a5f31d2491d5
-  Dollar: 9ef817b4f35b61e982f9812a2b01ed6270978cc1
-  Eureka: 2fb37bb50569c62ee3284689d5b7aca694b040e0
-  EZSwiftExtensions: db7be0022fce8e92cdfe0fadddaf835fcd9696db
+  Dollar: 0a9883680f2c1104adf0d19b827c3be71d3e3121
+  Eureka: d014adf16406745e1a78d5790ea37ed130a0a8e5
+  EZSwiftExtensions: 4afef248066a036903d8496bf07bc355b22ce766
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
   FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
-  HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
+  HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
   iCarousel: 67c8a43da5a46795b56aadfc96cd36a16f6149b2
   ICSPullToRefresh: 9e6720df41f6d3e8a31e3cdd99a0b922850abe85
-  p2.OAuth2: a89edc5660aca8a5349882ee9008de793bbbbcd0
-  PKHUD: 4167eccdb1b3a892fd80ce2b51cb6ba412a889ab
-  SnapKit: 4962eed2ee18e48cbd2b2292fffc57efe7235f87
-  SwiftKeychain: fd9ad69f7b3ff7a0c7ba579da508bbaa89a395b2
+  p2.OAuth2: a8f96ecad6a46189b9b193691fea401139e43491
+  PKHUD: 2bb45c936bb8afa39f3cd33ec14e8cc89f624255
+  SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 7b930e8a67fb21f9bb3ae0c0df6e76cbe044dc6b
+
+COCOAPODS: 1.1.1

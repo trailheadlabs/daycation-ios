@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		342CE0BF87B1072B1B8AF30E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86FDD3AE9541B271D3EFD7CB /* Pods.framework */; };
+		636D3BC6C2D4973405DA4BE6 /* Pods_daycation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A805EBBCD9EB0856707C540B /* Pods_daycation.framework */; };
 		AA13BD7E1CEFC75F009F0FC2 /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA13BD7D1CEFC75F009F0FC2 /* OrganizationViewController.swift */; };
 		AA13BD841CEFCC03009F0FC2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA13BD831CEFCC03009F0FC2 /* ProfileViewController.swift */; };
 		AA13BD861CEFCC66009F0FC2 /* TripsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA13BD851CEFCC66009F0FC2 /* TripsFilterViewController.swift */; };
@@ -339,8 +339,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7AAF1EF36D9D581329A44EBF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4354D96F101ADDD2214AC1B6 /* Pods-daycation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daycation.debug.xcconfig"; path = "Pods/Target Support Files/Pods-daycation/Pods-daycation.debug.xcconfig"; sourceTree = "<group>"; };
 		86FDD3AE9541B271D3EFD7CB /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A805EBBCD9EB0856707C540B /* Pods_daycation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_daycation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA13BD7D1CEFC75F009F0FC2 /* OrganizationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationViewController.swift; sourceTree = "<group>"; };
 		AA13BD831CEFCC03009F0FC2 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		AA13BD851CEFCC66009F0FC2 /* TripsFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripsFilterViewController.swift; sourceTree = "<group>"; };
@@ -659,7 +660,7 @@
 		AAE210371D1359F800EDC4BF /* DAYC_Clear_fields@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DAYC_Clear_fields@3x.png"; sourceTree = "<group>"; };
 		AAEE4C521CEFC66400746D14 /* EntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryViewController.swift; sourceTree = "<group>"; };
 		AAEE4C541CEFC68400746D14 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "daycation/Bridging-Header.h"; sourceTree = "<group>"; };
-		E71C9FD558FD97D5C22BA036 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EF28197C875FDA6DAC79A5BF /* Pods-daycation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-daycation.release.xcconfig"; path = "Pods/Target Support Files/Pods-daycation/Pods-daycation.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -667,7 +668,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				342CE0BF87B1072B1B8AF30E /* Pods.framework in Frameworks */,
+				636D3BC6C2D4973405DA4BE6 /* Pods_daycation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,11 +689,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3985A1827BE161EE5656031C /* Pods */ = {
+		80D2658F201D37B876C2F2A7 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E71C9FD558FD97D5C22BA036 /* Pods.debug.xcconfig */,
-				7AAF1EF36D9D581329A44EBF /* Pods.release.xcconfig */,
+				4354D96F101ADDD2214AC1B6 /* Pods-daycation.debug.xcconfig */,
+				EF28197C875FDA6DAC79A5BF /* Pods-daycation.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -701,6 +702,7 @@
 			isa = PBXGroup;
 			children = (
 				86FDD3AE9541B271D3EFD7CB /* Pods.framework */,
+				A805EBBCD9EB0856707C540B /* Pods_daycation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1072,8 +1074,8 @@
 				AAB344BC1CEFBD9F006CC849 /* daycationTests */,
 				AAB344C71CEFBD9F006CC849 /* daycationUITests */,
 				AAB344A61CEFBD9F006CC849 /* Products */,
-				3985A1827BE161EE5656031C /* Pods */,
 				A5F2085210CE37A2B746C6CE /* Frameworks */,
+				80D2658F201D37B876C2F2A7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1134,13 +1136,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AAB344CD1CEFBD9F006CC849 /* Build configuration list for PBXNativeTarget "daycation" */;
 			buildPhases = (
-				5BB94F5C46FF9FF5ABE2C0A1 /* Check Pods Manifest.lock */,
+				DA7A7707D9A7BB1149A39C7F /* [CP] Check Pods Manifest.lock */,
 				AAB344A11CEFBD9F006CC849 /* Sources */,
 				AAB344A21CEFBD9F006CC849 /* Frameworks */,
 				AAB344A31CEFBD9F006CC849 /* Resources */,
-				FA94355FA5E47CE57C1B3953 /* Embed Pods Frameworks */,
-				5B8DE2255A5FC15AA2BD59B6 /* Copy Pods Resources */,
 				AAAD97CB1D071E1E00981F76 /* ShellScript */,
+				24AC0F83F4C837C0750FA8A2 /* [CP] Embed Pods Frameworks */,
+				D58225A89804CF2E1EFE208C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1530,34 +1532,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5B8DE2255A5FC15AA2BD59B6 /* Copy Pods Resources */ = {
+		24AC0F83F4C837C0750FA8A2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5BB94F5C46FF9FF5ABE2C0A1 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-daycation/Pods-daycation-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AAAD97CB1D071E1E00981F76 /* ShellScript */ = {
@@ -1573,19 +1560,34 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" a40ea207241f7bbbd078fdb431ba0be2f8d7f289 3559f128d549a156d1a01ea1a492a2944bb42db5a41e6abcec9d6207214c316e";
 		};
-		FA94355FA5E47CE57C1B3953 /* Embed Pods Frameworks */ = {
+		D58225A89804CF2E1EFE208C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-daycation/Pods-daycation-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA7A7707D9A7BB1149A39C7F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1771,7 +1773,7 @@
 		};
 		AAB344CE1CEFBD9F006CC849 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E71C9FD558FD97D5C22BA036 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 4354D96F101ADDD2214AC1B6 /* Pods-daycation.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1785,13 +1787,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation;
 				PRODUCT_NAME = Daycation;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_VERSION = 3.0.1;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		AAB344CF1CEFBD9F006CC849 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7AAF1EF36D9D581329A44EBF /* Pods.release.xcconfig */;
+			baseConfigurationReference = EF28197C875FDA6DAC79A5BF /* Pods-daycation.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1805,6 +1808,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.trailheadlabs.daycation;
 				PRODUCT_NAME = Daycation;
 				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_VERSION = 3.0.1;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
