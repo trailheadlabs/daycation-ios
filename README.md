@@ -11,4 +11,4 @@ Also, here is a video of describing Daycation.
 
 https://www.youtube.com/watch?v=dR5r3yHrC4k&feature=youtu.be
 
-Here are a few screenshots of Daycation.
+Here are a few screenshots of Daycation:
