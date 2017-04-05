@@ -1,4 +1,4 @@
-# dayation-ios
+# Daycation iOS v1
 Daycation v1 for iOS is a native mobile app built on the OuterSpatial platform. Daycation is brought to locals and visitors to Portland by the Intertwine Alliance.
 
 The Intertwine Alliance (Intertwine) is a coalition of private firms, public agencies and nonprofit organizations working together to tap new sources of funding, better leverage existing investments, and more fully engage residents with the outdoors and nature in the Portland Metro region.
