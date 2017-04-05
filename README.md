@@ -12,3 +12,15 @@ Also, here is a video of describing Daycation.
 https://www.youtube.com/watch?v=dR5r3yHrC4k&feature=youtu.be
 
 Here are a few screenshots of Daycation:
+
+![img_8607](https://github.com/trailheadlabs/daycation-ios/blob/master/.github/IMG_8607.PNG?raw=true)
+
+![img_8608](https://github.com/trailheadlabs/daycation-ios/blob/master/.github/IMG_8608.PNG?raw=true)
+
+![img_8609](https://github.com/trailheadlabs/daycation-ios/blob/master/.github/IMG_8609.PNG?raw=true)
+
+![img_8610](https://github.com/trailheadlabs/daycation-ios/blob/master/.github/IMG_8610.PNG?raw=true)
+
+![img_8611](https://github.com/trailheadlabs/daycation-ios/blob/master/.github/IMG_8611.PNG?raw=true)
+
+![img_8612](https://github.com/trailheadlabs/daycation-ios/blob/master/.github/IMG_8612.PNG?raw=true)
